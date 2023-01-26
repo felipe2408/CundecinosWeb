@@ -8,5 +8,11 @@ namespace CundecinosWeb.Controllers
         {
             return View();
         }
+
+        public IActionResult CollegeCareer()
+        {
+            return View();
+        }
+
     }
 }

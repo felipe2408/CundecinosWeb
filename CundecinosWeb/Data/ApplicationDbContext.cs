@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using CundecinosWeb.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CundecinosWeb.Data
@@ -9,5 +10,21 @@ namespace CundecinosWeb.Data
             : base(options)
         {
         }
+    }
+    public class DataContext : DbContext
+    {
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        {
+            //Database.Migrate();
+        }
+        public DataContext()
+        {
+
+        }
+
+
+        public DbSet<Person> People { get; set; }
+
+        public DbSet<CollegeCareer> CollegeCareer { get; set; }
     }
 }
