@@ -336,8 +336,8 @@ Header Style
   position: absolute;
   background: rgb(85,0,227);
   background: linear-gradient(90deg, rgba(85,0,227,1) 0%, rgba(198,61,255,1) 100%);
-  height: 110px;
-  top: 57px;
+  height: 60px;
+  /*top: 57px;*/
   left: 0;
   right: 0;
   z-index: 100;
@@ -354,7 +354,7 @@ Header Style
 }
 
 .header-area .main-nav .logo {
-  margin-top: 25px;
+  margin-top: 5px;
   flex-basis: 20%;
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
@@ -384,7 +384,7 @@ Header Style
 }
 
 .header-area .main-nav .nav li:first-child {
-  padding-left: 60px;
+  padding-left: 0px;
 }
 
 .header-area .main-nav .nav li:last-child {
@@ -392,8 +392,8 @@ Header Style
 }
 
 .header-area .main-nav .nav li {
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .header-area .main-nav .nav li:nth-child(4) {
@@ -411,7 +411,7 @@ Header Style
   -o-transition: all 0.4s ease 0s;
   transition: all 0.4s ease 0s;
   height: 110px;
-  line-height: 110px;
+  line-height: 45px;
   border: transparent;
   letter-spacing: 1px;
 }
@@ -824,7 +824,7 @@ Banner Style
 
 .main-banner {
   position: relative;
-  padding: 295px 0px 185px 0px;
+  padding: 100px 0px 185px 0px;
 }
 
 .main-banner:after {
@@ -1053,7 +1053,7 @@ Infos Style
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  padding: 120px 0px;
+  padding: 140px 0px;
   margin-top: 120px;
 }
 
