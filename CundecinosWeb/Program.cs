@@ -22,15 +22,15 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-        .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureADB2C"));
+//builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+//        .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureADB2C"));
 
-builder.Services.AddAuthorization(options =>
-{
-    // By default, all incoming requests will be authorized according to 
-    // the default policy
-    options.FallbackPolicy = options.DefaultPolicy;
-});
+//builder.Services.AddAuthorization(options =>
+//{
+//    // By default, all incoming requests will be authorized according to 
+//    // the default policy
+//    options.FallbackPolicy = options.DefaultPolicy;
+//});
 builder.Services.AddRazorPages(options => {
     options.Conventions.AllowAnonymousToPage("/Index");
 })

@@ -1,2 +1,106 @@
-﻿<h4>Información Personal</h4>
-<hr />
+﻿@{
+    ViewData["Title"] = "User Profile";
+    Layout = "_LayoutWhitoutHeader";
+}
+
+<div class="most-asked section" style="padding-top: 0px !important; margin-top: 0px !important;">
+    <div class="container">
+
+<partial name="_CardPartial" />
+
+        <div class="row">
+            <div class="col-lg-3"></div>
+      <div class="col-lg-6">
+        <div class="get-free-quote">
+          <form id="free-quote" method="submit" role="search" action="#" style="margin-top: 0px !important">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="section-heading">
+                  <h2>Perfil de <em>Usuario</em></h2>
+                </div>
+              </div>
+
+                <div class="col-lg-12">
+                    <fieldset>
+                        <label for="full-name">Nombres</label>
+                        <input type="full-name" name="full-name" id="full-name" placeholder="Nombres" autocomplete="on">
+                    </fieldset>
+                </div>
+
+                <div class="col-lg-12">
+
+                    <fieldset>
+                        <label for="PAcademico">Género</label>
+                        <select class="form-control" id="PAcademico" style="
+                                                                            margin-bottom: 15px;
+                                                                            width: 100%;
+                                                                            height: 46px;
+                                                                            border-radius: 23px;
+                                                                            background-color: #f9ebff;
+                                                                            border: none;
+                                                                            outline: none;
+                                                                            padding: 0px 15px;
+                                                                            color: #2a2a2a;
+                                                                            font-weight: 600;">
+                            <option>Hombre</option>
+                            <option>Mujer</option>
+                            <option>No Aplica</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+
+                <div class="col-lg-12">
+                    <fieldset>
+                        <label for="PAcademico">Programa Academico</label>
+                        <input type="website" name="PAcademico" id="PAcademico" placeholder="Programa Academico" autocomplete="on" required>
+
+                    </fieldset>
+                </div>
+
+                <div class="col-lg-12">
+                    <fieldset>
+                          <label for="full-name">Fecha de Nacimiento</label>
+                        <input type="date" id="birthday" name="birthday">
+                          </fieldset>
+                    </div>
+
+
+                <div class="col-6">
+                    <fieldset>
+                        <label for="full-name">Extensión</label>
+                        <input type="full-name" name="full-name" id="full-name" placeholder="Extensión" autocomplete="on">
+                    </fieldset>
+                </div>
+
+                <div class="col-6">
+                    <fieldset>
+                        <label for="full-name">Teléfono</label>
+                        <input type="phone-number" name="phone-number" id="phone-number" placeholder="Teléfono" autocomplete="on" required>
+                    </fieldset>
+                </div>
+
+
+              <div class="col-lg-12">
+                <fieldset>
+                  <input type="text" name="email" id="email" placeholder="E-mail" required="">
+                </fieldset>
+              </div>
+
+                            <div class="col-4"></div>
+                            <div class="col-4"></div>
+
+              <div class="col-4">
+                <fieldset>
+                  <button type="submit" id="form-submit" class="orange-button">Actualizar Datos</button>
+                </fieldset>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+            <div class="col-lg-3"></div>
+      </div>
+      </div>
+      </div>

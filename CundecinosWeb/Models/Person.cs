@@ -55,7 +55,7 @@ namespace CundecinosWeb.Models
 
         [Display(Name = "Carrera")]
         //[Required(ErrorMessage = "El campo {0} es requerido")]
-        public Guid? ARLID { get; set; }
+        public Guid? CollegeCareerId { get; set; }
 
 
         [Display(Name = "Registro vigente?")]
