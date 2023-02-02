@@ -1,7 +1,11 @@
 ﻿@model CundecinosWeb.Models.Person
 @{
     ViewData["Title"] = "Registrer";
+  
 }
+<div class="most-asked section" style="padding-top: 0px !important; margin-top: 0px !important;">
+    <div class="container">
+
 
 <h4>Registro de Usuario</h4>
 <hr />
@@ -31,3 +35,6 @@
         items.AddSimpleFor(m => m.IsActive);
     }).FormData(Model)
 )
+</div>
+
+</div>
