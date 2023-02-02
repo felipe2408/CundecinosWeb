@@ -1,0 +1,33 @@
+﻿@model CundecinosWeb.Models.Person
+@{
+    ViewData["Title"] = "Registrer";
+}
+
+<h4>Registro de Usuario</h4>
+<hr />
+@(Html.DevExtreme().Form<CundecinosWeb.Models.Person>()
+    .ColCount(2)
+    .Items(items => {
+
+
+        items.AddSimpleFor(m => m.UID).Visible(false);
+
+        items.AddSimpleFor(m => m.FirstName);
+
+        items.AddSimpleFor(m => m.LastName);
+
+        items.AddSimpleFor(m => m.IdentificationNumber);
+
+        items.AddSimpleFor(m => m.CellPhone);
+
+        items.AddSimpleFor(m => m.Email);
+
+        items.AddSimpleFor(m => m.BirthYear);
+
+        items.AddSimpleFor(m => m.Company);
+
+        items.AddSimpleFor(m => m.CollegeCareerId);
+
+        items.AddSimpleFor(m => m.IsActive);
+    }).FormData(Model)
+)
