@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CundecinosWeb.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CundecinosWeb.Controllers
 {
@@ -13,6 +14,10 @@ namespace CundecinosWeb.Controllers
         {
             return View();
         }
-
+        [HttpPost]
+        public IActionResult Registrer(Person person)
+        {
+            return RedirectToAction("SplashWelcomeCundecinos", "Splash");
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace CundecinosWeb.Controllers
         }
         public IActionResult SplashWelcomeCundecinos()
         {
-            return View();
+            return RedirectToAction("SplashWelcome","Splash");
         }
 
     }
