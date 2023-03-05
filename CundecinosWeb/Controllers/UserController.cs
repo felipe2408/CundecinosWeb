@@ -10,6 +10,8 @@ namespace CundecinosWeb.Controllers
             return View();
         }
 
+        
+
         public IActionResult Registrer()
         {
             return View();
