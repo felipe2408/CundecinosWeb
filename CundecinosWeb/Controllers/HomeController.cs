@@ -19,16 +19,23 @@ namespace CundecinosWeb.Controllers
 
         public IActionResult Index()
         {
-            //var claims = User.Identities.ToList();
+            try
+            {
+                //var claim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                //var user = _context.People.Where(x => x.UID == Guid.Parse(claim)).FirstOrDefault();
+                //if (user == null)
+                //{
+                //    return RedirectToAction("Registrer", "User");
+                //}
+                return View();
 
-            var claim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //var claim = User.Claims.Where(x => x.ValueType == ClaimTypes.NameIdentifier);
-            //var user = _context.People.Where(x => x.UID == Guid.Parse(claim)).FirstOrDefault();
-            //if (user == null)
-            //{
-            //    return RedirectToAction("Registrer", "User");
-            //}
-            return View();
+            }
+            catch (Exception)
+            {
+
+                return View();
+            }
+            
         }
 
         public IActionResult Privacy()

@@ -14,6 +14,7 @@ namespace CundecinosWeb.Controllers
 
         public IActionResult Registrer()
         {
+            //Register
             return View();
         }
         [HttpPost]
