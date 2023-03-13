@@ -21,12 +21,12 @@ namespace CundecinosWeb.Controllers
         {
             try
             {
-                //var claim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                //var user = _context.People.Where(x => x.UID == Guid.Parse(claim)).FirstOrDefault();
-                //if (user == null)
-                //{
-                //    return RedirectToAction("Registrer", "User");
-                //}
+                var claim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var user = _context.People.Where(x => x.UID == Guid.Parse(claim)).FirstOrDefault();
+                if (user == null)
+                {
+                    return RedirectToAction("Register", "User");
+                }
                 return View();
 
             }

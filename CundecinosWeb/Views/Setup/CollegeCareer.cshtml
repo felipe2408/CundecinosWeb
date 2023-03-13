@@ -1,7 +1,4 @@
-﻿<h4>Carrera Universitaria </h4>
-<hr />
-
-@(Html.DevExtreme().DataGrid<CundecinosWeb.Models.CollegeCareer>()
+﻿@(Html.DevExtreme().DataGrid<CundecinosWeb.Models.CollegeCareer>()
     .DataSource(ds => ds.Mvc()
         .Controller("APICollegeCareers")
         .LoadAction("Get")

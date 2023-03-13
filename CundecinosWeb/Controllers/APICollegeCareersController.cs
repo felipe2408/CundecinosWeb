@@ -41,6 +41,24 @@ namespace CundecinosWeb.Controllers
             return Json(await DataSourceLoader.LoadAsync(collegecareer, loadOptions));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetActive(DataSourceLoadOptions loadOptions)
+        {
+            var collegecareer = _context.CollegeCareer.Where(x => x.IsActive).Select(i => new {
+                i.CollegeCareerId,
+                i.Name,
+                i.IsActive
+            });
+
+            // If underlying data is a large SQL table, specify PrimaryKey and PaginateViaPrimaryKey.
+            // This can make SQL execution plans more efficient.
+            // For more detailed information, please refer to this discussion: https://github.com/DevExpress/DevExtreme.AspNet.Data/issues/336.
+            // loadOptions.PrimaryKey = new[] { "CollegeCareerId" };
+            // loadOptions.PaginateViaPrimaryKey = true;
+
+            return Json(await DataSourceLoader.LoadAsync(collegecareer, loadOptions));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post(string values) {
             var model = new CollegeCareer();

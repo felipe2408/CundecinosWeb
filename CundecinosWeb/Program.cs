@@ -31,11 +31,16 @@ builder.Services.AddAuthorization(options =>
     // the default policy
     options.FallbackPolicy = options.DefaultPolicy;
 });
-builder.Services.AddRazorPages(options => {
-    options.Conventions.AllowAnonymousToPage("/Index");
-})
-.AddMvcOptions(options => { })
-.AddMicrosoftIdentityUI();
+
+builder.Services.AddRazorPages()
+    .AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNamingPolicy = null; options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles; }).AddRazorRuntimeCompilation().AddMicrosoftIdentityUI();
+
+
+//builder.Services.AddRazorPages(options => {
+//    options.Conventions.AllowAnonymousToPage("/Index");
+//})
+//.AddMvcOptions(options => { })
+//.AddMicrosoftIdentityUI();
 
 
 var app = builder.Build();
