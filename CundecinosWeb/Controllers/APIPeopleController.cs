@@ -35,7 +35,7 @@ namespace CundecinosWeb.Controllers
                 i.CellPhone,
                 i.Email,
                 i.BirthYear,
-                i.Company,
+                
                 i.CollegeCareerId,
                 i.IsActive
             });
@@ -98,7 +98,7 @@ namespace CundecinosWeb.Controllers
             string CELL_PHONE = nameof(Person.CellPhone);
             string EMAIL = nameof(Person.Email);
             string BIRTH_YEAR = nameof(Person.BirthYear);
-            string COMPANY = nameof(Person.Company);
+            //string COMPANY = nameof(Person.Company);
             string COLLEGE_CAREER_ID = nameof(Person.CollegeCareerId);
             string IS_ACTIVE = nameof(Person.IsActive);
 
@@ -134,9 +134,9 @@ namespace CundecinosWeb.Controllers
                 model.BirthYear = values[BIRTH_YEAR] != null ? Convert.ToInt16(values[BIRTH_YEAR]) : (short?)null;
             }
 
-            if(values.Contains(COMPANY)) {
-                model.Company = Convert.ToString(values[COMPANY]);
-            }
+            //if(values.Contains(COMPANY)) {
+            //    model.Company = Convert.ToString(values[COMPANY]);
+            //}
 
             if(values.Contains(COLLEGE_CAREER_ID)) {
                 model.CollegeCareerId = values[COLLEGE_CAREER_ID] != null ? ConvertTo<System.Guid>(values[COLLEGE_CAREER_ID]) : (Guid?)null;

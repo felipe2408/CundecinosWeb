@@ -26,5 +26,8 @@ namespace CundecinosWeb.Data
         public DbSet<Person> People { get; set; }
 
         public DbSet<CollegeCareer> CollegeCareer { get; set; }
+
+
+        public DbSet<Extension> Extensions { get; set; }
     }
 }

@@ -47,11 +47,9 @@ namespace CundecinosWeb.Models
         [Range(1940, 2010, ErrorMessage = "El valor ingresado no es permitido")]
         public Int16? BirthYear { get; set; }
 
-        [Display(Name = "Empresa")]
-        [Column(TypeName = "varchar(200)")]
-        [StringLength(200)]
+        [Display(Name = "Extensión Universitaria")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
-        public string? Company { get; set; }
+        public Guid? ExtensionId { get; set; }
 
         [Display(Name = "Carrera")]
         //[Required(ErrorMessage = "El campo {0} es requerido")]
@@ -65,5 +63,9 @@ namespace CundecinosWeb.Models
 
         [JsonIgnore]
         public virtual ICollection<CollegeCareer>? CollegeCareer { get; set; }
+
+
+        [JsonIgnore]
+        public virtual ICollection<Extension>? Extension { get; set; }
     }
 }
