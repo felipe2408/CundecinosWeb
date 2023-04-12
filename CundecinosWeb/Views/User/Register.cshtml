@@ -177,20 +177,54 @@
 					<!--begin::Step 3-->
 					<div data-kt-stepper-element="content">
 						<div class="w-100">
-							<div class="fv-row mb-10">
-								<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-									<span class="required">@Html.LabelFor(x => x.ExtensionId)</span>
-									<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title=""></i>
-								</label>
-								
+                            <div class="fv-row mb-10">
+                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                    <span class="required">@Html.LabelFor(x => x.ExtensionId)</span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title=""></i>
+                                </label>
 
-								@(Html.DevExtreme().SelectBoxFor(x => x.ExtensionId).DataSource(ds => ds.WebApi().Controller("APIExtensions").LoadAction("GetActive").Key("Value"))
+
+                                @(Html.DevExtreme().SelectBoxFor(x => x.ExtensionId).DataSource(ds => ds.WebApi().Controller("APIExtensions").LoadAction("GetActive").Key("Value"))
 									.ID("ExtensionId")
 									.ValueExpr("ExtensionId")
 									.DisplayExpr("Name")
 									)
-								
-							</div>
+
+
+								<br />
+
+                                <!--begin::Image input-->
+                                <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url(assets/media/avatars/blank.png)">
+                                    <!--begin::Preview existing avatar-->
+                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url(assets/media/avatars/150-2.jpg)"></div>
+                                    <!--end::Preview existing avatar-->
+                                    <!--begin::Label-->
+                                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                                        <i class="bi bi-pencil-fill fs-7"></i>
+                                        <!--begin::Inputs-->
+                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                                        <input type="hidden" name="avatar_remove" />
+                                        <!--end::Inputs-->
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Cancel-->
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+                                    <!--end::Cancel-->
+                                    <!--begin::Remove-->
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+                                    <!--end::Remove-->
+                                </div>
+                                <!--end::Image input-->
+                                <!--begin::Hint-->
+                                <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                                <!--end::Hint-->
+
+
+                            </div>
 
 
 
@@ -198,9 +232,7 @@
 						</div>
 					</div>
 					<!--end::Step 3-->
-					
-					<!--end::Step 4-->
-					
+										
 					<!--end::Step 5-->
 					<!--begin::Actions-->
 					<div class="d-flex flex-stack pt-10">
@@ -217,7 +249,7 @@
 										</g>
 									</svg>
 								</span>
-								<!--end::Svg Icon-->Atras
+								<!--end::Svg Icon-->Atrass
 							</button>
 						</div>
 						<!--end::Wrapper-->
