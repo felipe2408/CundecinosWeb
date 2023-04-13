@@ -56,6 +56,10 @@ namespace CundecinosWeb.Models
         public Guid? CollegeCareerId { get; set; }
 
 
+        [Display(Name = "Avatar")]
+        [Column(TypeName = "varchar(100)")]
+        public string? AvatarUrl { get; set; }
+
         [Display(Name = "Registro vigente?")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public bool IsActive { get; set; }

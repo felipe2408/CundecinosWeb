@@ -12,9 +12,14 @@ namespace CundecinosWeb.Models
 
         public Guid PublicationID { get; set; }
 
-        [Display(Name = "Nombre de Archivo")]
+
+        [Display(Name = "Imagen  full")]
         [Required(ErrorMessage = "The {0} is required")]
-        public string? FileName { get; set; }
+        public string? ImageScreen { get; set; }
+
+        [Display(Name = "Imagen Pantalla")]
+        [Required(ErrorMessage = "The {0} is required")]
+        public string? ImageThumbNail { get; set; }
 
         [Display(Name = "Creado")]
         [DataType(DataType.DateTime)]
@@ -27,8 +32,7 @@ namespace CundecinosWeb.Models
         [StringLength(200)]
         public string? CreatedBy { get; set; }
 
-        [JsonIgnore]
-        public byte[]? File { get; set; }
+      
 
 
         [JsonIgnore]
