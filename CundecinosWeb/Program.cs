@@ -6,12 +6,18 @@ using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.IdentityModel.Logging;
 
+
+using CundecinosWeb.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+//builder.Services.AddSignalR().AddAzureSignalR();
+builder.Services.AddSignalR();
 
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(connectionString));
@@ -65,7 +71,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.MapHub<ChatHub>("/Privacy");
 app.MapRazorPages();
 
 app.MapControllerRoute(
