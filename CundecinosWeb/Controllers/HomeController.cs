@@ -40,6 +40,9 @@ namespace CundecinosWeb.Controllers
 
         public IActionResult Privacy()
         {
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            ViewBag.UserId = userId;
             return View();
         }
 
