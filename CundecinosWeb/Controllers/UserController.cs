@@ -66,7 +66,7 @@ namespace CundecinosWeb.Controllers
             _context.Add(person);
             _context.SaveChanges();
 
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("SplashWelcomeCundecinos", "Splash");
         }
 
         [HttpPost]
