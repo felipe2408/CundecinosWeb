@@ -40,6 +40,7 @@ namespace CundecinosWeb.Controllers
 
         public async Task<IActionResult> Register(Person person,IFormFile archivo)
         {
+            
             if (archivo == null || archivo.Length == 0)
             {
                 return BadRequest("No se ha enviado ningún archivo");
@@ -53,7 +54,7 @@ namespace CundecinosWeb.Controllers
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
 
             // Genera un nombre único para la imagen
-            string nombreArchivo = Guid.NewGuid().ToString() + Path.GetExtension(archivo.FileName);
+            string nombreArchivo = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)).ToString() + Path.GetExtension(archivo.FileName);
 
             // Crea un blob con el nombre generado y sube el archivo
             BlobClient blobClient = containerClient.GetBlobClient(nombreArchivo);
@@ -65,7 +66,7 @@ namespace CundecinosWeb.Controllers
             _context.Add(person);
             _context.SaveChanges();
 
-            return View();
+            return RedirectToAction("Index","Home");
         }
 
         [HttpPost]
