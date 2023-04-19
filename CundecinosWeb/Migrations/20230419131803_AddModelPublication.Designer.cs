@@ -4,6 +4,7 @@ using CundecinosWeb.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CundecinosWeb.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230419131803_AddModelPublication")]
+    partial class AddModelPublication
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,28 +174,7 @@ namespace CundecinosWeb.Migrations
 
                     b.HasIndex("PublicationID");
 
-                    b.ToTable("PublicationAttachments");
-                });
-
-            modelBuilder.Entity("CundecinosWeb.Models.PublicationComments", b =>
-                {
-                    b.Property<Guid>("PublicationCommentsID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<DateTime>("PublicationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("PublicationID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("PublicationCommentsID");
-
-                    b.ToTable("PublicationComments");
+                    b.ToTable("PublicationAttachment");
                 });
 
             modelBuilder.Entity("PersonPublication", b =>

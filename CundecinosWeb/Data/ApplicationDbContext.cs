@@ -23,6 +23,12 @@ namespace CundecinosWeb.Data
         }
 
 
+        public DbSet<PublicationComments> PublicationComments { get; set; }
+
+        public DbSet<PublicationAttachment> PublicationAttachments { get; set; }
+
+        public DbSet<Publication> Publication { get; set; }
+
         public DbSet<Person> People { get; set; }
 
         public DbSet<CollegeCareer> CollegeCareer { get; set; }
