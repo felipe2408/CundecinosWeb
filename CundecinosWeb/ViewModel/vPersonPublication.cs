@@ -8,5 +8,7 @@ namespace CundecinosWeb.ViewModel
         public Person? Person { get; set; }
 
         public Publication? Publication { get; set; }
+
+        public List<Publication>? PublicationUsers { get; set; }
     }
 }

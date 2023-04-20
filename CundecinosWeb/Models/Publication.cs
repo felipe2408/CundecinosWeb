@@ -33,7 +33,7 @@ namespace CundecinosWeb.Models
         public virtual ICollection<PublicationAttachment>? PublicationAttachment { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<Person>? Person { get; set; }
+        public virtual Person? Person { get; set; }
 
 
     }

@@ -23,12 +23,27 @@ namespace CundecinosWeb.Controllers
 		{
 			var vmodel = new vPersonPublication();
 			var model = _context.People.Include( x => x.CollegeCareer).Where(x => x.UID == Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))).FirstOrDefault();
-			vmodel.Person = model;
+            vmodel.Person = model;
 			vmodel.Publication = new Publication();
-
+            vmodel.PublicationUsers = _context.Publication.Include(x => x.Person).Where(x => x.PublicationDate >= DateTime.Now || x.PublicationDate <= DateTime.Now).ToList();
             vmodel.Publication.PersonID = model.PersonID;
-			
-			return View(vmodel);
+
+            //var publications =
+
+            //var publicationUsers = new List<vPublicationCreated>();
+            //foreach (var item in publications)
+            //{
+
+            //    var modelPublication = new vPublicationCreated();
+
+            //    modelPublication.Publication = item;
+            //    modelPublication.AvatarURL = item.Person.AvatarUrl;
+
+            //    //publicationUsers.Add(modelPublication);
+            //}
+
+
+            return View(vmodel);
 		}
 		[HttpPost]
 		public async Task<IActionResult> CreatePublication(Publication publication, List<IFormFile> files)
