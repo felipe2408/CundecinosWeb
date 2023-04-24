@@ -1,5 +1,6 @@
 ﻿using CundecinosWeb.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CundecinosWeb.Controllers
 {
@@ -28,7 +29,7 @@ namespace CundecinosWeb.Controllers
 
         public IActionResult Users()
         {
-             var users = _context.People.ToList();
+             var users = _context.People.Include(x => x.CollegeCareer).Include(x => x.Extension).ToList();
 
             return View(users);
         }

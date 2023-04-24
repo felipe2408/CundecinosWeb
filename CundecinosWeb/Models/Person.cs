@@ -66,7 +66,7 @@ namespace CundecinosWeb.Models
 
 
         [JsonIgnore]
-        public virtual ICollection<CollegeCareer>? CollegeCareer { get; set; }
+        public virtual CollegeCareer? CollegeCareer { get; set; }
 
 
 
@@ -74,6 +74,6 @@ namespace CundecinosWeb.Models
         public virtual ICollection<Publication>? Publication { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<Extension>? Extension { get; set; }
+        public virtual Extension? Extension { get; set; }
     }
 }

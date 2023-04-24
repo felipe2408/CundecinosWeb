@@ -8,6 +8,12 @@ using Microsoft.IdentityModel.Logging;
 
 
 using CundecinosWeb.Models;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.AzureADB2C.UI;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +37,24 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
         .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureADB2C"));
 
+
+//builder.Services.Configure<CookieAuthenticationOptions>(AzureADB2CDefaults.CookieScheme, options =>
+//    {
+//    options.Cookie.Name = "CundecinosWeb";
+//    options.Cookie.SameSite = SameSiteMode.None;
+//    options.Events.OnSigningOut = async e =>
+//    {
+//        await e.HttpContext.SignOutAsync(AzureADB2CDefaults.AuthenticationScheme);
+//    };
+//});
+builder.Services.AddControllersWithViews(options =>
+{
+    var policy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+    options.Filters.Add(new AuthorizeFilter(policy));
+});
+
 builder.Services.AddAuthorization(options =>
 {
     // By default, all incoming requests will be authorized according to 
@@ -38,6 +62,21 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = options.DefaultPolicy;
 });
 
+//services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//    .AddJwtBearer(options =>
+//    {
+//        options.Authority = "https://<your-tenant>.b2clogin.com/<your-tenant>.onmicrosoft.com/<your-policy>/v2.0/";
+//        options.Audience = "<your-client-id>";
+//    });
+
+//services.Configure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme, options =>
+//{
+//    options.Events.OnRedirectToLogin = context =>
+//    {
+//        context.Response.Redirect("/Home/Index");
+//        return Task.CompletedTask;
+//    };
+//});
 builder.Services.AddRazorPages()
     .AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNamingPolicy = null; options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles; }).AddRazorRuntimeCompilation().AddMicrosoftIdentityUI();
 
