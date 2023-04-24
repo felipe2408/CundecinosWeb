@@ -2,6 +2,7 @@
 using CundecinosWeb.Data;
 using CundecinosWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace CundecinosWeb.Controllers
@@ -16,13 +17,14 @@ namespace CundecinosWeb.Controllers
         }
         public IActionResult PersonalInformation()
         {
+            var model = _context.People.Include(x => x.CollegeCareer).Include(x => x.Extension).Where(x => x.UID == Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))).FirstOrDefault();
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult PersonalInformation(Person person)
+        {
             return View();
         }
-
-        
-
-        
-
         public IActionResult Register()
         {
             var person = new Person();
@@ -66,7 +68,7 @@ namespace CundecinosWeb.Controllers
             _context.Add(person);
             _context.SaveChanges();
 
-            return RedirectToAction("SplashWelcomeCundecinos", "Splash");
+            return RedirectToAction("SplashWelcome", "Splash");
         }
 
         [HttpPost]

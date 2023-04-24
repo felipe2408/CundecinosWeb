@@ -22,6 +22,6 @@ namespace CundecinosWeb.Models
         public bool IsActive { get; set; }
 
         [JsonIgnore]
-        public Person? Person { get; set; }
+        public virtual ICollection<Person>? Persons { get; set; }
     }
 }

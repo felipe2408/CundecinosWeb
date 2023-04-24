@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authentication.AzureADB2C.UI;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,15 +39,19 @@ builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
         .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureADB2C"));
 
 
-//builder.Services.Configure<CookieAuthenticationOptions>(AzureADB2CDefaults.CookieScheme, options =>
-//    {
-//    options.Cookie.Name = "CundecinosWeb";
-//    options.Cookie.SameSite = SameSiteMode.None;
-//    options.Events.OnSigningOut = async e =>
-//    {
-//        await e.HttpContext.SignOutAsync(AzureADB2CDefaults.AuthenticationScheme);
-//    };
-//});
+builder.Services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, options =>
+{
+    options.Events.OnRedirectToIdentityProviderForSignOut = async context =>
+    {
+        string postLogoutUri = context.Properties.RedirectUri;
+        if (!string.IsNullOrEmpty(postLogoutUri))
+        {
+            context.ProtocolMessage.PostLogoutRedirectUri = postLogoutUri;
+        }
+        await Task.FromResult(0);
+    };
+});
+
 builder.Services.AddControllersWithViews(options =>
 {
     var policy = new AuthorizationPolicyBuilder()
@@ -62,31 +67,8 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = options.DefaultPolicy;
 });
 
-//services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//    .AddJwtBearer(options =>
-//    {
-//        options.Authority = "https://<your-tenant>.b2clogin.com/<your-tenant>.onmicrosoft.com/<your-policy>/v2.0/";
-//        options.Audience = "<your-client-id>";
-//    });
-
-//services.Configure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme, options =>
-//{
-//    options.Events.OnRedirectToLogin = context =>
-//    {
-//        context.Response.Redirect("/Home/Index");
-//        return Task.CompletedTask;
-//    };
-//});
 builder.Services.AddRazorPages()
     .AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNamingPolicy = null; options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles; }).AddRazorRuntimeCompilation().AddMicrosoftIdentityUI();
-
-
-//builder.Services.AddRazorPages(options => {
-//    options.Conventions.AllowAnonymousToPage("/Index");
-//})
-//.AddMvcOptions(options => { })
-//.AddMicrosoftIdentityUI();
-
 
 var app = builder.Build();
 
