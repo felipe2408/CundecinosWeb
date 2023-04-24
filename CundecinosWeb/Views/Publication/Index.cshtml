@@ -175,12 +175,34 @@
 									</span>
 								</div>
 							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<div class="dx-field">
+
+
+
+										<div class="alert alert-info  alert-dismissible fade show " role="alert" id="message">
+											<div id="precio"></div>
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">×</span>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
 							<!--end::Toolbar-->
 						</form>
+
+							<label for="producto">Nombre del producto:</label>
+							<input type="text" id="description" name="description" />
+							<button type="button" onclick="buscarPrecio()">Buscar precio de Prime</button>
+
+
 						<!--end::Form-->
 					</div>
 					<!--end::Body-->
 				</div>
+
 				<!--end::Feeds Widget 1-->
 
 				@foreach (var item in Model.PublicationUsers)
@@ -378,4 +400,26 @@
 
 
 				}
+
+				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+				<script>
+					function buscarPrecio() {
+						var formData = {
+							description: $("#description").val()
+						};
+
+						$.ajax({
+							type: "POST",
+							url: "/WebScraper/ScrapePrice",
+							data: formData,
+							success: function (data) {
+								$("#precio").text(data);
+							}
+						});
+					}
+				</script>
+
+
+
+
 
