@@ -4,7 +4,7 @@ namespace CundecinosWeb.Enum
 {
     public enum PublicationType
     {
-        [Display(Name = "Vender")]
+        [Display(Name = "En Venta")]
         Sale = 10,
 
         [Display(Name = "Trueque")]

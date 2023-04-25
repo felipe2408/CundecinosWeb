@@ -92,7 +92,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapHub<ChatHub>("/Privacy");
+app.MapHub<ChatHub>("/Chat/Index");
 app.MapRazorPages();
 
 app.MapControllerRoute(

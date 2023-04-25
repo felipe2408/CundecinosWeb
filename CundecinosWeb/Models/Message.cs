@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CundecinosWeb.Models
 {
@@ -13,13 +15,21 @@ namespace CundecinosWeb.Models
         public DateTime SentAt { get; set; }
 
 
-        [Display(Name = "Remitente")]
-        public Guid Sender { get; set; }
+        [ForeignKey("Sender")]
+        public Guid SenderID { get; set; }
+
+        
+        [ForeignKey("Addressee")]
+        public Guid AddresseeID { get; set; }
+
 
         [Display(Name = "Remitente")]
-        public Guid Addressee { get; set; }
+        public virtual Person Sender { get; set; }
 
+        [Display(Name = "Destinatario")]
+        public virtual Person Addressee { get; set; }
 
-        public virtual Person Person { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Person>? Person { get; set; }
     }
 }
