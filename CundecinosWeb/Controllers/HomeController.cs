@@ -22,6 +22,7 @@ namespace CundecinosWeb.Controllers
 
         public IActionResult Index()
         {
+
             try
             {
                 var claim = User.FindFirstValue(ClaimTypes.NameIdentifier);
