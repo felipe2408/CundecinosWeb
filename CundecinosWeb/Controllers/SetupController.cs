@@ -1,4 +1,5 @@
 ﻿using CundecinosWeb.Data;
+using CundecinosWeb.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -32,10 +33,12 @@ namespace CundecinosWeb.Controllers
 
         public IActionResult Users()
         {
-             var users = _context.People.Include(x => x.CollegeCareer).Include(x => x.Extension).ToList();
-			 var collegeCareer = _context.CollegeCareer.ToList();
-			 ViewBag.CollegeCareer = new SelectList(collegeCareer, "CollegeCareerId", "Name");
-			 return View(users);
+            var model = new vSetupUsers()
+            {
+                Users = _context.People.Include(x => x.CollegeCareer).Include(x => x.Extension).ToList(),
+                CollegeCareers = new SelectList(_context.CollegeCareer.ToList(), "CollegeCareerId", "Name")
+		    };
+			 return View(model);
         }
 
         public IActionResult Report()
