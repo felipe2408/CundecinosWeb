@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using System.Security.Claims
-@model List<CundecinosWeb.Models.Person>
+@model CundecinosWeb.ViewModel.vSetupUsers
 
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 						<!--begin::Toolbar-->
@@ -80,9 +80,9 @@
 														<!--begin::Input group-->
 														<div class="mb-10">
 															<label class="form-label fs-6 fw-bold">Carrera:</label>
-															@{
-																int carreraSeleccionada = 0;
-															}
+										@{
+											Html.DropDownListFor(model => model.CollegeCareers,Model.CollegeCareers.AsEnumerable(),"--Seleccionar");
+										}
 															@*@Html.DropDownListFor(model => model.CollegeCareer, ViewBag.CollegeCareer as SelectList, "-- Seleccione una carrera --", new { @class = "form-control" })*@
 														</div>
 														<!--end::Input group-->
@@ -428,6 +428,7 @@
 													<th class="min-w-125px">Extensión</th>
 													<th class="min-w-125px">Activo</th>
 													<th class="min-w-125px">CC</th>
+													<th class="min-w-125px">Telefono</th>
 												</tr>
 												<!--end::Table row-->
 											</thead>
@@ -435,7 +436,7 @@
 											<!--begin::Table body-->
 											<tbody class="text-gray-600 fw-bold">
 												@{var cont = 1;}
-												@foreach( var item in Model){
+												@foreach( var item in Model.Users){
 
 													<tr>
 													<!--begin::Checkbox-->
@@ -488,6 +489,7 @@
 													<!--end::Two step=-->
 													<!--begin::Joined-->
 													<td>@item.IdentificationNumber</td>
+													<td>@item.CellPhone</td>
 													<!--begin::Joined-->
 													
 								</tr>
