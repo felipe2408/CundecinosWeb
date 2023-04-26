@@ -35,7 +35,7 @@ var KTCreateApp = (function () {
                                     "Valid" == t
                                         ? e.goNext()
                                         : Swal.fire({
-                                            text: "Sorry, looks like there are some errors detected, please try again.",
+                                            text: "Lo sentimos, parece que se han detectado algunos errores, inténtalo de nuevo.",
                                             icon: "error",
                                             buttonsStyling: !1,
                                             confirmButtonText: "Ok, got it!",
@@ -62,7 +62,7 @@ var KTCreateApp = (function () {
                                                     .submit();
                                         }, 2e3))
                                     : Swal.fire({
-                                        text: "Sorry, looks like there are some errors detected, please try again.",
+                                        text: "Lo sentimos, parece que se han detectado algunos errores, inténtalo de nuevo.",
                                         icon: "error",
                                         buttonsStyling: !1,
                                         confirmButtonText: "Ok, got it!",
