@@ -1,6 +1,7 @@
 ﻿using CundecinosWeb.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CundecinosWeb.Controllers
 {
@@ -16,7 +17,11 @@ namespace CundecinosWeb.Controllers
 
         public IActionResult Index()
         {
-            var people = _context.People.ToList();
+
+
+			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			ViewBag.UserId = userId;
+			var people = _context.People.ToList();
             return View(people);
         }
     }
