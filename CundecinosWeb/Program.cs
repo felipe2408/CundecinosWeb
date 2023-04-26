@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+using ElmahCore.Sql;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -69,6 +70,17 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddRazorPages()
     .AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNamingPolicy = null; options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles; }).AddRazorRuntimeCompilation().AddMicrosoftIdentityUI();
+
+
+var options = builder.Configuration.GetSection("Elmah").GetConnectionString;
+
+//services.AddElmah<SqlErrorLog>(options =>
+//{
+//    options.ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//    options.ApplicationName = "AppControlID";
+//    //options.SqlServerDatabaseSchemaName = "Errors"; //Defaults to dbo if not set
+//    //options.SqlServerDatabaseTableName = "ElmahError"; //Defaults to ELMAH_Error if not set
+//});
 
 var app = builder.Build();
 

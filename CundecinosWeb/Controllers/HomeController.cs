@@ -1,5 +1,6 @@
 ﻿using CundecinosWeb.Data;
 using CundecinosWeb.Models;
+using CundecinosWeb.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -29,7 +30,12 @@ namespace CundecinosWeb.Controllers
                 {
                     return RedirectToAction("Register", "User");
                 }
-                return View(user);
+                var publications = _context.Publication.Where(x => x.PersonID == user.PersonID).ToList();
+                var model = new vPersonPublication();
+                model.Person = user;
+                model.PublicationUsers = publications;
+
+                return View(model);
 
             }
             catch (Exception)
