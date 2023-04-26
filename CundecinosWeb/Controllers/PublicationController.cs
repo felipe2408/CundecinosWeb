@@ -2,6 +2,7 @@
 using CundecinosWeb.Data;
 using CundecinosWeb.Models;
 using CundecinosWeb.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +10,8 @@ using System.Security.Claims;
 
 namespace CundecinosWeb.Controllers
 {
-	public class PublicationController : Controller
+    [Authorize]
+    public class PublicationController : Controller
 	{
         private readonly DataContext _context;
         private readonly string _connectionString = "DefaultEndpointsProtocol=https;AccountName=cunpublication;AccountKey=8vdy7cuwlVkUdYw25qEnDcJqZy3DbktxPxxcUaw7ZB6Sh7fypyykIoHjK8irHbtN2hvdfxL4zO8l+AStvbK57A==;EndpointSuffix=core.windows.net";

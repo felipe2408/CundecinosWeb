@@ -3,6 +3,7 @@ using CundecinosWeb.Data;
 using CundecinosWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Security.Claims;
 
 namespace CundecinosWeb.Controllers
@@ -23,6 +24,15 @@ namespace CundecinosWeb.Controllers
         [HttpPost]
         public IActionResult PersonalInformation(Person person)
         {
+            if (ModelState.IsValid)
+            {
+                _context.People.Update(person);
+
+
+
+
+            }
+            
             return View();
         }
         public IActionResult Register()

@@ -1,330 +1,113 @@
 ﻿@model CundecinosWeb.Models.Person
 @{
     ViewData["Title"] = "User Profile";
+ 
 }
-
-<style>
-
-    .nueva-seccion{
-        margin: 2rem auto;
-        align-items: center;
-        min-height: 15rem;
-    }
-
-    .flex-stack{
-        justify-content: center;
-    }
-section{
-    min-height: 97vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.card_nueva{
-        position: relative;
-        width: 550px;
-        height: 250px;
-        backdrop-filter: blur(25px);
-        background: rgba(20 201 59 / 72%);
-        box-shadow: 0 25px 45px rgba(0,0,0,0.25);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 30px;
-        color: #fff;
-        transition: all .5s ease-in-out;
-}
-
-.card_nueva:hover{
-    transform: translateY(-2px);
-}
-
-.top{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 15px;
-    border-bottom: 1px solid #d5cccc24;
-}
-.top span{
-    font-size: 20px;
-    margin-left: 20px;
-}
-.top i{
-    font-size: 30px;
-    padding: 10px;
-    border-radius: 30%;
-
-}
-.top i:hover{
-    background: rgba(0,0,0,0.1);
-    cursor: pointer;
-}
-.top p{
-    position: absolute;
-    top: 50px;
-    right: 15px;
-    background: rgba(0,0,0,0.15);
-    padding: 10px 20px;
-    border-radius: 10px;
-    opacity: 0;
-    transition: .5s ease-in-out;
-
-}
-.top i:hover ~ p{
-    opacity: 1;
-    transition: .5s ease-in-out;
-}
-.middle{
-    display: flex;
-    flex-direction: row;
-    padding: 1rem;
-}
-.middle img{
-    width: 10rem;
-    height:10rem; 
-    border-radius: 50%;
-    border: 5px solid transparent;
-    outline: 3px dashed rgba(255,255,255,0.25);
-}
-.middle .right{
-    margin: 20px 0px 10px 30px;
-}
-
-.right .generacion{
-    position: absolute;
-    content: "";
-    bottom: 0;
-    right: 2rem;
-    font-weight: bold;
-}
-
-.right .carrera{
-    font-weight: bold;
-    margin-bottom: 1rem;
-}
-ul li{
-    list-style-type: circle;
-}
-.social-icon{
-    display: flex;
-    flex-direction: row;
-}
-.social-icon span{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #fff;
-    border-radius: 50%;
-    height: 30px;
-    width: 30px;
-    margin: 0 5px;
-    transition: .4s;
-    cursor: pointer;
-
-}
-.social-icon i{
-    font-size: 20px;
-}
-.social-icon span:hover{
-    color: #3c79db;
-    background: #fff;
-    transform: translateY(-4px);
-    box-shadow: inset 0 0 0 15px #fff;
-}
-.bottom{
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-    padding: 0 30px;
-}
-.btn{
-    background: #3c79db;
-    color: #fff;
-    padding: 12px 20px;
-    border-radius: 20px;
-    border: none;
-    margin: 0 5px;
-    cursor: pointer;
-    transition: .3s;
-}
-.btn:hover{
-    box-shadow: inset 0 0 0 20px #83ace2;
-}
-
-
-
-
-
-
-
-</style>
 
 <div class="most-asked section" style="padding-top: 0px !important; margin-top: 0px !important;">
     <div class="container">
 
+<partial name="_CardPartial" />
 
-        <section class="nueva-seccion">
-            <div class="card_nueva">
-                <div class="top">
-                    <span>@Model.FirstName @Model.LastName</span>
-                    <i class="bx bx-dots-vertical-rounded"></i>
-                    <p>My Portifolio</p>
+            <image src="@Model.AvatarUrl"></image>
+        <div class="row">
+            <div class="col-lg-3"></div>
+      <div class="col-lg-6">
+        <div class="get-free-quote">
+          <form id="free-quote" method="post" role="search" action="#" style="margin-top: 0px !important">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="section-heading">
+                  <h2>Perfil de <em>Usuario</em></h2>
                 </div>
-                <div class="middle">
-                    <div class="left">
-                        <img src="@Model.AvatarUrl" alt="Avatar">
-                    </div>
-                    <div class="right">
-                        <label class="carrera" for="">@Model.CollegeCareer.Name</label>
-                        <div>
-                            <p class="generacion">Generación Siglo XXI</p>
-                        </div>
-                        <div>
-                            <span>@Model.Email</span>
-                        </div>
-                    </div>
+              </div>
+
+                <div class="col-lg-12">
+                    <fieldset>
+                        <label for="full-name">Nombres</label>
+                        <input type="full-name" name="full-name" id="full-name" placeholder="Nombres" value="@Model.FirstName" autocomplete="on">
+                    </fieldset>
+                </div>
+                            <div class="col-lg-12">
+                                <fieldset>
+                                    <label for="full-name">Apellidos</label>
+                                    <input type="full-name" name="full-name" id="full-name" placeholder="Apellidos" value="@Model.LastName" autocomplete="on">
+                                </fieldset>
+                            </div>
+                <div class="col-lg-12">
+
+                    <fieldset>
+                        <label for="PAcademico">Género</label>
+                        <select class="form-control" id="PAcademico" style="
+                                                                            margin-bottom: 15px;
+                                                                            width: 100%;
+                                                                            height: 46px;
+                                                                            border-radius: 23px;
+                                                                            background-color: #f9ebff;
+                                                                            border: none;
+                                                                            outline: none;
+                                                                            padding: 0px 15px;
+                                                                            color: #2a2a2a;
+                                                                            font-weight: 600;">
+                            <option>Hombre</option>
+                            <option>Mujer</option>
+                            <option>No Aplica</option>
+                        </select>
+                    </fieldset>
                 </div>
 
+
+                <div class="col-lg-12">
+                    <fieldset>
+                        <label for="PAcademico">Programa Academico</label>
+                        <input type="website" name="PAcademico" id="PAcademico" placeholder="Programa Academico" autocomplete="on" value="@Model.CollegeCareer.Name" required>
+
+                    </fieldset>
+                </div>
+
+                <div class="col-lg-12">
+                    <fieldset>
+                          <label for="full-name">Fecha de Nacimiento</label>
+                        <input type="date" id="birthday" name="birthday" value="@Model.BirthYear">
+                          </fieldset>
+                    </div>
+
+
+                <div class="col-6">
+                    <fieldset>
+                        <label for="full-name">Extensión</label>
+                        <input type="full-name" name="full-name" id="full-name" placeholder="Extensión" value="@Model.Extension.Name" autocomplete="on">
+                    </fieldset>
+                </div>
+
+                <div class="col-6">
+                    <fieldset>
+                        <label for="full-name">Teléfono</label>
+                        <input type="phone-number" name="phone-number" id="phone-number" placeholder="Teléfono" value="@Model.CellPhone" autocomplete="on" required>
+                    </fieldset>
+                </div>
+
+
+              <div class="col-lg-12">
+                <fieldset>
+                  <input type="text" name="email" id="email" placeholder="E-mail" value="@Model.Email" required="">
+                </fieldset>
+              </div>
+
+                            <div class="col-4"></div>
+                            <div class="col-4"></div>
+
+              <div class="col-4">
+                <fieldset>
+                  <button type="submit" id="form-submit" class="orange-button">Actualizar Datos</button>
+                </fieldset>
+              </div>
             </div>
-        </section>
-
-    
-
-        <!--begin::Content-->
-        <div class="flex-row-fluid py-lg-5 px-lg-15">
-            <!--begin::Form-->
-            <form class="form" novalidate="novalidate" id="kt_modal_create_app_form" enctype="multipart/form-data" method="post">
-                <!--begin::Step 1-->
-                <div class="current" data-kt-stepper-element="content">
-                    <div class="w-100">
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-10">
-                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                <span class="required">@Html.LabelFor(x => x.FirstName)</span>
-                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title=""></i>
-                            </label>
-
-                            @(Html.DevExtreme().TextBoxFor(x => x.FirstName).ID("FirstName"))
-
-                        </div>
-
-                        <div class="fv-row mb-10">
-                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                <span class="required">@Html.LabelFor(x => x.LastName)</span>
-                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title=""></i>
-                            </label>
-
-                            @(Html.DevExtreme().TextBoxFor(x => x.LastName).ID("LastName"))
-                        </div>
-                        <div class="fv-row">
-                            <!--begin::Label-->
-                            <label class="d-flex align-items-center fs-5 fw-bold mb-4">
-                                <span class="required">@Model.CollegeCareer.Name</span>
-                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Select your app category"></i>
-                            </label>
-
-
-
-                            <!--end:Options-->
-                        </div>
-                        <!--end::Input group-->
-                    </div>
-                </div>
-                <!--end::Step 1-->
-                <!--begin::Step 2-->
-                <div data-kt-stepper-element="content">
-                    <div class="w-100">
-                        <div class="fv-row">
-                            <div class="fv-row mb-10">
-                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                    <span class="required">@Html.LabelFor(x => x.IdentificationNumber)</span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title=""></i>
-                                </label>
-
-
-                                @(Html.DevExtreme().TextBoxFor(x => x.IdentificationNumber).ID("IdentificationNumber"))
-
-                            </div>
-
-                            <div class="fv-row mb-10">
-                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                    <span class="required">@Html.LabelFor(x => x.CellPhone)</span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title=""></i>
-                                </label>
-
-                                @(Html.DevExtreme().TextBoxFor(x => x.CellPhone).ID("CellPhone"))
-
-                            </div>
-
-                            <div class="fv-row mb-10">
-                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                    <span class="required">@Html.LabelFor(x => x.Email)</span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title=""></i>
-                                </label>
-
-                                @(Html.DevExtreme().TextBoxFor(x => x.Email).ID("Email"))
-
-                            </div>
-
-                            <div class="fv-row mb-10">
-                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                    <span class="required">@Html.LabelFor(x => x.BirthYear)</span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title=""></i>
-                                </label>
-
-                                @(Html.DevExtreme().TextBoxFor(x => x.BirthYear).ID("BirthYear"))
-
-                            </div>
-
-
-                        </div>
-
-                    </div>
-                </div>
-                <!--end::Step 2-->
-                <!--begin::Step 3-->
-                <div data-kt-stepper-element="content">
-                    <div class="w-100">
-                        <div class="fv-row mb-10">
-                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                <span class="required">@Html.LabelFor(x => x.ExtensionId)</span>
-                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title=""></i>
-                            </label>
-
-
-                            @(Html.DevExtreme().SelectBoxFor(x => x.ExtensionId).DataSource(ds => ds.WebApi().Controller("APIExtensions").LoadAction("GetActive").Key("Value"))
-                                .ID("ExtensionId")
-                                .ValueExpr("ExtensionId")
-                                .DisplayExpr("Name")
-                                )
-
-
-                            <br />
-
-
-                        </div>
-
-
-
-
-                    </div>
-                </div>
-                <!--end::Step 3-->
-                <!--end::Step 5-->
-                <!--begin::Actions-->
-                <div class="d-flex flex-stack pt-10">
-                    <!--begin::Wrapper-->   
-                    <div>
-
-                        <button type="button" class="btn btn-lg btn-primary button-center">Actualizar Datos</button>
-                    </div>
-                    <!--end::Wrapper-->
-                </div>
-                <!--end::Actions-->
-            </form>
-            <!--end::Form-->
+          </form>
         </div>
-        <!--end::Content-->
+      </div>
 
-
+            <div class="col-lg-3"></div>
+      </div>
+      </div>
       </div>
