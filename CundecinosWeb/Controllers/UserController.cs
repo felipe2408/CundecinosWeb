@@ -36,13 +36,16 @@ namespace CundecinosWeb.Controllers
             return View();
         }
         public IActionResult Register()
+        
+        
         {
+
             var person = new Person();
 
             var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            person.FirstName = User.FindFirstValue(ClaimTypes.Name);
-            person.LastName = User.FindFirstValue(ClaimTypes.GivenName);
+            person.FirstName = User.FindFirstValue(ClaimTypes.GivenName);
+            person.LastName = User.FindFirstValue(ClaimTypes.Surname);
             person.Email = User.FindFirstValue(ClaimTypes.Email);
             
 

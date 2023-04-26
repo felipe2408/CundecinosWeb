@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using ElmahCore.Sql;
+using ElmahCore.Mvc;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,13 +76,13 @@ builder.Services.AddRazorPages()
 
 var options = builder.Configuration.GetSection("Elmah").GetConnectionString;
 
-//services.AddElmah<SqlErrorLog>(options =>
-//{
-//    options.ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-//    options.ApplicationName = "AppControlID";
-//    //options.SqlServerDatabaseSchemaName = "Errors"; //Defaults to dbo if not set
-//    //options.SqlServerDatabaseTableName = "ElmahError"; //Defaults to ELMAH_Error if not set
-//});
+builder.Services.AddElmah<SqlErrorLog>(options =>
+{
+    options.ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    options.ApplicationName = "cundecinos";
+    //options.SqlServerDatabaseSchemaName = "Errors"; //Defaults to dbo if not set
+    //options.SqlServerDatabaseTableName = "ElmahError"; //Defaults to ELMAH_Error if not set
+});
 
 var app = builder.Build();
 
@@ -96,6 +98,11 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+app.UseDeveloperExceptionPage();
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -104,6 +111,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseElmah();
 app.MapHub<ChatHub>("/Chat/Index");
 app.MapRazorPages();
 

@@ -1,9 +1,68 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using System.Security.Claims
 @model CundecinosWeb.ViewModel.vPersonPublication
+
+<style>
+	.imagenes-publicaciones {
+		width: 8rem !important;
+		height: 8rem !important;
+		margin-bottom: 2rem;
+	}
+
+
+	.flex-precio{
+		display: flex;
+		flex-direction: column;	
+		justify-content: space-around;
+		gap: 1rem;
+	}
+
+	@@media (min-width: 500px) {
+
+		.flex-precio{
+			display: grid;
+			align-items: center;
+			grid-template-columns: 1fr 2fr 1fr;
+		}
+
+			.flex-precio .description {
+				flex: 2;
+			}
+
+	}
+
+	#archivo{
+		margin: 2rem 0;
+	}
+
+
+
+
+}
+
+
+
+	.flex-precio input{
+		margin-top: .5rem;
+	}
+
+	.boton-precio{
+		padding: .2rem;
+		transition: all .5s ease-in-out;
+	}
+
+	.boton-precio:hover{
+		transform: translateY(-2px);
+	}
+
+
+</style>
+
 @{
     ViewData["Title"] = "Index";
 }
+
+
 
  <br />
 
@@ -142,8 +201,8 @@
 
 							@(Html.DevExtreme().TextBoxFor(x => x.Publication.Content))
 
-							
-                             <input type="file" id="archivo" name="archivo"  accept=".png, .jpg, .jpeg" />
+
+							<input type="file" id="archivo" name="archivo" multiple="true" accept=".png, .jpg, .jpeg" />
 
 							<input type="submit" value="Crear Publicación"/>
 							<div id="kt_forms_widget_1_editor" class="py-6"></div>
@@ -193,9 +252,11 @@
 							<!--end::Toolbar-->
 						</form>
 
+							<div class="flex-precio">
 							<label for="producto">Nombre del producto:</label>
 							<input type="text" id="description" name="description" />
-							<button type="button" onclick="buscarPrecio()">Buscar precio de Prime</button>
+							<button class="btn btn-lg btn-primary boton-precio" type="button" onclick="buscarPrecio()">Buscar precio de Prime</button>
+								</div>
 
 
 						<!--end::Form-->
@@ -217,7 +278,7 @@
 							<div class="d-flex align-items-center flex-grow-1">
 								<!--begin::Avatar-->
 								<div class="symbol symbol-45px me-5">
-									<img src="@item.Person.AvatarUrl" alt="" />
+									<img class="imagen-avatar" src="@item.Person.AvatarUrl" alt="Avatar Usuario" />
 								</div>
 								<!--end::Avatar-->
 								<!--begin::Info-->
@@ -321,11 +382,10 @@
 							<p class="text-gray-800 fw-normal mb-5">@item.Content</p>
 							
 							@foreach(var imageUrl in item.PublicationAttachment){
-
-								
-								<div class="symbol symbol-45px me-5">
-										<img src="@imageUrl.ImageThumbNail" alt="" />
-								</div>
+									<div class="symbol symbol-45px me-5">
+											<img class="imagenes-publicaciones" src="@imageUrl.ImageThumbNail" alt="Imagenes Publicaciones" />
+									</div>
+	
 							}
 
 							<!--end::Text-->
