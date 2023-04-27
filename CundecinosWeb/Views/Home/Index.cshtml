@@ -1,5 +1,8 @@
-﻿@model CundecinosWeb.ViewModel.vPersonPublication
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@model CundecinosWeb.ViewModel.vPersonPublication
 
+<input type="hidden" id="identity" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" />
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
     <div class="toolbar" id="kt_toolbar">
@@ -41,7 +44,7 @@
                     <div class="card card-xxl-stretch">
                         <!--begin::Header-->
                         <div class="card-header border-0 bg-danger py-5">
-                            <h3 class="card-title fw-bolder text-white">Menu</h3>
+                            <h3 class="card-title fw-bolder text-white">Mis publicaciones</h3>
                             <div class="card-toolbar">
                                 <!--begin::Menu-->
                                 <!--begin::Menu 3-->
@@ -53,7 +56,7 @@
                         <!--begin::Body-->
                         <div class="card-body p-0">
                             <!--begin::Chart-->
-                            <div class="mixed-widget-2-chart card-rounded-bottom bg-danger" data-kt-color="danger" style="height: 200px"></div>
+                            <div id="chart_my_pub" class="card-rounded-bottom bg-danger" data-kt-color="danger" style="height: 200px"></div>
                             <!--end::Chart-->
                             <!--begin::Stats-->
                             <div class="card-p mt-n20 position-relative">
@@ -193,7 +196,7 @@
                             </div>
                             <!--end::Stats-->
                             <!--begin::Chart-->
-                            <div class="mixed-widget-7-chart card-rounded-bottom" data-kt-chart-color="primary" style="height: 150px"></div>
+                            <div id="chart_pub_sedes" class="card-rounded-bottom" data-kt-chart-color="primary" style="height: 150px"></div>
                             <!--end::Chart-->
                         </div>
                         <!--end::Body-->
@@ -229,3 +232,163 @@
     </div>
     <!--end::Post-->
 </div>
+
+<script>
+    $(document).ready(function () {
+        var idUsuario = document.getElementById('identity')
+        const url = `/APIReport/PublicationReportUser/?identity=${encodeURIComponent(idUsuario.value)}`;
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function (datos) {
+                var counts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                datos.forEach(x => {
+                    var objetoFecha = new Date(x.PublicationDate);
+                    var mes = objetoFecha.getMonth();
+                    counts[mes]++;
+                });
+                var options = {
+                    series: [
+                        {name:'',data: counts },
+                    ],
+                    chart: {
+                        fontFamily: "inherit",
+                        type: "area",
+                        height: 200,
+                        toolbar: { show: !1 },
+                        zoom: { enabled: !1 },
+                        sparkline: { enabled: !0 },
+                        dropShadow: {
+                            enabled: !0,
+                            enabledOnSeries: void 0,
+                            top: 5,
+                            left: 0,
+                            blur: 3,
+                            color: '#B20034',
+                            opacity: 0.5,
+                        },
+                    },
+                    plotOptions: {},
+                    legend: { show: !1 },
+                    dataLabels: { enabled: !1 },
+                    fill: { type: "solid", opacity: 0 },
+                    stroke: { curve: "smooth", show: !0, width: 3, colors: ['#C9023C'] }
+                    ,
+                    xaxis: {
+                        categories: ["Ene","Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sept","Oct","Nov","Dic"],
+                        axisBorder: { show: !1 },
+                        axisTicks: { show: !1 },
+                        labels: { show: !1, style: { colors: '#CF577A', fontSize: "12px" } },
+                        crosshairs: {
+                            show: !1,
+                            position: "front",
+                            stroke: { color: '#B50136', width: 1, dashArray: 3 },
+                        },
+                    },
+                    yaxis: {
+                        labels: { show: !1, style: { colors: ['#C9023C'], fontSize: "12px" } },
+                    },
+                    states: {
+                        normal: { filter: { type: "none", value: 0 } },
+                        hover: { filter: { type: "none", value: 0 } },
+                        active: {
+                            allowMultipleDataPointsSelection: !1,
+                            filter: { type: "none", value: 0 },
+                        },
+                    },
+                    tooltip: {
+                        style: { fontSize: "12px" },
+                        y: {
+                            formatter: function (e) {
+                                return "" + e + " publicaciones";
+                            },
+                        },
+                        marker: { show: !1 },
+                    },
+                    colors: ["transparent"],
+                    markers: { colors: ['#D9214E'], strokeColor: ['#C9023C'], strokeWidth: 3 },
+
+                };
+
+                var chart = new ApexCharts(document.querySelector("#chart_my_pub"), options);
+                chart.render();
+            },
+            error: function () {
+                console.log('Error');
+            }
+        });
+        $.ajax({
+            url: '/APIReport/PublicationReport',
+            method: 'GET',
+            success: function (data) {
+                $.ajax({
+                    url: '/APIReport/ExtensionReport',
+                    method: 'GET',
+                    success: function (datos) {
+                        var arreglo = []
+                        datos.forEach(function (x) {
+                            var contador = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                            data.forEach(y => {
+                                var objetoFecha = new Date(y.PublicationDate);
+                                var mes = objetoFecha.getMonth();
+                                if (x.Name === y.Person.Extension.Name) {
+                                    contador[mes]++;
+                                }
+                            });
+                            arreglo.push({ name: x.Name, data: contador })
+                        });
+                        var options = {
+                            series: arreglo,
+                            chart: {
+                                type: 'area',
+                                height: 200,
+                                toolbar: { show: !1 },
+                            },
+                            dataLabels: {
+                                enabled: false
+                            },
+                            stroke: {
+                                show: true,
+                                width: 2,
+                                colors: ['transparent']
+                            },
+                            xaxis: {
+                                categories: ["Ene", 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', "Nov", "Dic"],
+                                axisBorder: { show: !1 },
+                                axisTicks: { show: !1 },
+                                labels: { show: !1, style: { colors: '#CF577A', fontSize: "5px" } },
+                            },
+                            yaxis: {
+                                axisBorder: { show: !1 },
+                                axisTicks: { show: !1 },
+                                labels: { show: !1, style: { colors: '#CF577A', fontSize: "5px" } },
+                            },
+                            fill: {
+                                type: "solid", opacity: 0.9
+                            },
+
+                            tooltip: {
+                                y: {
+                                    formatter: function (val) {
+                                        return "" + val + " publicaciones"
+                                    }
+                                },
+                                style: { fontSize: "12px" },
+                            }
+                        };
+
+                        var chart = new ApexCharts(document.querySelector("#chart_pub_sedes"), options);
+                        chart.render();
+                    },
+                    error: function () {
+                        console.log('Error');
+                    }
+                });
+
+            },
+            error: function () {
+                console.log('Error');
+            }
+        });
+    });
+</script>
