@@ -31,7 +31,7 @@ namespace CundecinosWeb.Controllers
                 {
                     return RedirectToAction("Register", "User");
                 }
-                var publications = _context.Publication.Where(x => x.PersonID == user.PersonID).ToList();
+                var publications = _context.Publication.Where(x => x.PersonID == user.PersonID).OrderByDescending(x => x.PublicationDate).Take(10).ToList();
                 var model = new vPersonPublication();
                 model.Person = user;
                 model.PublicationUsers = publications;
