@@ -35,10 +35,10 @@ var KTCreateApp = (function () {
                                     "Valid" == t
                                         ? e.goNext()
                                         : Swal.fire({
-                                            text: "Lo sentimos, parece que se han detectado algunos errores, inténtalo de nuevo.",
+                                            text: "Oups! Al parecer faltan campos por diligenciar",
                                             icon: "error",
                                             buttonsStyling: !1,
-                                            confirmButtonText: "Ok, got it!",
+                                            confirmButtonText: "Aceptar",
                                             customClass: { confirmButton: "btn btn-light" },
                                         }).then(function () { });
                             })
@@ -62,10 +62,10 @@ var KTCreateApp = (function () {
                                                     .submit();
                                         }, 2e3))
                                     : Swal.fire({
-                                        text: "Lo sentimos, parece que se han detectado algunos errores, inténtalo de nuevo.",
+                                        text: "Oups! Al parecer faltan campos por diligenciar",
                                         icon: "error",
                                         buttonsStyling: !1,
-                                        confirmButtonText: "Ok, got it!",
+                                        confirmButtonText: "Aceptar",
                                         customClass: { confirmButton: "btn btn-light" },
                                     }).then(function () {
                                         KTUtil.scrollTop();
