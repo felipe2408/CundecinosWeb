@@ -27,7 +27,7 @@ namespace CundecinosWeb.Controllers
 			var model = _context.People.Include( x => x.CollegeCareer).Where(x => x.UID == Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))).FirstOrDefault();
             vmodel.Person = model;
 			vmodel.Publication = new Publication();
-            vmodel.PublicationUsers = _context.Publication.Include(x => x.Person).Include(x => x.PublicationAttachment).Where(x => x.PublicationDate >= DateTime.Now || x.PublicationDate <= DateTime.Now).ToList();
+            vmodel.PublicationUsers = _context.Publication.Include(x => x.Person).Include(x => x.PublicationComments).Include(x => x.PublicationAttachment).Where(x => x.PublicationDate >= DateTime.Now || x.PublicationDate <= DateTime.Now).ToList();
             vmodel.Publication.PersonID = model.PersonID;
 
             //var publications =

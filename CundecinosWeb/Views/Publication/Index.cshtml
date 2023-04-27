@@ -459,7 +459,7 @@
 										</span>
 										<!--end::Svg Icon-->Contactar
 								</a>
-								<a asp-controller="PublicationComment" asp-action="PublicationDescription" class="btn btn-sm btn-light btn-color-muted btn-active-light-success px-4 py-2 me-4">
+									<a asp-controller="PublicationComment" asp-action="PublicationDescription" asp-route-id="@item.PublicationID" class="btn btn-sm btn-light btn-color-muted btn-active-light-success px-4 py-2 me-4">
 									<!--begin::Svg Icon | path: icons/duotone/Communication/Group-chat.svg-->
 									<span class="svg-icon svg-icon-3">
 										<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -468,7 +468,7 @@
 										</svg>
 										
 									</span>
-									<!--end::Svg Icon-->120
+									<!--end::Svg Icon-->@item.PublicationComments.Count
 								</a>
 								<a href="#" class="btn btn-sm btn-light btn-color-muted btn-active-light-danger px-4 py-2">
 									<!--begin::Svg Icon | path: icons/duotone/General/Heart.svg-->
