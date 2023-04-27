@@ -207,6 +207,29 @@
 												<!--end::Col-->
 											</div>
 
+							<div class="row mb-8">
+								<!--begin::Col-->
+								<div class="col-xl-2 fv-row">
+									<div class="fs-6 fw-bold mt-2 mb-3">Precio estimado</div>
+								</div>
+								<!--begin::Col-->
+								<div class="col-xl-10">
+									@(Html.DevExtreme().TextBoxFor(x => x.Publication.EstimatedPrice))
+								</div>
+								<!--end::Col-->
+							</div>
+
+							<div class="row mb-8">
+								<!--begin::Col-->
+								<div class="col-xl-2 fv-row">
+									<div class="fs-6 fw-bold mt-2 mb-3">Descripcion del producto</div>
+								</div>
+								<!--begin::Col-->
+								<div class="col-xl-10">
+									@(Html.DevExtreme().TextBoxFor(x => x.Publication.ProductDescription))
+								</div>
+								<!--end::Col-->
+							</div>
 
 											<div class="row mb-8">
 												<!--begin::Col-->
