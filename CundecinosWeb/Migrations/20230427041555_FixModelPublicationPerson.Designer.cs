@@ -4,6 +4,7 @@ using CundecinosWeb.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CundecinosWeb.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230427041555_FixModelPublicationPerson")]
+    partial class FixModelPublicationPerson
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,14 +209,9 @@ namespace CundecinosWeb.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
-                    b.Property<Guid>("PublicationID")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("PublicationCommentsID");
 
                     b.HasIndex("PersonID");
-
-                    b.HasIndex("PublicationID");
 
                     b.ToTable("PublicationComments");
                 });
@@ -266,15 +263,7 @@ namespace CundecinosWeb.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CundecinosWeb.Models.Publication", "Publication")
-                        .WithMany("PublicationComments")
-                        .HasForeignKey("PublicationID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Person");
-
-                    b.Navigation("Publication");
                 });
 
             modelBuilder.Entity("CundecinosWeb.Models.CollegeCareer", b =>
@@ -297,8 +286,6 @@ namespace CundecinosWeb.Migrations
             modelBuilder.Entity("CundecinosWeb.Models.Publication", b =>
                 {
                     b.Navigation("PublicationAttachment");
-
-                    b.Navigation("PublicationComments");
                 });
 #pragma warning restore 612, 618
         }

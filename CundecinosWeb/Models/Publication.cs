@@ -29,8 +29,24 @@ namespace CundecinosWeb.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime PublicationDate { get; set; }
 
+        [Display(Name = "Precio Estimado")]
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [Column(TypeName = "varchar(100)")]
+        public string? EstimatedPrice { get; set; }
+
+        [Display(Name = "Descripción del producto")]
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [Column(TypeName = "varchar(100)")]
+        public string? ProductDescription { get; set; }
+
+
+
         [JsonIgnore]
         public virtual ICollection<PublicationAttachment>? PublicationAttachment { get; set; }
+
+
+        [JsonIgnore]
+        public virtual ICollection<PublicationComments>? PublicationComments { get; set; }
 
         [JsonIgnore]
         public virtual Person? Person { get; set; }

@@ -16,10 +16,21 @@ namespace CundecinosWeb.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
             //Database.Migrate();
+
         }
         public DataContext()
         {
 
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Publication>()
+                .HasMany(p => p.PublicationComments)
+                .WithOne(pc => pc.Publication)
+                .HasForeignKey(pc => pc.PublicationID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
 
