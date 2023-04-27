@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using CundecinosWeb.Enum;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,6 +23,8 @@ namespace CundecinosWeb.Models
         [Column(TypeName = "varchar(100)")]
         public string? Content { get; set; }
 
+        [Display(Name = "Tipo de Publicación")]
+        public PublicationType PublicationType { get; set; }
 
         [Display(Name = "Fecha de Publicación")]
         [DataType(DataType.DateTime)]

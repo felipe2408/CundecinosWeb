@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using System.Security.Claims
+@using CundecinosWeb.Enum;
 @model CundecinosWeb.ViewModel.vPersonPublication
 
 <style>
@@ -243,6 +244,28 @@
 												<!--end::Col-->
 											</div>
 
+							<div class="row mb-8">
+												<!--begin::Col-->
+												<div class="col-xl-2 fv-row">
+													<div class="fs-6 fw-bold mt-2 mb-3">Tipo de Publicación</div>
+												</div>
+												<!--begin::Col-->
+												<div class="col-xl-10">
+
+									@(Html.DevExtreme().SelectBoxFor(m => m.Publication.PublicationType)
+										.DataSource(Html.GetEnumSelectList<CundecinosWeb.Enum.PublicationType>()
+										.Select(i => new { Value = int.Parse(i.Value), Text = i.Text })
+										)
+										.ValueExpr("Value")
+										.ID("PublicationType")
+										.DisplayExpr("Text")
+										.Placeholder("Seleccione...")
+										)
+													
+												</div>
+												<!--end::Col-->
+											</div>
+
 							@(Html.DevExtreme().TextBoxFor(x => x.Publication.PersonID).Visible(false))
 
 							<input type="file" id="archivo" name="archivo" multiple="true" accept=".png, .jpg, .jpeg" />
@@ -438,6 +461,15 @@
 							<!--begin::Text-->
 							<p class="text-gray-800 fw-normal mb-5">@item.Qualification</p>
 							<p class="text-gray-800 fw-normal mb-5">@item.Content</p>
+							@if(item.PublicationType == PublicationType.Sale){
+
+									<p class="text-gray-800 fw-normal mb-5">En Venta</p>
+
+							}else{
+								
+									<p class="text-gray-800 fw-normal mb-5">En Trueque</p>
+							}
+							
 							
 							@foreach(var imageUrl in item.PublicationAttachment){
 									<div class="symbol symbol-45px me-5">
