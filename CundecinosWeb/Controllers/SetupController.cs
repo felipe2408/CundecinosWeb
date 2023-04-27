@@ -44,14 +44,11 @@ namespace CundecinosWeb.Controllers
 
         public IActionResult Report()
         {
-
             ViewBag.CollegeCareers = _context.CollegeCareer.ToList();
             ViewBag.Extensions = _context.Extensions.ToList();
 
-            var publications = _context.Publication.Include(x=> x.Person).Include(x => x.Person.CollegeCareer).Include(x => x.Person.Extension).ToList();
-            
 
-            return View(publications);
+            return View();
         }
     }
 }
