@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CundecinosWeb.Controllers
 {
@@ -43,9 +44,14 @@ namespace CundecinosWeb.Controllers
 
         public IActionResult Report()
         {
-            var model = _context.Publication.Include(x => x.Person).ToList();
 
-            return View(model);
+            ViewBag.CollegeCareers = _context.CollegeCareer.ToList();
+            ViewBag.Extensions = _context.Extensions.ToList();
+
+            var publications = _context.Publication.Include(x=> x.Person).Include(x => x.Person.CollegeCareer).Include(x => x.Person.Extension).ToList();
+            
+
+            return View(publications);
         }
     }
 }
