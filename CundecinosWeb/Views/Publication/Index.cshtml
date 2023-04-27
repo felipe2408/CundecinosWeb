@@ -102,7 +102,7 @@
 								<!--end::Info-->
 							</div>
 							<!--end::User-->
-							<!--begin::Menu-->
+							@*<!--begin::Menu-->
 							<div class="my-0">
 								<button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
 									<!--begin::Svg Icon | path: icons/duotone/Layout/Layout-4-blocks-2.svg-->
@@ -185,7 +185,7 @@
 								</div>
 								<!--end::Menu 2-->
 							</div>
-							<!--end::Menu-->
+							<!--end::Menu-->*@
 						</div>
 						<!--end::Header-->
 						<!--begin::Form-->
@@ -194,69 +194,104 @@
 
 							<input  type="hidden" asp-i value="@Model.Publication.PersonID"/>
 
-							
-							@(Html.DevExtreme().TextBoxFor(x => x.Publication.Qualification))
+							<br /><br />
+											<div class="row mb-8">
+												<!--begin::Col-->
+												<div class="col-xl-2 fv-row">
+													<div class="fs-6 fw-bold mt-2 mb-3">Titulo</div>
+												</div>
+												<!--begin::Col-->
+												<div class="col-xl-10">
+													@(Html.DevExtreme().TextBoxFor(x => x.Publication.Qualification))
+												</div>
+												<!--end::Col-->
+											</div>
+
+
+											<div class="row mb-8">
+												<!--begin::Col-->
+												<div class="col-xl-2 fv-row">
+													<div class="fs-6 fw-bold mt-2 mb-3">Descripción</div>
+												</div>
+												<!--begin::Col-->
+												<div class="col-xl-10">
+													@(Html.DevExtreme().TextBoxFor(x => x.Publication.Content))
+												</div>
+												<!--end::Col-->
+											</div>
 
 							@(Html.DevExtreme().TextBoxFor(x => x.Publication.PersonID).Visible(false))
 
-							@(Html.DevExtreme().TextBoxFor(x => x.Publication.Content))
-
-
 							<input type="file" id="archivo" name="archivo" multiple="true" accept=".png, .jpg, .jpeg" />
 
-							<input type="submit" value="Crear Publicación"/>
-							<div id="kt_forms_widget_1_editor" class="py-6"></div>
 							<!--end::Editor-->
 							
-							<div class="separator"></div>
-							<!--begin::Toolbar-->
-							<div id="kt_forms_widget_1_editor_toolbar" class="ql-toolbar d-flex flex-stack py-2">
-								<div class="me-2">
-									<span class="ql-formats ql-size ms-0">
-										<select class="ql-size w-75px"></select>
-									</span>
-									<span class="ql-formats">
-										<button class="ql-bold"></button>
-										<button class="ql-italic"></button>
-										<button class="ql-underline"></button>
-										<button class="ql-strike"></button>
-										<button class="ql-image"></button>
-										<button class="ql-link"></button>
-										<button class="ql-clean"></button>
-									</span>
-								</div>
-								<div class="me-n3">
-									<span class="btn btn-icon btn-sm btn-active-color-primary">
-										<i class="flaticon2-clip-symbol icon-ms"></i>
-									</span>
-									<span class="btn btn-icon btn-sm btn-active-color-primary">
-										<i class="flaticon2-pin icon-ms"></i>
-									</span>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="form-group">
-									<div class="dx-field">
+							<br /> <div class="separator"></div> <br />							
+
+							<!--begin::Timeline details-->
+							<div class="overflow-auto pb-5">
+								<!--begin::Notice-->
+								<div class="notice d-flex bg-light-primary rounded border-primary border border-dashed min-w-lg-600px flex-shrink-0 p-6">
+									
+									<!--begin::Wrapper-->
+									<div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+										<!--begin::Content-->
+										<div class="mb-3 mb-md-0 fw-bold" id="message">
+											<h4 class="text-gray-800 fw-bolder">Revisa el precio!</h4>
+											<div class="fs-6 text-gray-600 pe-7" id="precio"></div>
 
 
+											<br />
 
-										<div class="alert alert-info  alert-dismissible fade show " role="alert" id="message">
-											<div id="precio"></div>
-											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-												<span aria-hidden="true">×</span>
-											</button>
 										</div>
+
+										<!--end::Content-->
 									</div>
+									<!--end::Wrapper-->
+								</div>
+								<!--end::Notice-->
+							</div>
+							<!--end::Timeline details-->
+
+
+											<div class="row mb-8">
+												<!--begin::Col-->
+												<div class="col-xl-10 fv-row">
+													<input type="text" class="form-control form-control-solid" id="description" name="description" />
+												</div>
+												<!--begin::Col-->
+												<div class="col-xl-2" style="text-align: center;">
+													<button class="btn btn-lg btn-primary boton-precio" type="button" onclick="buscarPrecio()"> Buscar precio.</button>
+												</div>
+												<!--end::Col-->
+											</div>
+
+
+							<!--end::Toolbar-->
+							
+							@*<div class="flex-precio">
+								<label for="producto">Nombre del producto:</label>
+								<input type="text" id="description" name="description" />
+								<button class="btn btn-lg btn-primary boton-precio" type="button" onclick="buscarPrecio()"> Buscar precio.</button>
+							</div>*@
+
+
+							<div class="row mb-8">
+								<div class="col-xl-4">
+
+								</div>
+								<div class="col-xl-4" style="text-align: center;">
+									<input class="btn btn-lg btn-primary" type="submit" value="Crear Publicación" />
+								</div>
+								<div class="col-xl-4">
+
 								</div>
 							</div>
-							<!--end::Toolbar-->
+
+							
+
 						</form>
 
-							<div class="flex-precio">
-							<label for="producto">Nombre del producto:</label>
-							<input type="text" id="description" name="description" />
-							<button class="btn btn-lg btn-primary boton-precio" type="button" onclick="buscarPrecio()">Buscar precio de Prime</button>
-								</div>
 
 
 						<!--end::Form-->
