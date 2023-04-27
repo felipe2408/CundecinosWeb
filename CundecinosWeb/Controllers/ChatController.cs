@@ -1,6 +1,9 @@
 ﻿using CundecinosWeb.Data;
+using CundecinosWeb.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace CundecinosWeb.Controllers
 {
@@ -16,8 +19,24 @@ namespace CundecinosWeb.Controllers
 
         public IActionResult Index()
         {
-            var people = _context.People.ToList();
+
+
+			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			ViewBag.UserId = userId;
+			var people = _context.People.ToList();
             return View(people);
         }
+        [HttpGet]
+        public IActionResult ChatUser(Guid UID)
+        {
+            var person = _context.People.Where(x => x.UID == UID).FirstOrDefault();
+            var people = _context.People.ToList();
+
+            var model = new vChatUser();
+            model.person = person;
+            model.People = people;
+            return View(model);
+        }
+
     }
 }

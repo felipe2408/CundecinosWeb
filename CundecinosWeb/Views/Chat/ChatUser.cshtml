@@ -1,4 +1,4 @@
-﻿@model List<CundecinosWeb.Models.Person>
+﻿@model CundecinosWeb.ViewModel.vChatUser
 
 <!--begin::Post-->
 <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -28,7 +28,7 @@
 							<!--end::Svg Icon-->
 							<!--end::Icon-->
 							<!--begin::Input-->
-							<input type="text" class="form-control form-control-solid px-15" name="search" value="" placeholder="Buscar por usuario o email..." />
+							<input type="text" class="form-control form-control-solid px-15" name="search" value="" placeholder="Search by username or email..." />
 							<!--end::Input-->
 						</form>
 						<!--end::Form-->
@@ -39,7 +39,7 @@
 						<!--begin::List-->
 						<div class="scroll-y me-n5 pe-5 h-200px h-lg-auto" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_header, #kt_toolbar, #kt_footer, #kt_chat_contacts_header" data-kt-scroll-wrappers="#kt_content, #kt_chat_contacts_body" data-kt-scroll-offset="0px">
 							
-							@foreach (var item in Model)
+							@foreach (var item in Model.People)
 							{
 								<div class="d-flex flex-stack py-4">
 								<!--begin::Details-->
@@ -168,7 +168,7 @@
 
 
 
-						<div class="col-5"><input type="text" id="userInput" value="@ViewBag.UserId" /></div>
+						<div class="col-5"><input type="text" id="userInput" value="@Model.UID" /></div>
 
 						<!--begin::Input-->
 						<textarea class="form-control form-control-flush mb-3" rows="1"  id="messageInput" data-kt-element="input"  placeholder="Type a message"></textarea>
@@ -176,7 +176,7 @@
 						<!--begin:Toolbar-->
 						<div class="d-flex flex-stack">
 							<!--begin::Send-->
-							<button class="btn btn-primary" type="button" data-kt-element="send" id="sendButton" data-userId="@ViewBag.UserId">Enviar</button>
+							<button class="btn btn-primary" type="button" data-kt-element="send" id="sendButton" data-userId="@Model.UID">Enviar</button>
 							<!--end::Send-->
 						</div>
 						<!--end::Toolbar-->
