@@ -48,8 +48,25 @@ namespace CundecinosWeb.Controllers
 
             return Json(await DataSourceLoader.LoadAsync(people, loadOptions));
         }
+		[Route("/GetSearch")]
+		[HttpGet]
+		public async Task<IActionResult> Get(string consulta = null)
+		{
+			var people = _context.People.Select(i => new {
+				i.PersonID,
+				FullName = i.FirstName + " " + i.LastName, 
+				i.Email,
+                i.AvatarUrl
+			});
 
-        [HttpPost]
+			if (!string.IsNullOrWhiteSpace(consulta)) 
+			{
+				people = people.Where(u => u.Email.Contains(consulta) || u.FullName.Contains(consulta));
+			}
+			people = people.OrderBy(u => u.FullName);
+			return Json(await people.ToListAsync());
+		}
+		[HttpPost]
         public async Task<IActionResult> Post(string values) {
             var model = new Person();
             var valuesDict = JsonConvert.DeserializeObject<IDictionary>(values);
