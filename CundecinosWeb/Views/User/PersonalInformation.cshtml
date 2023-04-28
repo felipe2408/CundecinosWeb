@@ -4,21 +4,24 @@
 }
 
 <style>
-    .nueva-seccion{
+    .nueva-seccion {
         margin: 2rem auto;
         align-items: center;
         min-height: 15rem;
     }
-    .flex-stack{
+
+    .flex-stack {
         justify-content: center;
     }
-section{
-    min-height: 97vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.card_nueva{
+
+    section {
+        min-height: 97vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card_nueva {
         position: relative;
         width: 550px;
         height: 250px;
@@ -29,118 +32,138 @@ section{
         border-radius: 30px;
         color: #fff;
         transition: all .5s ease-in-out;
-}
-.card_nueva:hover{
-    transform: translateY(-2px);
-}
-.top{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 15px;
-    border-bottom: 1px solid #d5cccc24;
-}
-.top span{
-    font-size: 20px;
-    margin-left: 20px;
-}
-.top i{
-    font-size: 30px;
-    padding: 10px;
-    border-radius: 30%;
-}
-.top i:hover{
-    background: rgba(0,0,0,0.1);
-    cursor: pointer;
-}
-.top p{
-    position: absolute;
-    top: 50px;
-    right: 15px;
-    background: rgba(0,0,0,0.15);
-    padding: 10px 20px;
-    border-radius: 10px;
-    opacity: 0;
-    transition: .5s ease-in-out;
-}
-.top i:hover ~ p{
-    opacity: 1;
-    transition: .5s ease-in-out;
-}
-.middle{
-    display: flex;
-    flex-direction: row;
-    padding: 1rem;
-}
-.middle img{
-    width: 10rem;
-    height:10rem; 
-    border-radius: 50%;
-    border: 5px solid transparent;
-    outline: 3px dashed rgba(255,255,255,0.25);
-}
-.middle .right{
-    margin: 20px 0px 10px 30px;
-}
-.right .generacion{
-    position: absolute;
-    content: "";
-    bottom: 0;
-    right: 2rem;
-    font-weight: bold;
-}
-.right .carrera{
-    font-weight: bold;
-    margin-bottom: 1rem;
-}
-ul li{
-    list-style-type: circle;
-}
-.social-icon{
-    display: flex;
-    flex-direction: row;
-}
-.social-icon span{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #fff;
-    border-radius: 50%;
-    height: 30px;
-    width: 30px;
-    margin: 0 5px;
-    transition: .4s;
-    cursor: pointer;
-}
-.social-icon i{
-    font-size: 20px;
-}
-.social-icon span:hover{
-    color: #3c79db;
-    background: #fff;
-    transform: translateY(-4px);
-    box-shadow: inset 0 0 0 15px #fff;
-}
-.bottom{
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-    padding: 0 30px;
-}
-.btn{
-    background: #3c79db;
-    color: #fff;
-    padding: 12px 20px;
-    border-radius: 20px;
-    border: none;
-    margin: 0 5px;
-    cursor: pointer;
-    transition: .3s;
-}
-.btn:hover{
-    box-shadow: inset 0 0 0 20px #83ace2;
-}
+    }
+
+        .card_nueva:hover {
+            transform: translateY(-2px);
+        }
+
+    .top {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 15px;
+        border-bottom: 1px solid #d5cccc24;
+    }
+
+        .top span {
+            font-size: 20px;
+            margin-left: 20px;
+        }
+
+        .top i {
+            font-size: 30px;
+            padding: 10px;
+            border-radius: 30%;
+        }
+
+            .top i:hover {
+                background: rgba(0,0,0,0.1);
+                cursor: pointer;
+            }
+
+        .top p {
+            position: absolute;
+            top: 50px;
+            right: 15px;
+            background: rgba(0,0,0,0.15);
+            padding: 10px 20px;
+            border-radius: 10px;
+            opacity: 0;
+            transition: .5s ease-in-out;
+        }
+
+        .top i:hover ~ p {
+            opacity: 1;
+            transition: .5s ease-in-out;
+        }
+
+    .middle {
+        display: flex;
+        flex-direction: row;
+        padding: 1rem;
+    }
+
+        .middle img {
+            width: 10rem;
+            height: 10rem;
+            border-radius: 50%;
+            border: 5px solid transparent;
+            outline: 3px dashed rgba(255,255,255,0.25);
+        }
+
+        .middle .right {
+            margin: 20px 0px 10px 30px;
+        }
+
+    .right .generacion {
+        position: absolute;
+        content: "";
+        bottom: 0;
+        right: 2rem;
+        font-weight: bold;
+    }
+
+    .right .carrera {
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    ul li {
+        list-style-type: circle;
+    }
+
+    .social-icon {
+        display: flex;
+        flex-direction: row;
+    }
+
+        .social-icon span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #fff;
+            border-radius: 50%;
+            height: 30px;
+            width: 30px;
+            margin: 0 5px;
+            transition: .4s;
+            cursor: pointer;
+        }
+
+        .social-icon i {
+            font-size: 20px;
+        }
+
+        .social-icon span:hover {
+            color: #3c79db;
+            background: #fff;
+            transform: translateY(-4px);
+            box-shadow: inset 0 0 0 15px #fff;
+        }
+
+    .bottom {
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+        padding: 0 30px;
+    }
+
+    .btn {
+        background: #3c79db;
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 20px;
+        border: none;
+        margin: 0 5px;
+        cursor: pointer;
+        transition: .3s;
+    }
+
+        .btn:hover {
+            box-shadow: inset 0 0 0 20px #83ace2;
+        }
 </style>
 
 <div class="most-asked section" style="padding-top: 0px !important; margin-top: 0px !important;">
@@ -171,196 +194,164 @@ ul li{
 
             </div>
         </section>
+            @using (Html.BeginForm("PersonalInformation", "User", FormMethod.Post, new { id = "editar" }))
+            {
 
-    
-
-        <!--begin::Content-->
-        <div class="flex-row-fluid py-lg-5 px-lg-15">
-            <!--begin::Form-->
-            <form class="form" novalidate="novalidate" id="kt_modal_create_app_form" enctype="multipart/form-data" method="post">
-                <!--begin::Step 1-->
-                <div class="current" data-kt-stepper-element="content">
-                    <div class="w-100">
+                    @using (Html.DevExtreme().ValidationGroup())
+                    {
+                        <!--begin::details View-->
+                        <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+                            <!--begin::Card header-->
+                            <div class="card-header cursor-pointer">
+                                <!--begin::Card title-->
+                                <div class="card-title m-0">
+                                    <h3 class="fw-bolder m-0">Detalles del perfil</h3>
+                                </div>
+                                <!--end::Card title-->
+                                <!--begin::Action-->
+                                <a class="btn btn-primary align-self-center">
+                                    @(Html.DevExtreme().Button()
+                                        .ID("editar")
+                                        .Text("Editar información")
+                                        .Type(ButtonType.Success)
+                                        // Instructs the Button to validate the TextBoxes and submit the form
+                                        .UseSubmitBehavior(true)
+                                        )
+                                </a>
+                                <!--end::Action-->
+                            </div>
+                            <!--begin::Card header-->
+                    @(Html.DevExtreme().TextBoxFor(x => x.PersonID).Visible(false))
+                            <!--begin::Card body-->
+                            <div class="card-body p-9">
+                                <!--begin::Row-->
+                                <div class="row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="col-lg-4 fw-bold text-muted">Nombres</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-8">
+                                    @(Html.DevExtreme().TextBoxFor(x => x.FirstName))
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Row-->
+                                <!--begin::Input group-->
+                                <div class="row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="col-lg-4 fw-bold text-muted">Apellidos</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-8 fv-row">
+                                    @(Html.DevExtreme().TextBoxFor(x => x.LastName))
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
                         <!--begin::Input group-->
-                        <div class="fv-row mb-10">
-                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                <span class="required">@Html.LabelFor(x => x.FirstName)</span>
-                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title=""></i>
-                            </label>
-
-                            @(Html.DevExtreme().TextBoxFor(x => x.FirstName).ID("FirstName"))
-
-                        </div>
-
-                        <div class="fv-row mb-10">
-                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                <span class="required">@Html.LabelFor(x => x.LastName)</span>
-                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title=""></i>
-                            </label>
-
-                            @(Html.DevExtreme().TextBoxFor(x => x.LastName).ID("LastName"))
-                        </div>
-                        <div class="fv-row">
+                        <div class="row mb-7">
                             <!--begin::Label-->
-                            <label class="d-flex align-items-center fs-5 fw-bold mb-4">
-                                <span class="required">@Model.CollegeCareer.Name</span>
-                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Select your app category"></i>
-                            </label>
-
-
-
-                            <!--end:Options-->
+                            <label class="col-lg-4 fw-bold text-muted">Número de identificación</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row">
+                                @(Html.DevExtreme().TextBoxFor(x => x.IdentificationNumber))
+                            </div>
+                            <!--end::Col-->
                         </div>
                         <!--end::Input group-->
-                    </div>
-                </div>
-                <!--end::Step 1-->
-                <!--begin::Step 2-->
-                <div data-kt-stepper-element="content">
-                    <div class="w-100">
-                        <div class="fv-row">
-                            <div class="fv-row mb-10">
-                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                    <span class="required">@Html.LabelFor(x => x.IdentificationNumber)</span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title=""></i>
-                                </label>
-
-
-                                @(Html.DevExtreme().TextBoxFor(x => x.IdentificationNumber).ID("IdentificationNumber"))
-
+                                <!--begin::Input group-->
+                                <div class="row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="col-lg-4 fw-bold text-muted">
+                                        Número de telefono
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-8 d-flex align-items-center">
+                                @(Html.DevExtreme().TextBoxFor(x => x.CellPhone))
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="col-lg-4 fw-bold text-muted">Correo electrónico</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-8">
+                                @(Html.DevExtreme().TextBoxFor(x => x.Email))
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="col-lg-4 fw-bold text-muted">
+                                        Año de nacimiento
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-8">
+                                @(Html.DevExtreme().TextBoxFor(x => x.BirthYear))
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="col-lg-4 fw-bold text-muted">Carrera</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-8">
+                                @(Html.DevExtreme().SelectBoxFor(m => m.CollegeCareerId)
+                                    .DataSource(ds => ds.Mvc().Controller("APIPeople").LoadAction("CollegeCareerLookup").Key("Value"))
+                                    .ValueExpr("Value")
+                                    .ID("test")
+                                    .DisplayExpr("Text")
+                                    .Placeholder("Seleccione...")
+                                    )
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row mb-10">
+                                    <!--begin::Label-->
+                                    <label class="col-lg-4 fw-bold text-muted">Extensión</label>
+                                    <!--begin::Label-->
+                                    <!--begin::Label-->
+                                    <div class="col-lg-8">
+                                @(Html.DevExtreme().SelectBoxFor(m => m.ExtensionId)
+                                    .DataSource(ds => ds.Mvc().Controller("APIPeople").LoadAction("ExtensionsLookup").Key("Value"))
+                                    .ValueExpr("Value")
+                                    .ID("test_2")
+                                    .DisplayExpr("Text")
+                                    .Placeholder("Seleccione...")
+                                    )
                             </div>
-
-                            <div class="fv-row mb-10">
-                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                    <span class="required">@Html.LabelFor(x => x.CellPhone)</span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title=""></i>
-                                </label>
-
-                                @(Html.DevExtreme().TextBoxFor(x => x.CellPhone).ID("CellPhone"))
-
+                                    <!--begin::Label-->
+                                </div>
+                                <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="row mb-10">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-bold text-muted">Registro vigente</label>
+                            <!--begin::Label-->
+                            <!--begin::Label-->
+                            <div class="col-lg-8">
+                                @(Html.DevExtreme().CheckBoxFor(x => x.IsActive))
                             </div>
-
-                            <div class="fv-row mb-10">
-                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                    <span class="required">@Html.LabelFor(x => x.Email)</span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title=""></i>
-                                </label>
-
-                                @(Html.DevExtreme().TextBoxFor(x => x.Email).ID("Email"))
-
-                            </div>
-
-                            <div class="fv-row mb-10">
-                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                    <span class="required">@Html.LabelFor(x => x.BirthYear)</span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title=""></i>
-                                </label>
-
-                                @(Html.DevExtreme().TextBoxFor(x => x.BirthYear).ID("BirthYear"))
-
-                            </div>
-
-
+                            <!--begin::Label-->
                         </div>
+                        <!--end::Input group-->
 
-                    </div>
-                </div>
-                <!--end::Step 2-->
-                <!--begin::Step 3-->
-                <div data-kt-stepper-element="content">
-                    <div class="w-100">
-                        <div class="fv-row mb-10">
-                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                <span class="required">@Html.LabelFor(x => x.ExtensionId)</span>
-                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title=""></i>
-                            </label>
-
-
-                            @(Html.DevExtreme().SelectBoxFor(x => x.ExtensionId).DataSource(ds => ds.WebApi().Controller("APIExtensions").LoadAction("GetActive").Key("Value"))
-                                .ID("ExtensionId")
-                                .ValueExpr("ExtensionId")
-                                .DisplayExpr("Name")
-                                )
-
-
-                            <br />
-
-
+                            </div>
                         </div>
-
-
-
-
-                    </div>
-                </div>
-                <!--end::Step 3-->
-                <!--end::Step 5-->
-                <!--begin::Actions-->
-                <div class="d-flex flex-stack pt-10">
-                    <!--begin::Wrapper-->   
-                    <div>
-
-                        <button type="button" class="btn btn-lg btn-primary button-center">Actualizar Datos</button>
-                    </div>
-                    <!--end::Wrapper-->
-                </div>
-                <!--end::Actions-->
-            </form>
-            <!--end::Form-->
-        </div>
-        <!--end::Content-->
-       @(Html.DevExtreme().Form<CundecinosWeb.Models.Person>()
-    .ColCount(2)
-    .Items(items => {
-
-        items.AddSimpleFor(m => m.PersonID);
-
-        items.AddSimpleFor(m => m.UID);
-
-        items.AddSimpleFor(m => m.FirstName);
-
-        items.AddSimpleFor(m => m.LastName);
-
-        items.AddSimpleFor(m => m.IdentificationNumber);
-
-        items.AddSimpleFor(m => m.CellPhone);
-
-        items.AddSimpleFor(m => m.Email);
-
-        items.AddSimpleFor(m => m.BirthYear);
-
-        items.AddSimpleFor(m => m.ExtensionId)
-            .Editor(e => e
-                .Lookup()
-                .DataSource(ds => ds.WebApi().Controller("APIPeople").LoadAction("ExtensionsLookup").Key("Value"))
-                .ValueExpr("Value")
-                .DisplayExpr("Text")
-            );
-
-        items.AddSimpleFor(m => m.CollegeCareerId)
-            .Editor(e => e
-                .Lookup()
-                .DataSource(ds => ds.WebApi().Controller("APIPeople").LoadAction("CollegeCareerLookup").Key("Value"))
-                .ValueExpr("Value")
-                .DisplayExpr("Text")
-            );
-
-        items.AddSimpleFor(m => m.AvatarUrl);
-
-        items.AddSimpleFor(m => m.IsActive);
-
-
-
-
-    }).FormData(Model)
-)
-
-	@(Html.DevExtreme().SelectBoxFor(m => m.CollegeCareerId)
-            .DataSource(ds => ds.Mvc().Controller("APIPeople").LoadAction("CollegeCareerLookup").Key("Value"))
-										.ValueExpr("Value")
-										.ID("test")
-										.DisplayExpr("Text")
-										.Placeholder("Seleccione...")
-										)
-
-      </div>
+                    }
+            }
+            </div>   
+</div>

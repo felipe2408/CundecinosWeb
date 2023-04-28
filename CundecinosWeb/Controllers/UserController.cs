@@ -22,18 +22,17 @@ namespace CundecinosWeb.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult PersonalInformation(Person person)
+        public async Task<IActionResult> PersonalInformation(Person person)
         {
             if (ModelState.IsValid)
             {
-                _context.People.Update(person);
-
-
-
+                var data = await _context.People.Where(x => x.UID == Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))).AsNoTracking().FirstOrDefaultAsync();
+                _context.Entry(person).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
 
             }
             
-            return View();
+            return RedirectToAction("Index","Home");
         }
         public IActionResult Register()
         
