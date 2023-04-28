@@ -34,39 +34,29 @@
 
     <link href="~/css/site.css" rel="stylesheet" />
 
-    @* Uncomment to use the Gantt control *@
-    @*<script src="~/js/devextreme/dx-gantt.js"></script>*@
 
-    @* Uncomment to use the Diagram control *@
-    @*<script src="~/js/devextreme/dx-diagram.js"></script>*@
-
-    <script src="~/js/devextreme/jquery.js"></script>
+ @*   <script src="~/js/devextreme/jquery.js"></script>
     <script src="~/js/devextreme/bootstrap.js"></script>
 
-    @* Uncomment to use Globalize for localization *@
-    @* Docs: https://docs.devexpress.com/AspNetCore/400577#globalize *@
-    @*<script src="~/js/devextreme/cldr.js"></script>*@
-    @*<script src="~/js/devextreme/cldr/event.js"></script>*@
-    @*<script src="~/js/devextreme/cldr/supplemental.js"></script>*@
-    @*<script src="~/js/devextreme/cldr/unresolved.js"></script>*@
-    @*<script src="~/js/devextreme/globalize.js"></script>*@
-    @*<script src="~/js/devextreme/globalize/message.js"></script>*@
-    @*<script src="~/js/devextreme/globalize/number.js"></script>*@
-    @*<script src="~/js/devextreme/globalize/currency.js"></script>*@
-    @*<script src="~/js/devextreme/globalize/date.js"></script>*@
 
-    @* Uncomment to enable client-side export *@
-    @*<script src="~/js/devextreme/jszip.js"></script>*@
 
     <script src="~/js/devextreme/dx.all.js"></script> 
+    <script src="~/js/devextreme/aspnet/dx.aspnet.mvc.js"></script>
+    <script src="~/js/devextreme/aspnet/dx.aspnet.data.js"></script>*@
 
-    @* Uncomment to provide geo-data for the VectorMap control *@
-    @* Docs: https://js.devexpress.com/DevExtreme/Guide/Widgets/VectorMap/Providing_Data/#Data_for_Areas *@
-    @*<script src="~/js/devextreme/vectormap-data/world.js"></script>*@
+	    <script src="~/js/devextreme/jquery.js"></script>
+    <script src="~/js/devextreme/bootstrap.js"></script>
 
+
+    <script src="~/js/devextreme/dx.all.js"></script>
     <script src="~/js/devextreme/aspnet/dx.aspnet.mvc.js"></script>
     <script src="~/js/devextreme/aspnet/dx.aspnet.data.js"></script>
-    @*<script src="~/js/index.js"></script>*@
+
+
+    <script src="~/js/devextreme/localization/dx.messages.es.js"></script>
+
+
+
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="https://cdn3.devexpress.com/jslib/21.1.5/js/localization/dx.messages.es.js"></script>
 
@@ -4854,4 +4844,7 @@
 </body>
 
 </html>
+<script>
+	DevExpress.localization.locale('es');
+</script>
 
