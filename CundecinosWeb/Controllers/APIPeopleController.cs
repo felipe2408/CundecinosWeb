@@ -35,8 +35,9 @@ namespace CundecinosWeb.Controllers
                 i.CellPhone,
                 i.Email,
                 i.BirthYear,
-                
+                i.ExtensionId,
                 i.CollegeCareerId,
+                i.AvatarUrl,
                 i.IsActive
             });
 
@@ -48,25 +49,8 @@ namespace CundecinosWeb.Controllers
 
             return Json(await DataSourceLoader.LoadAsync(people, loadOptions));
         }
-		[Route("/GetSearch")]
-		[HttpGet]
-		public async Task<IActionResult> Get(string consulta = null)
-		{
-			var people = _context.People.Select(i => new {
-				i.PersonID,
-				FullName = i.FirstName + " " + i.LastName, 
-				i.Email,
-                i.AvatarUrl
-			});
 
-			if (!string.IsNullOrWhiteSpace(consulta)) 
-			{
-				people = people.Where(u => u.Email.Contains(consulta) || u.FullName.Contains(consulta));
-			}
-			people = people.OrderBy(u => u.FullName);
-			return Json(await people.ToListAsync());
-		}
-		[HttpPost]
+        [HttpPost]
         public async Task<IActionResult> Post(string values) {
             var model = new Person();
             var valuesDict = JsonConvert.DeserializeObject<IDictionary>(values);
@@ -106,6 +90,28 @@ namespace CundecinosWeb.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> CollegeCareerLookup(DataSourceLoadOptions loadOptions) {
+            var lookup = from i in _context.CollegeCareer
+                         orderby i.Name
+                         select new {
+                             Value = i.CollegeCareerId,
+                             Text = i.Name
+                         };
+            return Json(await DataSourceLoader.LoadAsync(lookup, loadOptions));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ExtensionsLookup(DataSourceLoadOptions loadOptions) {
+            var lookup = from i in _context.Extensions
+                         orderby i.Name
+                         select new {
+                             Value = i.ExtensionId,
+                             Text = i.Name
+                         };
+            return Json(await DataSourceLoader.LoadAsync(lookup, loadOptions));
+        }
+
         private void PopulateModel(Person model, IDictionary values) {
             string PERSON_ID = nameof(Person.PersonID);
             string UID = nameof(Person.UID);
@@ -115,8 +121,9 @@ namespace CundecinosWeb.Controllers
             string CELL_PHONE = nameof(Person.CellPhone);
             string EMAIL = nameof(Person.Email);
             string BIRTH_YEAR = nameof(Person.BirthYear);
-            //string COMPANY = nameof(Person.Company);
+            string EXTENSION_ID = nameof(Person.ExtensionId);
             string COLLEGE_CAREER_ID = nameof(Person.CollegeCareerId);
+            string AVATAR_URL = nameof(Person.AvatarUrl);
             string IS_ACTIVE = nameof(Person.IsActive);
 
             if(values.Contains(PERSON_ID)) {
@@ -151,12 +158,16 @@ namespace CundecinosWeb.Controllers
                 model.BirthYear = values[BIRTH_YEAR] != null ? Convert.ToInt16(values[BIRTH_YEAR]) : (short?)null;
             }
 
-            //if(values.Contains(COMPANY)) {
-            //    model.Company = Convert.ToString(values[COMPANY]);
-            //}
+            if(values.Contains(EXTENSION_ID)) {
+                model.ExtensionId = values[EXTENSION_ID] != null ? ConvertTo<System.Guid>(values[EXTENSION_ID]) : (Guid?)null;
+            }
 
             if(values.Contains(COLLEGE_CAREER_ID)) {
                 model.CollegeCareerId = values[COLLEGE_CAREER_ID] != null ? ConvertTo<System.Guid>(values[COLLEGE_CAREER_ID]) : (Guid?)null;
+            }
+
+            if(values.Contains(AVATAR_URL)) {
+                model.AvatarUrl = Convert.ToString(values[AVATAR_URL]);
             }
 
             if(values.Contains(IS_ACTIVE)) {

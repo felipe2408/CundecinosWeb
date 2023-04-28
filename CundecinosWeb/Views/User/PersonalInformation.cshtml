@@ -309,6 +309,58 @@ ul li{
             <!--end::Form-->
         </div>
         <!--end::Content-->
+       @(Html.DevExtreme().Form<CundecinosWeb.Models.Person>()
+    .ColCount(2)
+    .Items(items => {
 
+        items.AddSimpleFor(m => m.PersonID);
+
+        items.AddSimpleFor(m => m.UID);
+
+        items.AddSimpleFor(m => m.FirstName);
+
+        items.AddSimpleFor(m => m.LastName);
+
+        items.AddSimpleFor(m => m.IdentificationNumber);
+
+        items.AddSimpleFor(m => m.CellPhone);
+
+        items.AddSimpleFor(m => m.Email);
+
+        items.AddSimpleFor(m => m.BirthYear);
+
+        items.AddSimpleFor(m => m.ExtensionId)
+            .Editor(e => e
+                .Lookup()
+                .DataSource(ds => ds.WebApi().Controller("APIPeople").LoadAction("ExtensionsLookup").Key("Value"))
+                .ValueExpr("Value")
+                .DisplayExpr("Text")
+            );
+
+        items.AddSimpleFor(m => m.CollegeCareerId)
+            .Editor(e => e
+                .Lookup()
+                .DataSource(ds => ds.WebApi().Controller("APIPeople").LoadAction("CollegeCareerLookup").Key("Value"))
+                .ValueExpr("Value")
+                .DisplayExpr("Text")
+            );
+
+        items.AddSimpleFor(m => m.AvatarUrl);
+
+        items.AddSimpleFor(m => m.IsActive);
+
+
+
+
+    }).FormData(Model)
+)
+
+	@(Html.DevExtreme().SelectBoxFor(m => m.CollegeCareerId)
+            .DataSource(ds => ds.Mvc().Controller("APIPeople").LoadAction("CollegeCareerLookup").Key("Value"))
+										.ValueExpr("Value")
+										.ID("test")
+										.DisplayExpr("Text")
+										.Placeholder("Seleccione...")
+										)
 
       </div>
