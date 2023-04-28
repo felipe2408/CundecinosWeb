@@ -27,13 +27,14 @@ namespace CundecinosWeb.Controllers
             return View(people);
         }
         [HttpGet]
-        public IActionResult ChatUser(Guid UID)
+        public IActionResult ChatUser(Guid id)
         {
-            var person = _context.People.Where(x => x.UID == UID).FirstOrDefault();
+            var person = _context.People.Where(x => x.UID == id).FirstOrDefault();
             var people = _context.People.ToList();
 
             var model = new vChatUser();
-            model.person = person;
+            model.UID = id;
+            model.Person = person;
             model.People = people;
             return View(model);
         }

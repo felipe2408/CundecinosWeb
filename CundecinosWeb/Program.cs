@@ -112,7 +112,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseElmah();
-app.MapHub<ChatHub>("/Chat/Index");
+app.MapHub<ChatHub>("/Chat/ChatUser");
 app.MapRazorPages();
 
 app.MapControllerRoute(

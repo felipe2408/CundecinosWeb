@@ -111,13 +111,13 @@
 									<div class="d-flex align-items-center mb-2">
 										<!--begin::Avatar-->
 										<div class="symbol symbol-35px symbol-circle">
-											<img alt="Pic" src="assets/media/avatars/150-15.jpg" />
+											<img alt="Pic" src="@Model.Person.AvatarUrl" />
 										</div>
 										<!--end::Avatar-->
 										<!--begin::Details-->
 										<div class="ms-3">
-											<a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary me-1">Brian Cox</a>
-											<span class="text-muted fs-7 mb-1">2 mins</span>
+											<a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary me-1">@Model.Person.FirstName @Model.Person.LastName</a>
+											
 										</div>
 										<!--end::Details-->
 									</div>
@@ -143,16 +143,22 @@
 										<!--end::Details-->
 										<!--begin::Avatar-->
 										<div class="symbol symbol-35px symbol-circle">
-											<img alt="Pic" src="assets/media/avatars/150-2.jpg" />
+											<img alt="Pic" src="@Model.Person.AvatarUrl" />
 										</div>
 										<!--end::Avatar-->
 									</div>
 									<!--end::User-->
 									<!--begin::Text-->
-									<ul id="messagesList"></ul>
+									@*<ul id="messagesList"></ul>
 									<div class="p-5 rounded bg-light-primary text-dark fw-bold mw-lg-400px text-end" data-kt-element="message-text"><ul id="messagesList"></ul></div>
-									
+									*@
 									<!--end::Text-->
+									<div class="row p-1">
+										<div class="col-6">
+											<ul id="messagesList"></ul>
+										</div>
+									</div>
+
 								</div>
 								<!--end::Wrapper-->
 							</div>
@@ -167,16 +173,22 @@
 					<div class="card-footer pt-4" id="kt_chat_messenger_footer">
 
 
-
+						<!--begin::Input-->
+						@*<textarea class="form-control form-control-flush mb-3" rows="1"  id="messageInput" data-kt-element="input"  placeholder="Type a message"></textarea>
+						*@
 						<div class="col-5"><input type="text" id="userInput" value="@Model.UID" /></div>
 
-						<!--begin::Input-->
-						<textarea class="form-control form-control-flush mb-3" rows="1"  id="messageInput" data-kt-element="input"  placeholder="Type a message"></textarea>
+						
+						
+						<div class="row p-1">
+							<div class="col-1">Message</div>
+							<div class="col-5"><input type="text" class="w-100" id="messageInput" /></div>
+						</div>
 						<!--end::Input-->
 						<!--begin:Toolbar-->
 						<div class="d-flex flex-stack">
 							<!--begin::Send-->
-							<button class="btn btn-primary" type="button" data-kt-element="send" id="sendButton" data-userId="@Model.UID">Enviar</button>
+							<button type="button" id="sendButton" value="Send Message" data-userId="@ViewBag.UserId">Enviar</button>
 							<!--end::Send-->
 						</div>
 						<!--end::Toolbar-->
@@ -193,7 +205,8 @@
 </div>
 <!--end::Post-->
 
-
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>
 
 								<script type="text/javascript">
 									$(document).ready(function () {
@@ -215,5 +228,4 @@
 
 								</script>
 
-<script src="~/js/signalr/dist/browser/signalr.js"></script>
-<script src="~/js/chat.js"></script>
+

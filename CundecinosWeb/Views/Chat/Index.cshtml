@@ -41,6 +41,8 @@
 							
 							@foreach (var item in Model)
 							{
+								<a asp-controller="Chat" asp-action="ChatUser" asp-route-id="@item.UID">
+
 								<div class="d-flex flex-stack py-4">
 								<!--begin::Details-->
 								<div class="d-flex align-items-center">
@@ -60,11 +62,14 @@
 								<!--end::Details-->
 								
 							</div>
+							
+								</a>
+							}
 							<!--end::User-->
 							<!--begin::Separator-->
 							<div class="separator separator-dashed d-none"></div>
 										
-							}
+							
 
 							
 							
