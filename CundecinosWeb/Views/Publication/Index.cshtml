@@ -4,6 +4,16 @@
 @model CundecinosWeb.ViewModel.vPersonPublication
 
 <style>
+
+	.invalid-feedback {
+        color: red;
+        font-size: 12px;
+    }
+    
+    input:invalid {
+        border: 1px solid red;
+    }
+
 	.imagenes-publicaciones {
 		width: 8rem !important;
 		height: 8rem !important;
@@ -190,13 +200,20 @@
 						</div>
 						<!--end::Header-->
 						<!--begin::Form-->
-						<form id="kt_forms_widget_1_form" class="ql-quil ql-quil-plain pb-3" enctype="multipart/form-data" method="post" asp-controller="Publication" asp-action="CreatePublication" >
+						@*<form id="kt_forms_widget_1_form" class="ql-quil ql-quil-plain pb-3" enctype="multipart/form-data" method="post" asp-controller="Publication" asp-action="CreatePublication" >*@
 							<!--begin::Editor-->
 
 							<input  type="hidden" asp-i value="@Model.Publication.PersonID"/>
 
 							<br /><br />
-											<div class="row mb-8">
+
+						@using (Html.BeginForm("CreatePublication", "Publication", FormMethod.Post, new { id = "login" }))
+						{
+
+							@using (Html.DevExtreme().ValidationGroup())
+							{
+
+							<div class="row mb-8">
 												<!--begin::Col-->
 												<div class="col-xl-2 fv-row">
 													<div class="fs-6 fw-bold mt-2 mb-3">Titulo</div>
@@ -205,6 +222,8 @@
 												<div class="col-xl-10">
 													@(Html.DevExtreme().TextBoxFor(x => x.Publication.Qualification))
 												</div>
+			
+
 												<!--end::Col-->
 											</div>
 
@@ -322,7 +341,7 @@
 							</div>*@
 
 
-							<div class="row mb-8">
+							@*<div class="row mb-8">
 								<div class="col-xl-4">
 
 								</div>
@@ -332,13 +351,38 @@
 								<div class="col-xl-4">
 
 								</div>
-							</div>
+							</div>*@
+
+
+
+
+								
+
+									@(Html.DevExtreme().Button()
+									.ID("Publication")
+									.Text("Publicar")
+									.Type(ButtonType.Success)
+									// Instructs the Button to validate the TextBoxes and submit the form
+									.UseSubmitBehavior(true)
+									)
+									
+								
+								
+								}
+						}
+                                
+
+
+                                    
+                                
+											
 
 							
+                            
 
-						</form>
+						@*</form>*@
 
-
+						
 
 						<!--end::Form-->
 					</div>

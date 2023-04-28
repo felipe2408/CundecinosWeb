@@ -24,6 +24,7 @@ namespace CundecinosWeb.Models
         public string? Content { get; set; }
 
         [Display(Name = "Tipo de Publicación")]
+        [Required(ErrorMessage = "El campo {0} es requerido")]
         public PublicationType PublicationType { get; set; }
 
         [Display(Name = "Fecha de Publicación")]
