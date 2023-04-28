@@ -110,17 +110,60 @@
 		<!--end::Header-->
 		<!--begin::Post-->
 		<div class="mb-5">
+
+			
+								<!--begin::Row-->
+								<div class="row g-5 g-xl-8">
+									<div class="col-xl-3">
+										<!--begin::List Widget 7-->
+										<div class="card card-xl-stretch mb-xl-8">
+											<!--begin::Header-->
+											<div class="card-header align-items-center border-0 mt-4">
+												<h3 class="card-title align-items-start flex-column">
+
+													<span class="fw-bolder text-dark">@Model.Publication.Qualification</span>
+													<span class="text-muted mt-1 fw-bold fs-7">@Model.Publication.Content</span>
+
+												</h3>
+												<div class="card-toolbar">
+													
+													<!--end::Menu-->
+												</div>
+											</div>
+											<!--end::Header-->
+										</div>
+										<!--end::List Widget 7-->
+									</div>
+									<div class="col-xl-9">
+										<!--begin::List Widget 8-->
+										<div class="card card-xl-stretch mb-5 mb-xl-8">
+											<!--begin::Header-->
+											<div class="card-header align-items-center border-0 mt-4">
+												
+															@foreach (var imageUrl in Model.Publication.PublicationAttachment)
+															{
+													<!--begin::Symbol-->
+													<div class="symbol symbol-60px symbol-2by3 me-4">
+														
+															<div class="symbol-label" style="background-image: url('@imageUrl.ImageThumbNail'); height: 130px !important; width: 130px !important;"></div>
+															
+																													
+													</div>
+													<!--end::Symbol-->
+															}
+
+
+											</div>
+											<!--end::Header-->
+										</div>
+										<!--end::List Widget 8-->
+									</div>
+								</div>
+								<!--end::Row-->
+
+
 			<!--begin::Text-->
-			<p class="text-gray-800 fw-normal mb-5">@Model.Publication.Qualification</p>
-			<p class="text-gray-800 fw-normal mb-5">@Model.Publication.Content</p>
 
-			@foreach (var imageUrl in Model.Publication.PublicationAttachment)
-			{
-				<div class="symbol symbol-45px me-5">
-					<img class="imagenes-publicaciones" src="@imageUrl.ImageThumbNail" alt="Imagenes Publicaciones" />
-				</div>
-
-			}
 
 			<!--end::Text-->
 			<!--begin::Toolbar-->
