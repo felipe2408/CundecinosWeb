@@ -34,6 +34,8 @@ namespace CundecinosWeb.Data
         }
 
 
+        public DbSet<NotificationMessage> NotificationMessage { get; set; }
+
         public DbSet<PublicationComments> PublicationComments { get; set; }
 
         public DbSet<PublicationAttachment> PublicationAttachments { get; set; }
