@@ -1,5 +1,178 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@model Publication
+
+<div id="kt_content_container" class="container">
+    <!--begin::Row-->
+    <div class="row g-5 g-xl-8">
+        <!--begin::Col-->
+        <div class="col-12">
+            <!--begin::Feeds Widget 1-->
+            <div class="card mb-5 mb-xl-8">
+                <!--begin::Body-->
+                <div class="card-body pb-0">
+                    <!--begin::Header-->
+                    <div class="d-flex align-items-center mb-3">
+                        <!--begin::User-->
+                        <div class="d-flex align-items-center flex-grow-1">
+                            <!--begin::Avatar-->
+                            <div class="cursor-pointer symbol symbol-30px symbol-md-40px me-3" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                                <img src="@Model.Person.AvatarUrl" alt="user" />
+                            </div>
+                            <!--end::Avatar-->
+                            <!--begin::Info-->
+                            <div class="d-flex flex-column">
+                                <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder"> @Model.Person.FirstName @Model.Person.LastName</a>
+                                <span class="text-gray-400 fw-bold">@Model.Person.Email</span>
+                            </div>
+                            <!--end::Info-->
+                        </div>
+                        <!--end::User-->
+
+                    </div>
+                    <!--end::Header-->
+                    @using (Html.BeginForm("CreatePublication", "Publication", FormMethod.Post, new { enctype = "multipart/form-data", id = "login" }))
+                    {
+
+                        @using (Html.DevExtreme().ValidationGroup())
+                        {
+
+                            <div class="row mb-8">
+                                <!--begin::Col-->
+                                <div class="col-xl-2 fv-row">
+                                    <div class="fs-6 fw-bold mt-2 mb-3">Titulo</div>
+                                </div>
+                                <!--begin::Col-->
+                                <div class="col-xl-10">
+                                    @(Html.DevExtreme().TextBoxFor(x => x.Qualification))
+                                </div>
+
+
+                                <!--end::Col-->
+                            </div>
+
+                            <div class="row mb-8">
+                                <!--begin::Col-->
+                                <div class="col-xl-2 fv-row">
+                                    <div class="fs-6 fw-bold mt-2 mb-3">Precio estimado</div>
+                                </div>
+                                <!--begin::Col-->
+                                <div class="col-xl-10">
+                                    @(Html.DevExtreme().TextBoxFor(x => x.EstimatedPrice).ReadOnly(false))
+                                </div>
+                                <!--end::Col-->
+                            </div>
+
+                            <div class="row mb-8">
+                                <!--begin::Col-->
+                                <div class="col-xl-2 fv-row">
+                                    <div class="fs-6 fw-bold mt-2 mb-3">Descripcion del producto</div>
+                                </div>
+                                <!--begin::Col-->
+                                <div class="col-xl-10">
+                                    @(Html.DevExtreme().TextBoxFor(x => x.ProductDescription))
+                                </div>
+                                <!--end::Col-->
+                            </div>
+
+                            <div class="row mb-8">
+                                <!--begin::Col-->
+                                <div class="col-xl-2 fv-row">
+                                    <div class="fs-6 fw-bold mt-2 mb-3">Descripción</div>
+                                </div>
+                                <!--begin::Col-->
+                                <div class="col-xl-10">
+                                    @(Html.DevExtreme().TextBoxFor(x => x.Content))
+                                </div>
+                                <!--end::Col-->
+                            </div>
+
+                            <div class="row mb-8">
+                                <!--begin::Col-->
+                                <div class="col-xl-2 fv-row">
+                                    <div class="fs-6 fw-bold mt-2 mb-3">Tipo de Publicación</div>
+                                </div>
+                                <!--begin::Col-->
+                                <div class="col-xl-10">
+
+                                    @(Html.DevExtreme().SelectBoxFor(m => m.PublicationType)
+                                        .DataSource(Html.GetEnumSelectList<CundecinosWeb.Enum.PublicationType>()
+                                        .Select(i => new { Value = int.Parse(i.Value), Text = i.Text })
+                                        )
+                                        .ValueExpr("Value")
+                                        .ID("PublicationType")
+                                        .DisplayExpr("Text")
+                                        .Placeholder("Seleccione...")
+                                        )
+
+                                </div>
+                                <!--end::Col-->
+                            </div>
+
+                            @(Html.DevExtreme().TextBoxFor(x => x.PersonID).Visible(false))
+
+                            @(Html.DevExtreme().FileUploader()
+                                .ID("fileUploader")
+                                .Accept("image/*")
+                                .UploadMode(FileUploadMode.Instantly)
+                                .Name("files")
+                                .Multiple(true)
+                                )
+
+                            <!--end::Editor-->
+
+                            <br /> <div class="separator"></div>
+                            <br />
+
+                            <!--begin::Timeline details-->
+                            <div class="overflow-auto pb-5">
+                                <!--begin::Notice-->
+                                <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed min-w-lg-600px flex-shrink-0 p-6">
+
+                                    <!--begin::Wrapper-->
+                                    <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                                        <!--begin::Content-->
+                                        <div class="mb-3 mb-md-0 fw-bold" id="message">
+                                            <h4 class="text-gray-800 fw-bolder">Revisa el precio estimado para continuar!</h4>
+                                            <div class="fs-6 text-gray-600 pe-7" id="precio"></div>
+
+
+                                            <br />
+
+                                        </div>
+
+                                        <!--end::Content-->
+                                    </div>
+                                    <!--end::Wrapper-->
+                                </div>
+                                <!--end::Notice-->
+                            </div>
+                            <!--end::Timeline details-->
+
+
+                            <div class="row mb-8">
+                                <!--begin::Col-->
+                                <div class="col-xl-10 fv-row">
+                                    <input type="text" class="form-control form-control-solid" id="description" name="description" />
+                                </div>
+                                <!--begin::Col-->
+                                <div class="col-xl-2" style="text-align: center;">
+                                    <button class="btn btn-lg btn-primary boton-precio" type="button" onclick="buscarPrecio()"> Buscar precio.</button>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+
+                            @(Html.DevExtreme().Button()
+                                .ID("Publication")
+                                .Text("Publicar")
+                                .Type(ButtonType.Success)
+                                // Instructs the Button to validate the TextBoxes and submit the form
+                                .UseSubmitBehavior(true)
+                                )
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

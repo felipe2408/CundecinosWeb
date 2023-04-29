@@ -1,4 +1,5 @@
 ﻿using CundecinosWeb.Data;
+using CundecinosWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -18,17 +19,22 @@ namespace CundecinosWeb.Controllers
 		{
             var claim = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _context.People.Where(x => x.UID == Guid.Parse(claim)).FirstOrDefault();
-            var publications = _context.Publication.Where(x => x.PersonID == user.PersonID).OrderByDescending(x => x.PublicationDate).Include(x => x.PublicationAttachment);
-            return View(await publications.ToListAsync());
+            var publications = await _context.Publication.Where(x => x.PersonID == user.PersonID && x.IsActive == true).OrderByDescending(x => x.PublicationDate).Include(x => x.PublicationAttachment).ToListAsync();
+            return View(publications.Count == 0 ? null : publications);
 		}
         public async Task<IActionResult> EditPublication(Guid id)
         {
-
-            return View();
+            var publication = await _context.Publication.Where(x => x.PublicationID == id).Include(x => x.Person).FirstOrDefaultAsync();
+            return View(publication);
         }
         public async Task<IActionResult> HidePublication(Guid id)
         {
-
+            var claim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _context.People.Where(x => x.UID == Guid.Parse(claim) && x.IsActive == true).FirstOrDefault();
+            var publication = _context.Publication.Where(x => x.PublicationID == id).AsNoTracking().FirstOrDefault();
+            publication.IsActive = false;
+            _context.Entry(publication).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 	}
