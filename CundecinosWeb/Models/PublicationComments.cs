@@ -15,7 +15,7 @@ namespace CundecinosWeb.Models
         [Display(Name = "Publicación ID")]
         public Guid PublicationID { get; set; }
 
-        [Display(Name = "Contenido")]
+        [Display(Name = "Comentario")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [Column(TypeName = "varchar(100)")]
         public string? Content { get; set; }
@@ -25,16 +25,6 @@ namespace CundecinosWeb.Models
         [ScaffoldColumn(false)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime CommentDate { get; set; }
-
-        [Display(Name = "Precio Estimado")]
-        [Required(ErrorMessage = "El campo {0} es requerido")]
-        [Column(TypeName = "varchar(100)")]
-        public string? EstimatedPrice { get; set; }
-
-        [Display(Name = "Descripción del producto")]
-        [Required(ErrorMessage = "El campo {0} es requerido")]
-        [Column(TypeName = "varchar(100)")]
-        public string? ProductDescription { get; set; }
 
         [Display(Name = "Imagen del Producto")]
         [Required(ErrorMessage = "El campo {0} es requerido")]

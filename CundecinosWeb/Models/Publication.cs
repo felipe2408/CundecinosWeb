@@ -25,6 +25,7 @@ namespace CundecinosWeb.Models
 
         [Display(Name = "Tipo de Publicación")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
+        [Range(minimum:10,maximum:20,ErrorMessage ="Elija una opción valida")]
         public PublicationType PublicationType { get; set; }
 
         [Display(Name = "Fecha de Publicación")]
@@ -36,6 +37,7 @@ namespace CundecinosWeb.Models
         [Display(Name = "Precio Estimado")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [Column(TypeName = "varchar(100)")]
+        [RegularExpression(pattern: "^\\d{1,}(?:([.,])\\d{1,})*(?:\\1\\d{2})?$",ErrorMessage ="Formato erroneo")]
         public string? EstimatedPrice { get; set; }
 
         [Display(Name = "Descripción del producto")]
@@ -43,7 +45,7 @@ namespace CundecinosWeb.Models
         [Column(TypeName = "varchar(100)")]
         public string? ProductDescription { get; set; }
 
-
+        public bool IsActive { get; set; }   
 
         [JsonIgnore]
         public virtual ICollection<PublicationAttachment>? PublicationAttachment { get; set; }

@@ -32,8 +32,6 @@ namespace CundecinosWeb.Controllers
                 i.PublicationID,
                 i.Content,
                 i.CommentDate,
-                i.EstimatedPrice,
-                i.ProductDescription,
                 i.ProductUrl
             });
 
@@ -114,8 +112,6 @@ namespace CundecinosWeb.Controllers
             string PUBLICATION_ID = nameof(PublicationComments.PublicationID);
             string CONTENT = nameof(PublicationComments.Content);
             string COMMENT_DATE = nameof(PublicationComments.CommentDate);
-            string ESTIMATED_PRICE = nameof(PublicationComments.EstimatedPrice);
-            string PRODUCT_DESCRIPTION = nameof(PublicationComments.ProductDescription);
             string PRODUCT_URL = nameof(PublicationComments.ProductUrl);
 
             if(values.Contains(PUBLICATION_COMMENTS_ID)) {
@@ -138,13 +134,6 @@ namespace CundecinosWeb.Controllers
                 model.CommentDate = Convert.ToDateTime(values[COMMENT_DATE]);
             }
 
-            if(values.Contains(ESTIMATED_PRICE)) {
-                model.EstimatedPrice = Convert.ToString(values[ESTIMATED_PRICE]);
-            }
-
-            if(values.Contains(PRODUCT_DESCRIPTION)) {
-                model.ProductDescription = Convert.ToString(values[PRODUCT_DESCRIPTION]);
-            }
 
             if(values.Contains(PRODUCT_URL)) {
                 model.ProductUrl = Convert.ToString(values[PRODUCT_URL]);

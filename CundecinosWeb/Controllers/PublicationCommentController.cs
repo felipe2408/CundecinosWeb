@@ -27,10 +27,7 @@ namespace CundecinosWeb.Controllers
 			model.Publication = publication;
 			model.PublicationComments = publicationComments;
 			model.PublicationComment = new PublicationComments();
-
-
-
-
+            model.PublicationComment.Person = publication.Person;
 			return View(model);
 		}
 
