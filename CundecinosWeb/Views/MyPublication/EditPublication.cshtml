@@ -31,12 +31,12 @@
 
                     </div>
                     <!--end::Header-->
-                    @using (Html.BeginForm("CreatePublication", "Publication", FormMethod.Post, new { enctype = "multipart/form-data", id = "login" }))
+                    @using (Html.BeginForm("EditPublication", "MyPublication", FormMethod.Post, new { enctype = "multipart/form-data", id = "editar" }))
                     {
-
                         @using (Html.DevExtreme().ValidationGroup())
                         {
-
+                            @(Html.DevExtreme().TextBoxFor(x=>x.PublicationID).Visible(false).ReadOnly(true))
+                            @(Html.DevExtreme().TextBoxFor(x => x.PublicationDate).Visible(false).ReadOnly(true))
                             <div class="row mb-8">
                                 <!--begin::Col-->
                                 <div class="col-xl-2 fv-row">
@@ -119,7 +119,30 @@
                                 .Multiple(true)
                                 )
 
-                            <!--end::Editor-->
+                            <!--begin::Input group-->
+                            <div class="row mb-6">
+                                <!--begin::Col-->
+                                <div class="col-lg-8">
+
+                                    @foreach (var imageUrl in Model.PublicationAttachment)
+                                    {
+                                        <!--begin::Image input-->
+                                        <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url(assets/media/avatars/blank.png)">
+                                            <!--begin::Preview existing avatar-->
+                                            <div class="image-input-wrapper w-125px h-125px" style="background-image: url(@imageUrl.ImageScreen)"></div>
+                                            <!--end::Preview existing avatar-->
+                                            <!--begin::Label-->
+                                            <a class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar" asp-controller="MyPublication" asp-action="DeleteImage" asp-route-id="@imageUrl.PublicationAttachmentID" asp-route-publication="@Model.PublicationID">
+                                                <i class="bi bi-x fs-2"></i>
+                                            </a>
+                                            <!--end::Label-->
+                                        </div>
+                                        <!--end::Image input-->
+                                    }
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input group-->
 
                             <br /> <div class="separator"></div>
                             <br />
@@ -161,14 +184,16 @@
                                 </div>
                                 <!--end::Col-->
                             </div>
-
-                            @(Html.DevExtreme().Button()
-                                .ID("Publication")
-                                .Text("Publicar")
-                                .Type(ButtonType.Success)
-                                // Instructs the Button to validate the TextBoxes and submit the form
-                                .UseSubmitBehavior(true)
-                                )
+                            <div class="row mb-8">
+                                @(Html.DevExtreme().Button()
+                                    .ID("Publication")
+                                    .Text("Publicar")
+                                    .Type(ButtonType.Success)
+                                    // Instructs the Button to validate the TextBoxes and submit the form
+                                    .UseSubmitBehavior(true)
+                                    .ElementAttr("class", "btn btn-primary align-self-center p-1")
+                                    )
+                            </div>
                         }
                     }
                 </div>

@@ -80,5 +80,12 @@ namespace CundecinosWeb.Models
 
         [JsonIgnore]
         public virtual Extension? Extension { get; set; }
+        [JsonIgnore]
+        [Display(Name = "Mensajes enviados")]
+        public virtual ICollection<Message> SentMessages { get; set; }
+        [JsonIgnore]
+
+        [Display(Name = "Mensajes recibidos")]
+        public virtual ICollection<Message> ReceivedMessages { get; set; }
     }
 }

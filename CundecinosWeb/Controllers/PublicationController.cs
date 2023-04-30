@@ -62,7 +62,7 @@ namespace CundecinosWeb.Controllers
                 BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
 
                 publication.PublicationDate = DateTime.Now;
-
+                publication.IsActive = true;
                 _context.Publication.Add(publication);
 
                 _context.SaveChanges();

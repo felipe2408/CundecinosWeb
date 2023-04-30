@@ -14,12 +14,9 @@ namespace CundecinosWeb.Models
         [Display(Name = "Enviado A Las")]
         public DateTime SentAt { get; set; }
 
-
-        [ForeignKey("Sender")]
         public Guid SenderID { get; set; }
 
         
-        [ForeignKey("Addressee")]
         public Guid AddresseeID { get; set; }
 
 
@@ -29,7 +26,5 @@ namespace CundecinosWeb.Models
         [Display(Name = "Destinatario")]
         public virtual Person Addressee { get; set; }
 
-        [JsonIgnore]
-        public virtual ICollection<Person>? Person { get; set; }
     }
 }

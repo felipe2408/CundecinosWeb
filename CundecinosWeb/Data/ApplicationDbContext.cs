@@ -31,10 +31,22 @@ namespace CundecinosWeb.Data
                 .WithOne(pc => pc.Publication)
                 .HasForeignKey(pc => pc.PublicationID)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Person>()
+                .HasMany(p => p.SentMessages)
+                .WithOne(m => m.Sender)
+                .HasForeignKey(m => m.SenderID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Person>()
+                .HasMany(p => p.ReceivedMessages)
+                .WithOne(m => m.Addressee)
+                .HasForeignKey(m => m.AddresseeID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
 
-        public DbSet<NotificationMessage> NotificationMessage { get; set; }
+        //public DbSet<NotificationMessage> NotificationMessage { get; set; }
 
         public DbSet<PublicationComments> PublicationComments { get; set; }
 
@@ -48,5 +60,6 @@ namespace CundecinosWeb.Data
 
 
         public DbSet<Extension> Extensions { get; set; }
+        public DbSet<Message> Messages { get; set; }
     }
 }
