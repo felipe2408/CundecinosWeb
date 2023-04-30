@@ -25,6 +25,11 @@ namespace CundecinosWeb.Controllers
 		{
 			var vmodel = new vPersonPublication();
 			var model = _context.People.Include( x => x.CollegeCareer).Where(x => x.UID == Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))).FirstOrDefault();
+            if (model == null)
+            {
+                return RedirectToAction("Register", "User");
+            }
+
             vmodel.Person = model;
 			vmodel.Publication = new Publication();
             vmodel.PublicationUsers = _context.Publication.Include(x => x.Person).Include(x => x.PublicationComments).Include(x => x.PublicationAttachment).Where(x => x.PublicationDate >= DateTime.Now || x.PublicationDate <= DateTime.Now).ToList();

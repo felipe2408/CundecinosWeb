@@ -285,35 +285,83 @@
                                     <!--end::Info-->
                                 </div>
                                 <!--end::User-->
+
+                                
+                                            @if (item.PublicationType == PublicationType.Sale)
+                                            {
+
+                                                <span class="badge badge-light-success">En Venta</span>
+
+                                            }
+                                            else
+                                            {
+
+
+                                            <span class="badge badge-light-warning">En Trueque</span>
+                                            }
+
+
                             </div>
                             <!--end::Header-->
                             <!--begin::Post-->
+
+
+                            
+            <div class="row g-5 g-xl-8">
+                <div class="col-xl-4">
+                    <!--begin::List Widget 7-->
+                    <div class="card card-xl-stretch mb-xl-8">
+                        <!--begin::Header-->
+                        <div class="card-header align-items-center border-0 mt-4">
+                            <h3 class="card-title align-items-start flex-column">
+
+                                
+                                                <span class="fw-bolder text-dark">@item.Qualification</span>
+                                                <span class="text-muted mt-1 fw-bold fs-7">@item.Content</span>
+
+                            </h3>
+                            <div class="card-toolbar">
+
+                                <!--end::Menu-->
+                            </div>
+                        </div>
+                        <!--end::Header-->
+                    </div>
+                    <!--end::List Widget 7-->
+                </div>
+                <div class="col-xl-8">
+                    <!--begin::List Widget 8-->
+                    <div class="card card-xl-stretch mb-5 mb-xl-8">
+                        <!--begin::Header-->
+                        <div class="card-header align-items-center border-0 mt-4">
+
+
+                            
+
+                            @foreach (var imageUrl in item.PublicationAttachment)
+                            {
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-60px symbol-2by3 me-4">
+
+                                    <div class="symbol-label" style="background-image: url('@imageUrl.ImageThumbNail'); height: 130px !important; width: 130px !important;"></div>
+
+
+                                </div>
+                                <!--end::Symbol-->
+                            }
+
+                        </div>
+                        <!--end::Header-->
+                    </div>
+                    <!--end::List Widget 8-->
+                </div>
+            </div>
+
+
+
+
+
                             <div class="mb-5">
-                                <!--begin::Text-->
-                                <p class="text-gray-800 fw-normal mb-5">@item.Qualification</p>
-                                <p class="text-gray-800 fw-normal mb-5">@item.Content</p>
-                                @if (item.PublicationType == PublicationType.Sale)
-                                {
-
-                                    <p class="text-gray-800 fw-normal mb-5">En Venta</p>
-
-                                }
-                                else
-                                {
-
-                                    <p class="text-gray-800 fw-normal mb-5">En Trueque</p>
-                                }
-
-
-                                @foreach (var imageUrl in item.PublicationAttachment)
-                                {
-                                    <div class="symbol symbol-45px me-5">
-                                        <img class="imagenes-publicaciones" src="@imageUrl.ImageThumbNail" alt="Imagenes Publicaciones" />
-                                    </div>
-
-                                }
-
-                                <!--end::Text-->
                                 <!--begin::Toolbar-->
                                 <div class="d-flex align-items-center mb-5">
                                     <a asp-action="Privacy" asp-controller="Home" asp-route-id="@item.PersonID" class="btn btn-sm btn-light btn-color-muted btn-active-light-success px-4 py-2 me-4">
@@ -413,8 +461,3 @@
                         });
                     }
                 </script>
-
-
-
-
-
