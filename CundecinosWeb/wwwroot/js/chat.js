@@ -1,4 +1,4 @@
- "use strict";
+"use strict";
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/Chat/ChatUser").build();
 
@@ -8,12 +8,13 @@ var userId = document.getElementById("userInput").value;
 document.getElementById("sendButton").disabled = true;
 
 connection.on("ReceiveMessage", function (user, message) {
+    console.log(user, message);
     var li = document.createElement("li");
     document.getElementById("messagesList").appendChild(li);
     // We can assign user-supplied strings to an element's textContent because it
     // is not interpreted as markup. If you're assigning in any other way, you 
     // should be aware of possible script injection concerns.
-    li.textContent = `${userId} says ${message}`;
+    li.textContent = `${userId} el sapo dijo:  ${message}`;
     $('')
 });
 
@@ -24,30 +25,45 @@ connection.start().then(function () {
 });
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
-    sendMessage();
-    //event.preventDefault();
-});
-class Message {
-    constructor(Text, SentAt, SenderID, AddresseeID) {
-        this.Text = Text;
-        this.SentAt = SentAt;
-        this.SenderID = SenderID;
-        this.AddresseeID = AddresseeID;
-    }
-}
-const senderID = senderID;
-const text = document.getElementById('messageInput');
-function clearInput() {
-    text.value = "";
-}
-function sendMessage() {
+    console.log('enviando');
     var user = document.getElementById("userInput").value;
-    var message = document.getElementById("messageInput").value;
+    var message = document.getElementById("textMessage").value;
     connection.invoke("SendMessage", user, message).catch(function (err) {
         return console.error(err.toString());
     });
-    console.log('send');
-}
+    //event.preventDefault();
+    console.log('enviado');
+});
+//class Message {
+//    constructor(Text, SentAt, SenderID, AddresseeID) {
+//        this.Text = Text;
+//        this.SentAt = SentAt;
+//        this.SenderID = SenderID;
+//        this.AddresseeID = AddresseeID;
+//    }
+//}
+//const senderID = document.getElementById('senderID').value;
+//const text = document.getElementById('messageInput');
+//function clearInput() {
+//    text.value = "";
+//}
+//function sendMessage() {
+//    if (text.value.trim() === "") {
+//        return;
+//    }
+//    var user = document.getElementById("userInput").value;
+//    var message = document.getElementById("messageInput").value;
+//    var sendAt = new Date()
+//    var message = new Message(text.value, sendAt, senderID, user)
+//    sendMessageToHub(message)
+    
+//}
+//function clearInputField() {
+//    console.log('limpiar');
+//}
+//function addMessageToChat() {
+//    console.log('agregar');
+//}
 //window.onload = function () {
 //    // Obtener el elemento de entrada de texto
 //    const inputBusqueda = document.getElementsByName("search")[1];

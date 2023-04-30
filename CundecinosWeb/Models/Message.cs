@@ -9,7 +9,7 @@ namespace CundecinosWeb.Models
         public Guid MessageID { get; set; }
 
         [Display(Name = "Mensaje")]
-        public string? Text { get; set; }
+        public string Text { get; set; }
 
         [Display(Name = "Enviado A Las")]
         public DateTime SentAt { get; set; }
