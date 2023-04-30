@@ -42,5 +42,11 @@ namespace CundecinosWeb.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-	}
+        public async Task<IActionResult> DeleteImage(Guid id, Guid publication)
+        {
+            _context.PublicationAttachments.Remove(new PublicationAttachment { PublicationAttachmentID = id });
+            await _context.SaveChangesAsync();
+            return RedirectToAction("EditPublication", new { id = publication });
+        }
+    }
 }
