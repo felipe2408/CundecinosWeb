@@ -19,6 +19,11 @@ namespace CundecinosWeb.Controllers
 		{
             var claim = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _context.People.Where(x => x.UID == Guid.Parse(claim)).FirstOrDefault();
+
+            if (user == null)
+            {
+                return RedirectToAction("Register","User");
+            }
             var publications = await _context.Publication.Where(x => x.PersonID == user.PersonID && x.IsActive == true).OrderByDescending(x => x.PublicationDate).Include(x => x.PublicationAttachment).ToListAsync();
             return View(publications.Count == 0 ? null : publications);
 		}
