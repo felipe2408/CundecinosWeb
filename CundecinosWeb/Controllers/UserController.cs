@@ -18,8 +18,19 @@ namespace CundecinosWeb.Controllers
         }
         public IActionResult PersonalInformation()
         {
+            
+            
             var model = _context.People.Include(x => x.CollegeCareer).Include(x => x.Extension).Where(x => x.UID == Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))).FirstOrDefault();
+
+            if (model == null)
+            {
+                return RedirectToAction("Register","User");
+            }
+            
             return View(model);
+        
+        
+        
         }
         [HttpPost]
         public async Task<IActionResult> PersonalInformation(Person person)
