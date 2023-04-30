@@ -1,4 +1,4 @@
-"use strict";
+ "use strict";
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/Chat/ChatUser").build();
 
@@ -14,6 +14,7 @@ connection.on("ReceiveMessage", function (user, message) {
     // is not interpreted as markup. If you're assigning in any other way, you 
     // should be aware of possible script injection concerns.
     li.textContent = `${userId} says ${message}`;
+    $('')
 });
 
 connection.start().then(function () {
@@ -23,14 +24,30 @@ connection.start().then(function () {
 });
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
+    sendMessage();
+    //event.preventDefault();
+});
+class Message {
+    constructor(Text, SentAt, SenderID, AddresseeID) {
+        this.Text = Text;
+        this.SentAt = SentAt;
+        this.SenderID = SenderID;
+        this.AddresseeID = AddresseeID;
+    }
+}
+const senderID = senderID;
+const text = document.getElementById('messageInput');
+function clearInput() {
+    text.value = "";
+}
+function sendMessage() {
     var user = document.getElementById("userInput").value;
     var message = document.getElementById("messageInput").value;
     connection.invoke("SendMessage", user, message).catch(function (err) {
         return console.error(err.toString());
     });
-    event.preventDefault();
-});
-
+    console.log('send');
+}
 //window.onload = function () {
 //    // Obtener el elemento de entrada de texto
 //    const inputBusqueda = document.getElementsByName("search")[1];

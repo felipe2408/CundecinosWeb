@@ -1,4 +1,5 @@
 ﻿using CundecinosWeb.Data;
+using CundecinosWeb.Models;
 using CundecinosWeb.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,25 +20,39 @@ namespace CundecinosWeb.Controllers
 
         public IActionResult Index()
         {
-
-
-			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-			ViewBag.UserId = userId;
-			var people = _context.People.ToList();
-            return View(people);
+            var claim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _context.People.Where(x => x.UID == Guid.Parse(claim)).FirstOrDefault();
+            if (user == null)
+            {
+                return RedirectToAction("Register", "User");
+            }
+            ViewBag.UserId = user.UID;
+            var people = _context.People.Where(x=>x.UID != user.UID).ToList();
+            var model = new vChatUser
+            {
+                Person = user,
+                People = people,
+                ReceivedMessages = _context.Messages.Where(x => x.SenderID == user.UID && x.AddresseeID == people.First().UID).ToList(),
+                SentMessages = _context.Messages.Where(x => x.SenderID == user.UID && x.AddresseeID == people.First().UID).ToList()
+            };
+            return View(model);
         }
         [HttpGet]
         public IActionResult ChatUser(Guid id)
         {
             var person = _context.People.Where(x => x.UID == id).FirstOrDefault();
-            var people = _context.People.ToList();
+            var people = _context.People.Where(x=>x.UID != id).ToList();
 
             var model = new vChatUser();
-            model.UID = id;
+            model.Person.UID = id;
             model.Person = person;
             model.People = people;
             return View(model);
         }
+        public async Task<IActionResult> SaveMessage(Message message)
+        {
 
+            return Ok();
+        }
     }
 }

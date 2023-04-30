@@ -1,4 +1,5 @@
-﻿@model List<CundecinosWeb.Models.Person>
+﻿@using CundecinosWeb.ViewModel;
+@model vChatUser 
 
 <!--begin::Post-->
 <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -39,7 +40,7 @@
 						<!--begin::List-->
 						<div class="scroll-y me-n5 pe-5 h-200px h-lg-auto" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_header, #kt_toolbar, #kt_footer, #kt_chat_contacts_header" data-kt-scroll-wrappers="#kt_content, #kt_chat_contacts_body" data-kt-scroll-offset="0px">
 							
-							@foreach (var item in Model)
+							@foreach (var item in Model.People)
 							{
 								<a asp-controller="Chat" asp-action="ChatUser" asp-route-id="@item.UID">
 
@@ -170,21 +171,22 @@
 					<!--end::Card body-->
 					<!--begin::Card footer-->
 					<div class="card-footer pt-4" id="kt_chat_messenger_footer">
-
-
-
-						<div class="col-5"><input type="text" id="userInput" value="@ViewBag.UserId" /></div>
-
-						<!--begin::Input-->
-						<textarea class="form-control form-control-flush mb-3" rows="1"  id="messageInput" data-kt-element="input"  placeholder="Type a message"></textarea>
-						<!--end::Input-->
-						<!--begin:Toolbar-->
-						<div class="d-flex flex-stack">
-							<!--begin::Send-->
-							<button class="btn btn-primary" type="button" data-kt-element="send" id="sendButton" data-userId="@ViewBag.UserId">Enviar</button>
-							<!--end::Send-->
-						</div>
-						<!--end::Toolbar-->
+						<form asp-controller="Chat" asp-action="SaveMessage" data-ajax-begin="clearInput" data-ajax-complete="" data-ajax="true" data-ajax-failure="alert('Error')"
+								data-ajax-method="POST" data-ajax-success="sendMessage">
+							<div class="col-5">
+								<input type="text" id="userInput" value="@ViewBag.UserId" />
+							</div>
+							<!--begin::Input-->
+							<textarea class="form-control form-control-flush mb-3" rows="1" id="messageInput" data-kt-element="input" placeholder="Mensaje"></textarea>
+							<!--end::Input-->
+							<!--begin:Toolbar-->
+							<div class="d-flex flex-stack">
+								<!--begin::Send-->
+								<button class="btn btn-primary" type="submit" data-kt-element="send" id="sendButton" data-userId="@ViewBag.UserId">Enviar</button>
+								<!--end::Send-->
+							</div>
+							<!--end::Toolbar-->
+						</form>
 					</div>
 					<!--end::Card footer-->
 				</div>
@@ -201,19 +203,13 @@
 
 
 								<script type="text/javascript">
+									const senderID = @ViewBag.UserId;
 									$(document).ready(function () {
 										$("#boton02").click(function () {
 
 											$("#userInput").val($("#OrigeID").val());
 											$("#messageInput").val("")
 
-										});
-									});
-
-									$(document).ready(function () {
-										$("#sendButton").click(function () {
-
-											$("#messageInput").val("")
 										});
 									});
 
