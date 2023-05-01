@@ -35,15 +35,15 @@ namespace CundecinosWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> PersonalInformation(Person person)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var data = await _context.People.Where(x => x.UID == Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))).AsNoTracking().FirstOrDefaultAsync();
-                _context.Entry(person).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-
+                return View(person);
             }
-            
-            return RedirectToAction("Index","Home");
+            var data = await _context.People.Where(x => x.UID == Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))).AsNoTracking().FirstOrDefaultAsync();
+            _context.Entry(person).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Home");
+
         }
         public IActionResult Register()
         

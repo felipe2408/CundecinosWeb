@@ -225,6 +225,7 @@
                                 <!--begin::Card header-->
                                 @using (Html.DevExtreme().ValidationGroup("grupoValidacion"))
                                 {
+                                            @(Html.DevExtreme().TextBoxFor(x => x.PersonID).Visible(false))
                                             <div class="card-body p-9">
                                                 <!--begin::Row-->
                                                 <div class="row mb-7">

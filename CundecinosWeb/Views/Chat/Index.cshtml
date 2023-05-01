@@ -1,220 +1,189 @@
 ﻿@using CundecinosWeb.ViewModel;
-@model List<Person> 
+@model List<Person>
 
 <!--begin::Post-->
 <div class="post d-flex flex-column-fluid" id="kt_post">
-	<!--begin::Container-->
-	<div id="kt_content_container" class="container">
-		<!--begin::Layout-->
-		<div class="d-flex flex-column flex-lg-row">
-			<!--begin::Sidebar-->
-			<div class="flex-column flex-lg-row-auto w-100 w-lg-300px w-xl-400px mb-10 mb-lg-0">
-				<!--begin::Contacts-->
-				<div class="card card-flush">
-					<!--begin::Card header-->
-					<div class="card-header pt-7" id="kt_chat_contacts_header">
-						<!--begin::Form-->
-						<form class="w-100 position-relative" autocomplete="off">
-							<!--begin::Icon-->
-							<!--begin::Svg Icon | path: icons/duotone/General/Search.svg-->
-							<span class="svg-icon svg-icon-2 svg-icon-lg-1 svg-icon-gray-500 position-absolute top-50 ms-5 translate-middle-y">
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-										<rect x="0" y="0" width="24" height="24" />
-										<path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
-										<path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero" />
-									</g>
-								</svg>
-							</span>
-							<!--end::Svg Icon-->
-							<!--end::Icon-->
-							<!--begin::Input-->
-							<input type="text" class="form-control form-control-solid px-15" name="search" value="" placeholder="Buscar por usuario o email..." />
-							<!--end::Input-->
-						</form>
-						<!--end::Form-->
-					</div>
-					<!--end::Card header-->
-					<!--begin::Card body-->
-					<div class="card-body pt-5" id="kt_chat_contacts_body">
-						<!--begin::List-->
-						<div class="scroll-y me-n5 pe-5 h-200px h-lg-auto" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_header, #kt_toolbar, #kt_footer, #kt_chat_contacts_header" data-kt-scroll-wrappers="#kt_content, #kt_chat_contacts_body" data-kt-scroll-offset="0px">
-							
-							@foreach (var item in Model)
-							{
-								<a asp-controller="Chat" asp-action="ChatUser" asp-route-id="@item.UID">
+    <!--begin::Container-->
+    <div id="kt_content_container" class="container">
+        <!--begin::Layout-->
+        <div class="d-flex flex-column flex-lg-row">
+            <!--begin::Sidebar-->
+            <div class="flex-column flex-lg-row-auto w-100 w-lg-300px w-xl-400px mb-10 mb-lg-0">
+                <!--begin::Contacts-->
+                <div class="card card-flush">
+                    <!--begin::Card header-->
+                    <div class="card-header pt-7" id="kt_chat_contacts_header">
+                        <!--begin::Form-->
+                        <form class="w-100 position-relative" autocomplete="off">
+                            <!--begin::Icon-->
+                            <!--begin::Svg Icon | path: icons/duotone/General/Search.svg-->
+                            <span class="svg-icon svg-icon-2 svg-icon-lg-1 svg-icon-gray-500 position-absolute top-50 ms-5 translate-middle-y">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24" />
+                                        <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                        <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero" />
+                                    </g>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                            <!--end::Icon-->
+                            <!--begin::Input-->
+                            <input type="text" class="form-control form-control-solid px-15" name="search" value="" placeholder="Buscar por usuario o email..." />
+                            <!--end::Input-->
+                        </form>
+                        <!--end::Form-->
+                    </div>
+                    <!--end::Card header-->
+                    <!--begin::Card body-->
+                    <div class="card-body pt-5" id="kt_chat_contacts_body">
+                        <!--begin::List-->
+                        <div class="scroll-y me-n5 pe-5 h-200px h-lg-auto" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_header, #kt_toolbar, #kt_footer, #kt_chat_contacts_header" data-kt-scroll-wrappers="#kt_content, #kt_chat_contacts_body" data-kt-scroll-offset="0px">
 
-								<div class="d-flex flex-stack py-4 justify-content-start">
-								<!--begin::Details-->
-								<div class="d-flex align-items-center">
-									<!--begin::Avatar-->
-									<div class="symbol symbol-45px symbol-circle">
-										<img alt="Pic" src="@item.AvatarUrl" />
-									</div>
-									<!--end::Avatar-->
-									<!--begin::Details-->
-										<div class="ms-5">
-											<a class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2" id="boton02">@item.FirstName @item.LastName</a>
-										<div class="fw-bold text-gray-400">@item.Email</div>
-											<input type="hidden" id="OrigeID" value="@item.UID">
-									</div>
-									<!--end::Details-->
-								</div>
-								<!--end::Details-->
-								
-							</div>
-							
-								</a>
-							}
-							<!--end::User-->
-							<!--begin::Separator-->
-							<div class="separator separator-dashed d-none"></div>
-										
-							
+                            @foreach (var item in Model)
+                            {
+                                <a asp-controller="Chat" asp-action="ChatUser" asp-route-id="@item.UID">
 
-							
-							
-						</div>
-						<!--end::List-->
-					</div>
-					<!--end::Card body-->
-				</div>
-				<!--end::Contacts-->
-			</div>
-			<!--end::Sidebar-->
-			<!--begin::Content-->
-			<div class="flex-lg-row-fluid ms-lg-7 ms-xl-10">
-				<!--begin::Messenger-->
-				<div class="card" id="kt_chat_messenger">
-					<!--begin::Card header-->
-					<div class="card-header" id="kt_chat_messenger_header">
-						<!--begin::Title-->
-						<div class="card-title">
-							
-						</div>
-						<!--end::Title-->
-						<!--begin::Card toolbar-->
-						<div class="card-toolbar">
-							<!--begin::Menu-->
-							<div class="me-n3">
-									
-								<!--end::Menu 3-->
-							</div>
-							<!--end::Menu-->
-						</div>
-						<!--end::Card toolbar-->
-					</div>
-					<!--end::Card header-->
-					<!--begin::Card body-->
-					<div class="card-body" id="kt_chat_messenger_body">
-						<!--begin::Messages-->
-						<div class="scroll-y me-n5 pe-5 h-300px h-lg-auto" data-kt-element="messages" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_header, #kt_toolbar, #kt_footer, #kt_chat_messenger_header, #kt_chat_messenger_footer" data-kt-scroll-wrappers="#kt_content, #kt_chat_messenger_body" data-kt-scroll-offset="-2px">
-							<!--begin::Message(in)-->
-							<div class="d-flex justify-content-start mb-10">
-								<!--begin::Wrapper-->
-								<div class="d-flex flex-column align-items-start">
-									<!--begin::User-->
-									<div class="d-flex align-items-center mb-2">
-										<!--begin::Avatar-->
-										<div class="symbol symbol-35px symbol-circle">
-											<img alt="Pic" src="assets/media/avatars/150-15.jpg" />
-										</div>
-										<!--end::Avatar-->
-										<!--begin::Details-->
-										<div class="ms-3">
-											<a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary me-1">Brian Cox</a>
-											<span class="text-muted fs-7 mb-1">2 mins</span>
-										</div>
-										<!--end::Details-->
-									</div>
-									<!--end::User-->
-									<!--begin::Text-->
-									<div class="p-5 rounded bg-light-info text-dark fw-bold mw-lg-400px text-start" data-kt-element="message-text"> </div>
-									<!--end::Text-->
-								</div>
-								<!--end::Wrapper-->
-							</div>
-							<!--end::Message(in)-->
-							<!--begin::Message(out)-->
-							<div class="d-flex justify-content-end mb-10">
-								<!--begin::Wrapper-->
-								<div class="d-flex flex-column align-items-end">
-									<!--begin::User-->
-									<div class="d-flex align-items-center mb-2">
-										<!--begin::Details-->
-										<div class="me-3">
-											<span class="text-muted fs-7 mb-1">5 mins</span>
-											<a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">You</a>
-										</div>
-										<!--end::Details-->
-										<!--begin::Avatar-->
-										<div class="symbol symbol-35px symbol-circle">
-											<img alt="Pic" src="assets/media/avatars/150-2.jpg" />
-										</div>
-										<!--end::Avatar-->
-									</div>
-									<!--end::User-->
-									<!--begin::Text-->
-									<ul id="messagesList"></ul>
-									<div class="p-5 rounded bg-light-primary text-dark fw-bold mw-lg-400px text-end" data-kt-element="message-text"><ul id="messagesList"></ul></div>
-									
-									<!--end::Text-->
-								</div>
-								<!--end::Wrapper-->
-							</div>
-							<!--end::Message(out)-->
+                                    <div class="d-flex flex-stack py-4 justify-content-start">
+                                        <!--begin::Details-->
+                                        <div class="d-flex align-items-center">
+                                            <!--begin::Avatar-->
+                                            <div class="symbol symbol-45px symbol-circle">
+                                                <img alt="Pic" src="@item.AvatarUrl" />
+                                            </div>
+                                            <!--end::Avatar-->
+                                            <!--begin::Details-->
+                                            <div class="ms-5">
+                                                <a asp-controller="Chat" asp-action="ChatUser" asp-route-id="@item.UID"  class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2" id="boton02">@item.FirstName @item.LastName</a>
+                                                <div class="fw-bold text-gray-400">@item.Email</div>
+                                                <input type="hidden" id="OrigeID" value="@item.UID">
+                                            </div>
+                                            <!--end::Details-->
+                                        </div>
+                                        <!--end::Details-->
+
+                                    </div>
+
+                                </a>
+                            }
+                            <!--end::User-->
+                            <!--begin::Separator-->
+                            <div class="separator separator-dashed d-none"></div>
 
 
-						</div>
-						<!--end::Messages-->
-					</div>
-					<!--end::Card body-->
-					<!--begin::Card footer-->
-					<div class="card-footer pt-4" id="kt_chat_messenger_footer">
-						<form asp-controller="Chat" asp-action="SaveMessage" data-ajax-begin="clearInput" data-ajax-complete="" data-ajax="true" data-ajax-failure="alert('Error')"
-								data-ajax-method="POST" data-ajax-success="sendMessage">
-							<div class="col-5">
-								<input type="text" id="userInput" value="@ViewBag.UserId" />
-							</div>
-							<!--begin::Input-->
-							<textarea class="form-control form-control-flush mb-3" rows="1" id="messageInput" data-kt-element="input" placeholder="Mensaje"></textarea>
-							<!--end::Input-->
-							<!--begin:Toolbar-->
-							<div class="d-flex flex-stack">
-								<!--begin::Send-->
-								<button class="btn btn-primary" type="submit" data-kt-element="send" id="sendButton" data-userId="@ViewBag.UserId">Enviar</button>
-								<!--end::Send-->
-							</div>
-							<!--end::Toolbar-->
-						</form>
-					</div>
-					<!--end::Card footer-->
-				</div>
-				<!--end::Messenger-->
-			</div>
-			<!--end::Content-->
-		</div>
-		<!--end::Layout-->
-	</div>
-	<!--end::Container-->
+
+
+
+                        </div>
+                        <!--end::List-->
+                    </div>
+                    <!--end::Card body-->
+                </div>
+                <!--end::Contacts-->
+            </div>
+            <!--end::Sidebar-->
+            <div class="col-lg-6">
+                <img src="~/images/web.svg" alt="">
+                @*<div class="left-image">
+                </div>*@
+            </div>
+        </div>
+        <!--end::Layout-->
+    </div>
+    <!--end::Container-->
 </div>
 <!--end::Post-->
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#boton02").click(function () {
+
+            $("#userInput").val($("#OrigeID").val());
+            $("#messageInput").val("")
+
+        });
+        // Obtener el elemento de entrada de texto
+        const inputBusqueda = $('[name="search"]')[0];
+        // Agregar un evento keyup al elemento de entrada de texto
+        inputBusqueda.addEventListener("keyup", function (event) {
+            const buscar = event.target.value;
+            if ((buscar.trim() !== '' && buscar.trim().length + 5 > buscar.length) || (buscar.trim() === '' && buscar.length < 3)) {
+                busqueda(buscar.trim());
+            }
+            else {
+                event.target.value = buscar.trim() !== '' ? buscar.trim() : '';
+            }
+        });
+
+    });
 
 
-								<script type="text/javascript">
-									const senderID = @ViewBag.UserId;
-									$(document).ready(function () {
-										$("#boton02").click(function () {
+    function busqueda(cadena) {
+        const emailUsuarioBuscado = cadena; // Valor de búsqueda, podría ser un valor ingresado por el usuario
+        const url = `/GetSearch?consulta=${encodeURIComponent(emailUsuarioBuscado)}`;
 
-											$("#userInput").val($("#OrigeID").val());
-											$("#messageInput").val("")
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    console.log(data);
+                    const contenedor = document.querySelector('#kt_chat_contacts_body > div'); //contenedor principal
+                    contenedor.innerHTML = "";
+                    data.forEach(x => {
+                        // Crear un div
+                        const div = document.createElement("div");
+                        div.classList.add("d-flex", "flex-stack", "py-4");
+                        // Crear un div para la imagen
+                        const divImagen = document.createElement("div");
+                        divImagen.classList.add("symbol", "symbol-45px", "symbol-circle");
+                        // Crear una imagen
+                        const imagen = document.createElement("img");
+                        imagen.setAttribute("alt", "Pic");
+                        imagen.setAttribute("src", x.AvatarUrl);
+                        // Agregar la imagen al div de la imagen
+                        divImagen.appendChild(imagen);
+                        // Crear un div para el contenido de texto
+                        const divTexto = document.createElement("div");
+                        divTexto.classList.add("ms-5");
+                        // Crear un enlace
+                        const enlace = document.createElement("a");
+                        enlace.classList.add("fs-5", "fw-bolder", "text-gray-900", "text-hover-primary", "mb-2");
+                        enlace.setAttribute("href", `/Chat/ChatUser/${x.UID}`);
+                        enlace.textContent = x.FullName;
+                        // Agregar el enlace al div de texto
+                        divTexto.appendChild(enlace);
+                        // Crear un div para el correo electrónico
+                        const divEmail = document.createElement("div");
+                        divEmail.classList.add("fw-bold", "text-gray-400");
+                        divEmail.textContent = x.Email;
+                        // Agregar el div del correo electrónico al div de texto
+                        divTexto.appendChild(divEmail);
+                        //div que agrupa todos los campos
+                        const divSecundario = document.createElement("div");
+                        divSecundario.classList.add("d-flex", "align-items-center");
+                        // Agregar el div de la imagen y el div de texto al div secundario
+                        divSecundario.appendChild(divImagen);
+                        divSecundario.appendChild(divTexto);
+                        //agregar al div principal
+                        div.appendChild(divSecundario);
+                        // Crear un enlace
+                        const enlace2 = document.createElement("a");
+                        enlace2.setAttribute("href", `/Chat/ChatUser/${x.UID}`);
+                        enlace2.appendChild(div);
+                        // Agregar un separador
+                        const separador = document.createElement("div");
+                        separador.classList.add("separator", "separator-dashed", "d-none");
+                        // Agregar el div principal y el separador al contenedor
+                        contenedor.appendChild(enlace2);
+                        contenedor.appendChild(separador);
+                    })
+                } else {
+                    console.log("No se encontraron usuarios.");
+                }
+            })
+            .catch(error => console.error(error));
+    }
+</script>
 
-										});
-									});
 
 
-								</script>
-
-<script src="~/js/signalr/dist/browser/signalr.js"></script>
-<script src="~/js/chat.js"></script>
