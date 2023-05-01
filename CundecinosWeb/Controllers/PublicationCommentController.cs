@@ -26,7 +26,7 @@ namespace CundecinosWeb.Controllers
             {
                 return RedirectToAction("Register", "User");
             }
-
+            ViewBag.UserID = user.PersonID;
             ViewBag.FullName = user.FirstName + " " + user.LastName;
             ViewBag.Email = user.Email;
             ViewBag.Avatar = user.AvatarUrl;
@@ -75,7 +75,7 @@ namespace CundecinosWeb.Controllers
             _context.PublicationComments.Add(comment);
 
             _context.SaveChanges();
-            return View();
+            return RedirectToAction("PublicationDescription", new { id = comment.PublicationID});
         }
 
     }

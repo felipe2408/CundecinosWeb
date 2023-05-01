@@ -363,7 +363,7 @@
                             <div class="mb-5">
                                 <!--begin::Toolbar-->
                                 <div class="d-flex align-items-center mb-5">
-                                    <a asp-action="Privacy" asp-controller="Home" asp-route-id="@item.PersonID" class="btn btn-sm btn-light btn-color-muted btn-active-light-success px-4 py-2 me-4">
+                                    <a asp-action="ChatUser" asp-controller="Chat" asp-route-id="@item.Person.UID" class="btn btn-sm btn-light btn-color-muted btn-active-light-success px-4 py-2 me-4">
                                         <!--begin::Svg Icon | path: icons/duotone/Communication/Group-chat.svg-->
                                         <span class="svg-icon svg-icon-3">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -372,7 +372,7 @@
                                             </svg>
                                         </span>
                                         <!--end::Svg Icon-->Contactar
-                                </a>
+                                    </a>
                                     <a asp-controller="PublicationComment" asp-action="PublicationDescription" asp-route-id="@item.PublicationID" class="btn btn-sm btn-light btn-color-muted btn-active-light-success px-4 py-2 me-4">
                                         <!--begin::Svg Icon | path: icons/duotone/Communication/Group-chat.svg-->
                                         <span class="svg-icon svg-icon-3">
@@ -384,18 +384,6 @@
                                         </span>
                                         <!--end::Svg Icon-->@item.PublicationComments.Count
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-light btn-color-muted btn-active-light-danger px-4 py-2">
-                                        <!--begin::Svg Icon | path: icons/duotone/General/Heart.svg-->
-                                        <span class="svg-icon svg-icon-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <polygon points="0 0 24 0 24 24 0 24" />
-                                                    <path d="M16.5,4.5 C14.8905,4.5 13.00825,6.32463215 12,7.5 C10.99175,6.32463215 9.1095,4.5 7.5,4.5 C4.651,4.5 3,6.72217984 3,9.55040872 C3,12.6834696 6,16 12,19.5 C18,16 21,12.75 21,9.75 C21,6.92177112 19.349,4.5 16.5,4.5 Z" fill="#000000" fill-rule="nonzero" />
-                                                </g>
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->15
-                                </a>
                                 </div>
                                 <!--end::Toolbar-->
                             </div>
@@ -444,25 +432,28 @@
                 <script>
 
                     function ValidationForm() {
-                        var validator = $('#login').dxValidator('instance');
-                        validator.validate();
 
                     }
 
                     function buscarPrecio() {
-                        var formData = {
-                            description: $("#description").val()
-                        };
+                        if ($("#description").val().trim() !== "" && $("#description").val().trim() !== undefined) {
+                            var formData = {
+                                description: $("#description").val()
+                            };
 
-                        $.ajax({
-                            type: "POST",
-                            url: "/WebScraper/ScrapePrice",
-                            data: formData,
-                            success: function (data) {
-                                $("#precio").text(data);
-                                $('#Publication_EstimatedPrice').val(data.substring(data.indexOf(":") + 1));
-
-                            }
-                        });
+                            $.ajax({
+                                type: "POST",
+                                url: "/WebScraper/ScrapePrice",
+                                data: formData,
+                                success: function (data) {
+                                    $("#precio").text(data);
+                                    $('#Publication_EstimatedPrice').val(data.substring(data.indexOf(":") + 1));
+                                    $('#Publication_ProductDescription').val(data.substring(0,data.indexOf(":") - 3));
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    $("#precio").text('No pudimos encontrar tu producto.');
+                                }
+                            });
+                        }
                     }
                 </script>
