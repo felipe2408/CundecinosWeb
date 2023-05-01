@@ -21,6 +21,9 @@
                         <!--end::Title-->
                     </div>
                     <!--end::Card header-->
+                    <input type="hidden" value="@Model.Addressee.AvatarUrl" id="avatar" />
+                    <input type="hidden" value="@Model.Sender.AvatarUrl" id="avatarSender" />
+                    <input type="hidden" value="@Model.Addressee.FirstName @Model.Addressee.LastName" id="name" />
                     <!--begin::Card body-->
                     <div class="card-body" id="kt_chat_messenger_body">
                         <!--begin::Messages-->
@@ -89,19 +92,17 @@
                             }
                         </div>
                         <!--end::Messages-->
-                        <ul id="messagesList"></ul>
+                        <div id="messagesDiv"></div>
                     </div>
                     <!--end::Card body-->
                     <!--begin::Card footer-->
                     <div class="card-footer pt-4" id="kt_chat_messenger_footer">
                         <form asp-controller="Chat" method="post" asp-action="SaveMessage">
                             <div class="col-5">
-                                <input type="text" id="senderID" value="@Model.SenderID" name="SenderID" asp-for="SenderID" />
+                                <input type="hidden" id="senderID" value="@Model.Sender.UID" name="Sender.UID" asp-for="Sender.UID" />
 
-                                <input type="text" id="userInput" value="@Model.AddresseeID" name="AddresseeID" asp-for="AddresseeID" />
+                                <input type="hidden" id="userInput" value="@Model.Addressee.UID" name="Addressee.UID" asp-for="Addressee.UID" />
 
-
-                                <input type="hidden" id="" value="@DateTime.Now" name="SentAt" asp-for="SentAt" />
                             </div>
                             <!--begin::Input-->
                             @*<textarea class="form-control form-control-flush mb-3" rows="1" id="messageInput" data-kt-element="input" name="Text" asp-for="Text" placeholder="Mensaje"></textarea>*@
@@ -153,5 +154,6 @@
 
 
 </script>
+
 
 

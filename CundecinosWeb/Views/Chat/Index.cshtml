@@ -44,7 +44,7 @@
 							{
 								<a asp-controller="Chat" asp-action="ChatUser" asp-route-id="@item.UID">
 
-								<div class="d-flex flex-stack py-4">
+								<div class="d-flex flex-stack py-4 justify-content-start">
 								<!--begin::Details-->
 								<div class="d-flex align-items-center">
 									<!--begin::Avatar-->
@@ -56,7 +56,7 @@
 										<div class="ms-5">
 											<a class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2" id="boton02">@item.FirstName @item.LastName</a>
 										<div class="fw-bold text-gray-400">@item.Email</div>
-											<input type="text" id="OrigeID" value="@item.UID">
+											<input type="hidden" id="OrigeID" value="@item.UID">
 									</div>
 									<!--end::Details-->
 								</div>
