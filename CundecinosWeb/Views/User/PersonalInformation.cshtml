@@ -197,165 +197,178 @@
 
 
 
-                        <!--begin::details View-->
-                        <div class="card mb-4 mb-xl-10" id="kt_profile_details_view">
+        <!--begin::details View-->
+        <div class="card mb-4 mb-xl-10" id="kt_profile_details_view">
 
-                            @(Html.DevExtreme().TextBoxFor(x => x.PersonID).Visible(false))
-                            <!--begin::Card body-->
-                            @using (Html.BeginForm("PersonalInformation", "User", FormMethod.Post, new { id = "editar" }))
-                            {
-                                <!--begin::Card header-->
-                                <div class="card-header cursor-pointer">
-                                    <!--begin::Card title-->
-                                    <div class="card-title m-0">
-                                        <h3 class="fw-bolder m-0">Detalles del perfil</h3>
-                                    </div>
-                                    <!--end::Card title-->
-                                    <!--begin::Action-->
-                                        @(Html.DevExtreme().Button()
-                                            .ID("editar_info")
-                                            .Text("Editar información")
-                                            .Type(ButtonType.Normal)
-                                            .UseSubmitBehavior(true)
-                                            .ValidationGroup("grupoValidacion")
-                                            .ElementAttr("class", "btn btn-primary align-self-center p-1")
-                                            )
-                                    <!--end::Action-->
-                                </div>
-                                <!--begin::Card header-->
-                                @using (Html.DevExtreme().ValidationGroup("grupoValidacion"))
-                                {
-                                            @(Html.DevExtreme().TextBoxFor(x => x.PersonID).Visible(false))
-                                            <div class="card-body p-9">
-                                                <!--begin::Row-->
-                                                <div class="row mb-7">
-                                                    <!--begin::Label-->
-                                                    <label class="col-lg-4 fw-bold text-muted">Nombres</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Col-->
-                                                    <div class="col-lg-8">
-                                                    @(Html.DevExtreme().TextBoxFor(x => x.FirstName))
-                                                    </div>
-                                                    <!--end::Col-->
-                                                </div>
-                                                <!--end::Row-->
-                                                <!--begin::Input group-->
-                                                <div class="row mb-7">
-                                                    <!--begin::Label-->
-                                                    <label class="col-lg-4 fw-bold text-muted">Apellidos</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Col-->
-                                                    <div class="col-lg-8 fv-row">
-                                                    @(Html.DevExtreme().TextBoxFor(x => x.LastName))
-                                                    </div>
-                                                    <!--end::Col-->
-                                                </div>
-                                                <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="row mb-7">
-                                            <!--begin::Label-->
-                                            <label class="col-lg-4 fw-bold text-muted">Número de identificación</label>
-                                            <!--end::Label-->
-                                            <!--begin::Col-->
-                                            <div class="col-lg-8 fv-row">
-                                                @(Html.DevExtreme().TextBoxFor(x => x.IdentificationNumber))
-                                            </div>
-                                            <!--end::Col-->
-                                        </div>
-                                        <!--end::Input group-->
-                                                <!--begin::Input group-->
-                                                <div class="row mb-7">
-                                                    <!--begin::Label-->
-                                                    <label class="col-lg-4 fw-bold text-muted">
-                                                        Número de telefono
-                                                    </label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Col-->
-                                                    <div class="col-lg-8 d-flex align-items-center">
-                                                @(Html.DevExtreme().TextBoxFor(x => x.CellPhone))
-                                                    </div>
-                                                    <!--end::Col-->
-                                                </div>
-                                                <!--end::Input group-->
-                                                <!--begin::Input group-->
-                                                <div class="row mb-7">
-                                                    <!--begin::Label-->
-                                                    <label class="col-lg-4 fw-bold text-muted">Correo electrónico</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Col-->
-                                                    <div class="col-lg-8">
-                                                @(Html.DevExtreme().TextBoxFor(x => x.Email))
-                                                    </div>
-                                                    <!--end::Col-->
-                                                </div>
-                                                <!--end::Input group-->
-                                                <!--begin::Input group-->
-                                                <div class="row mb-7">
-                                                    <!--begin::Label-->
-                                                    <label class="col-lg-4 fw-bold text-muted">
-                                                        Año de nacimiento
-                                                    </label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Col-->
-                                                    <div class="col-lg-8">
-                                                @(Html.DevExtreme().TextBoxFor(x => x.BirthYear))
-                                                    </div>
-                                                    <!--end::Col-->
-                                                </div>
-                                                <!--end::Input group-->
-                                                <!--begin::Input group-->
-                                                <div class="row mb-7">
-                                                    <!--begin::Label-->
-                                                    <label class="col-lg-4 fw-bold text-muted">Carrera</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Col-->
-                                                    <div class="col-lg-8">
-                                                @(Html.DevExtreme().SelectBoxFor(m => m.CollegeCareerId)
-                                                    .DataSource(ds => ds.Mvc().Controller("APIPeople").LoadAction("CollegeCareerLookup").Key("Value"))
-                                                    .ValueExpr("Value")
-                                                    .ID("test")
-                                                    .DisplayExpr("Text")
-                                                    .Placeholder("Seleccione...")
-                                                    )
-                                                    </div>
-                                                    <!--end::Col-->
-                                                </div>
-                                                <!--end::Input group-->
-                                                <!--begin::Input group-->
-                                                <div class="row mb-10">
-                                                    <!--begin::Label-->
-                                                    <label class="col-lg-4 fw-bold text-muted">Extensión</label>
-                                                    <!--begin::Label-->
-                                                    <!--begin::Label-->
-                                                    <div class="col-lg-8">
-                                                @(Html.DevExtreme().SelectBoxFor(m => m.ExtensionId)
-                                                    .DataSource(ds => ds.Mvc().Controller("APIPeople").LoadAction("ExtensionsLookup").Key("Value"))
-                                                    .ValueExpr("Value")
-                                                    .ID("test_2")
-                                                    .DisplayExpr("Text")
-                                                    .Placeholder("Seleccione...")
-                                                    )
-                                            </div>
-                                                    <!--begin::Label-->
-                                                </div>
-                                                <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="row mb-10">
-                                            <!--begin::Label-->
-                                            <label class="col-lg-4 fw-bold text-muted">Registro vigente</label>
-                                            <!--begin::Label-->
-                                            <!--begin::Label-->
-                                            <div class="col-lg-8">
-                                                @(Html.DevExtreme().CheckBoxFor(x => x.IsActive))
-                                            </div>
-                                            <!--begin::Label-->
-                                        </div>
-                                        <!--end::Input group-->
-
-                                            </div>
-                                }
-                            }
+            <!--begin::Card body-->
+            @using (Html.BeginForm("PersonalInformation", "User", FormMethod.Post, new { enctype = "multipart/form-data", id = "editar" }))
+            {
+                @(Html.DevExtreme().TextBoxFor(x => x.PersonID).Visible(false))
+                @(Html.DevExtreme().TextBoxFor(x => x.UID).Visible(false))
+                <input type="hidden" name="AvatarUrl" asp-for="AvatarUrl"/>
+                <!--begin::Card header-->
+                <div class="card-header cursor-pointer">
+                    <!--begin::Card title-->
+                    <div class="card-title m-0">
+                        <h3 class="fw-bolder m-0">Detalles del perfil</h3>
+                    </div>
+                    <!--end::Card title-->
+                    <!--begin::Action-->
+                    @(Html.DevExtreme().Button()
+                        .ID("editar_info")
+                        .Text("Editar información")
+                        .Type(ButtonType.Normal)
+                        .UseSubmitBehavior(true)
+                        .ValidationGroup("grupoValidacion")
+                        .ElementAttr("class", "btn btn-primary align-self-center p-1")
+                        )
+                    <!--end::Action-->
+                </div>
+                <!--begin::Card header-->
+                @using (Html.DevExtreme().ValidationGroup("grupoValidacion"))
+                {
+                    @(Html.DevExtreme().TextBoxFor(x => x.PersonID).Visible(false))
+                    <div class="card-body p-9">
+                        <!--begin::Row-->
+                        <div class="row mb-7">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-bold text-muted">Nombres</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                @(Html.DevExtreme().TextBoxFor(x => x.FirstName))
+                            </div>
+                            <!--end::Col-->
                         </div>
+                        <!--end::Row-->
+                        <!--begin::Input group-->
+                        <div class="row mb-7">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-bold text-muted">Apellidos</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row">
+                                @(Html.DevExtreme().TextBoxFor(x => x.LastName))
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="row mb-7">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-bold text-muted">Número de identificación</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row">
+                                @(Html.DevExtreme().TextBoxFor(x => x.IdentificationNumber))
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="row mb-7">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-bold text-muted">
+                                Número de telefono
+                            </label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 d-flex align-items-center">
+                                @(Html.DevExtreme().TextBoxFor(x => x.CellPhone))
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="row mb-7">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-bold text-muted">Correo electrónico</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                @(Html.DevExtreme().TextBoxFor(x => x.Email))
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="row mb-7">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-bold text-muted">
+                                Año de nacimiento
+                            </label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                @(Html.DevExtreme().TextBoxFor(x => x.BirthYear))
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="row mb-7">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-bold text-muted">Carrera</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                @(Html.DevExtreme().SelectBoxFor(m => m.CollegeCareerId)
+                                    .DataSource(ds => ds.Mvc().Controller("APIPeople").LoadAction("CollegeCareerLookup").Key("Value"))
+                                    .ValueExpr("Value")
+                                    .ID("test")
+                                    .DisplayExpr("Text")
+                                    .Placeholder("Seleccione...")
+                                    )
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="row mb-10">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-bold text-muted">Extensión</label>
+                            <!--begin::Label-->
+                            <!--begin::Label-->
+                            <div class="col-lg-8">
+                                @(Html.DevExtreme().SelectBoxFor(m => m.ExtensionId)
+                                    .DataSource(ds => ds.Mvc().Controller("APIPeople").LoadAction("ExtensionsLookup").Key("Value"))
+                                    .ValueExpr("Value")
+                                    .ID("test_2")
+                                    .DisplayExpr("Text")
+                                    .Placeholder("Seleccione...")
+                                    )
+                            </div>
+                            <!--begin::Label-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="row mb-10">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-bold text-muted">Registro vigente</label>
+                            <!--begin::Label-->
+                            <!--begin::Label-->
+                            <div class="col-lg-8">
+                                @(Html.DevExtreme().CheckBoxFor(x => x.IsActive))
+                            </div>
+                            <!--begin::Label-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="row mb-10">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-bold text-muted">Modifique su avatar</label>
+                            <!--begin::Label-->
+                            <!--begin::Label-->
+                            <div class="col-lg-8">
+                                @(Html.DevExtreme().FileUploader().Accept(".jpg"))
+                            </div>
+                            <!--begin::Label-->
+                        </div>
+                        <!--end::Input group-->
+                    </div>
+                }
+            }
+        </div>
 
-            </div>   
+    </div>
 </div>

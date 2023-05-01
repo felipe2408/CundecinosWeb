@@ -26,12 +26,14 @@ namespace CundecinosWeb.Models
         [Display(Name = "Documento Identificación")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [Column(TypeName = "varchar(20)")]
+        [RegularExpression("^(\\d{8,10})$", ErrorMessage = "Este campo solo acepta números y longitud de 8 a 10 digitos")]
         public String? IdentificationNumber { get; set; }
 
 
         [Display(Name = "Número Celular")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [Column(TypeName = "varchar(20)")]
+        [RegularExpression("^(\\d{10})$", ErrorMessage = "Este campo solo acepta números y longitud de 10 digitos")]
         public String? CellPhone { get; set; }
 
 
@@ -39,6 +41,7 @@ namespace CundecinosWeb.Models
         [Column(TypeName = "varchar(100)")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [StringLength(100)]
+        [RegularExpression(pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",ErrorMessage ="El formato no coincide con un correo electronico.")]
         [EmailAddress(ErrorMessage = "El valor de {0} no es un correo válido")]
         public string? Email { get; set; }
 

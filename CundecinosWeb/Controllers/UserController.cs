@@ -1,4 +1,5 @@
 ﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using CundecinosWeb.Data;
 using CundecinosWeb.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -18,8 +19,6 @@ namespace CundecinosWeb.Controllers
         }
         public IActionResult PersonalInformation()
         {
-            
-            
             var model = _context.People.Include(x => x.CollegeCareer).Include(x => x.Extension).Where(x => x.UID == Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))).FirstOrDefault();
 
             if (model == null)
@@ -35,13 +34,49 @@ namespace CundecinosWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> PersonalInformation(Person person)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(person);
-            }
+
             var data = await _context.People.Where(x => x.UID == Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))).AsNoTracking().FirstOrDefaultAsync();
+            var file = Request.Form.Files.FirstOrDefault();
+            if (file != null && file.Length > 0 && Path.GetExtension(file.FileName) == ".jpg")
+            {
+                // Crea un cliente del Blob Storage
+                BlobServiceClient blobServiceClient = new BlobServiceClient(_connectionString);
+                // Crea una referencia al contenedor donde se guardará la imagen
+                string containerName = "publication";
+                BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+                // Genera un nombre único para la imagen
+                string nombreArchivo = person.AvatarUrl;
+                // Si el archivo ya existía, se borra para ser reemplazado por la nueva versión
+                if (person.AvatarUrl != null)
+                {
+                    BlobClient oldBlobClient = containerClient.GetBlobClient(nombreArchivo.Substring(nombreArchivo.LastIndexOf('/')+1));
+                    await oldBlobClient.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots);
+
+                    var prueba = oldBlobClient.Exists();
+                }
+                // Crea un cliente del Blob Storage
+                BlobServiceClient blobServiceClient2 = new BlobServiceClient(_connectionString);
+                // Crea una referencia al contenedor donde se guardará la imagen
+                containerName = "publication";
+                BlobContainerClient containerClient2 = blobServiceClient2.GetBlobContainerClient(containerName);
+                // Genera un nombre único para la imagen
+                nombreArchivo = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)).ToString() + Path.GetExtension(file.FileName);
+                BlobClient blobClient = containerClient2.GetBlobClient(nombreArchivo);
+                var prueba2 = blobClient.Exists();
+                if (prueba2.Value)
+                {
+                    await blobClient.DeleteAsync(DeleteSnapshotsOption.IncludeSnapshots);
+                }
+                await blobClient.UploadAsync(file.OpenReadStream());
+                prueba2 = blobClient.Exists();
+                person.AvatarUrl = blobClient.Uri.ToString();
+            }
+
+            // Actualiza la información de la persona
             _context.Entry(person).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+
+
             return RedirectToAction("Index", "Home");
 
         }

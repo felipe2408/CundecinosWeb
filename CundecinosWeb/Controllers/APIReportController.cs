@@ -23,13 +23,26 @@ namespace CundecinosWeb.Controllers
 
 		[HttpGet]
 
-		public async Task<List<Publication>> PublicationReport()
-		{
+        //public async Task<List<Publication>> PublicationReport(Guid identity)
+        //{
+
+
+        //          var publications = _context.Publication.Include(x => x.Person).Include(x => x.Person.CollegeCareer).Include(x => x.Person.Extension).Where(x=>x.Person.UID == identity).ToList();
+
+        //	return (publications);
+
+        //      }
+        //      [Route("/[controller]/PublicationReportUser")]
+        //      [HttpGet]
+
+        //      public async Task<List<Publication>> PublicationReportUser(Guid identity)
+        public async Task<List<Publication>> PublicationReport()
+        {
 
 
             var publications = _context.Publication.Include(x => x.Person).Include(x => x.Person.CollegeCareer).Include(x => x.Person.Extension).ToList();
 
-			return (publications);
+            return (publications);
 
         }
         [Route("/[controller]/PublicationReportUser")]

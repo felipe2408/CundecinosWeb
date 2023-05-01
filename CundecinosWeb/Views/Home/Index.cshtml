@@ -12,7 +12,7 @@
             <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                 <!--begin::Title-->
                 <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
-                    Bienvenido,
+                    Bienvenido
                     <!--begin::Separator-->
                     <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                     <!--end::Separator-->
@@ -216,159 +216,222 @@
 </div>
 
 <script>
-    $(document).ready(function () {
-        var idUsuario = document.getElementById('identity')
-        const url = `/APIReport/PublicationReportUser/?identity=${encodeURIComponent(idUsuario.value)}`;
-        $.ajax({
-            url: url,
-            method: 'GET',
-            success: function (datos) {
-                var counts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-                datos.forEach(x => {
-                    var objetoFecha = new Date(x.PublicationDate);
-                    var mes = objetoFecha.getMonth();
-                    counts[mes]++;
-                });
-                var options = {
-                    series: [
-                        {name:'',data: counts },
-                    ],
-                    chart: {
-                        fontFamily: "inherit",
-                        type: "area",
-                        height: 200,
-                        toolbar: { show: !1 },
-                        zoom: { enabled: !1 },
-                        sparkline: { enabled: !0 },
-                        dropShadow: {
-                            enabled: !0,
-                            enabledOnSeries: void 0,
-                            top: 5,
-                            left: 0,
-                            blur: 3,
-                            color: '#B20034',
-                            opacity: 0.5,
-                        },
-                    },
-                    plotOptions: {},
-                    legend: { show: !1 },
-                    dataLabels: { enabled: !1 },
-                    fill: { type: "solid", opacity: 0 },
-                    stroke: { curve: "smooth", show: !0, width: 3, colors: ['#C9023C'] }
-                    ,
-                    xaxis: {
-                        categories: ["Ene","Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sept","Oct","Nov","Dic"],
-                        axisBorder: { show: !1 },
-                        axisTicks: { show: !1 },
-                        labels: { show: !1, style: { colors: '#CF577A', fontSize: "12px" } },
-                        crosshairs: {
-                            show: !1,
-                            position: "front",
-                            stroke: { color: '#B50136', width: 1, dashArray: 3 },
-                        },
-                    },
-                    yaxis: {
-                        labels: { show: !1, style: { colors: ['#C9023C'], fontSize: "12px" } },
-                    },
-                    states: {
-                        normal: { filter: { type: "none", value: 0 } },
-                        hover: { filter: { type: "none", value: 0 } },
-                        active: {
-                            allowMultipleDataPointsSelection: !1,
-                            filter: { type: "none", value: 0 },
-                        },
-                    },
-                    tooltip: {
-                        style: { fontSize: "12px" },
-                        y: {
-                            formatter: function (e) {
-                                return "" + e + " publicaciones";
-                            },
-                        },
-                        marker: { show: !1 },
-                    },
-                    colors: ["transparent"],
-                    markers: { colors: ['#D9214E'], strokeColor: ['#C9023C'], strokeWidth: 3 },
+       $(document).ready(function () {
+           var idUsuario = document.getElementById('identity')
+           const url = `/APIReport/PublicationReportUser/?identity=${encodeURIComponent(idUsuario.value)}`;
+           $.ajax({
+               url: url,
+               method: 'GET',
+               success: function (datos) {
+                   var counts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                   datos.forEach(x => {
+                       var objetoFecha = new Date(x.PublicationDate);
+                       var mes = objetoFecha.getMonth();
+                       counts[mes]++;
+                   });
+                   var options = {
+                       series: [
+                           {name:'',data: counts },
+                       ],
+                       chart: {
+                           fontFamily: "inherit",
+                           type: "area",
+                           height: 200,
+                           toolbar: { show: !1 },
+                           zoom: { enabled: !1 },
+                           sparkline: { enabled: !0 },
+                           dropShadow: {
+                               enabled: !0,
+                               enabledOnSeries: void 0,
+                               top: 5,
+                               left: 0,
+                               blur: 3,
+                               color: '#B20034',
+                               opacity: 0.5,
+                           },
+                       },
+                       plotOptions: {},
+                       legend: { show: !1 },
+                       dataLabels: { enabled: !1 },
+                       fill: { type: "solid", opacity: 0 },
+                       stroke: { curve: "smooth", show: !0, width: 3, colors: ['#C9023C'] }
+                       ,
+                       xaxis: {
+                           categories: ["Ene","Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sept","Oct","Nov","Dic"],
+                           axisBorder: { show: !1 },
+                           axisTicks: { show: !1 },
+                           labels: { show: !1, style: { colors: '#CF577A', fontSize: "12px" } },
+                           crosshairs: {
+                               show: !1,
+                               position: "front",
+                               stroke: { color: '#B50136', width: 1, dashArray: 3 },
+                           },
+                       },
+                       yaxis: {
+                           labels: { show: !1, style: { colors: ['#C9023C'], fontSize: "12px" } },
+                       },
+                       states: {
+                           normal: { filter: { type: "none", value: 0 } },
+                           hover: { filter: { type: "none", value: 0 } },
+                           active: {
+                               allowMultipleDataPointsSelection: !1,
+                               filter: { type: "none", value: 0 },
+                           },
+                       },
+                       tooltip: {
+                           style: { fontSize: "12px" },
+                           y: {
+                               formatter: function (e) {
+                                   return "" + e + " publicaciones";
+                               },
+                           },
+                           marker: { show: !1 },
+                       },
+                       colors: ["transparent"],
+                       markers: { colors: ['#D9214E'], strokeColor: ['#C9023C'], strokeWidth: 3 },
 
-                };
+                   };
 
-                var chart = new ApexCharts(document.querySelector("#chart_my_pub"), options);
-                chart.render();
-            },
-            error: function () {
-                console.log('Error');
-            }
-        });
-        $.ajax({
-            url: '/APIReport/PublicationReport',
-            method: 'GET',
-            success: function (data) {
-                const publicacionesPorMes = data.reduce((result, publicacion) => {
-                    const mes = new Date(publicacion.PublicationDate).getMonth(); // Obtener el mes (0-11)
-                    const tipoPublicacion = publicacion.PublicationType === 20 ? "trueque" : "venta"; // Obtener el tipo de publicación
-                    // Crear objeto mes si no existe
-                    result[mes] = result[mes] || {};
-                    // Incrementar contador del tipo de publicación
-                    result[mes][tipoPublicacion] = (result[mes][tipoPublicacion] || 0) + 1;
-                    return result;
-                }, {});
-                // Crear arreglo con dos objetos, uno para cada tipo de publicación
-                const resultado = [
-                    {
-                        name: "trueque",
-                        data: Array(12).fill(0).map((_, i) => publicacionesPorMes[i]?.trueque || 0)
-                    },
-                    {
-                        name: "Emprendimiento",
-                        data: Array(12).fill(0).map((_, i) => publicacionesPorMes[i]?.venta || 0)
-                    }
-                ];
-                var options = {
-                    series: resultado,
-                    chart: {
-                        type: 'area',
-                        height: 200,
-                        toolbar: { show: !1 },
-                    },
-                    dataLabels: {
-                        enabled: false
-                    },
-                    stroke: {
-                        show: true,
-                        width: 2,
-                        colors: ['transparent']
-                    },
-                    xaxis: {
-                        categories: ["Ene", 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', "Nov", "Dic"],
-                        axisBorder: { show: !1 },
-                        axisTicks: { show: !1 },
-                        labels: { show: 1, style: { colors: '#CF577A', fontSize: "12px" } },
-                    },
-                    yaxis: {
-                        axisBorder: { show: !1 },
-                        axisTicks: { show: !1 },
-                        labels: { show: !1, style: { colors: '#CF577A', fontSize: "5px" } },
-                    },
-                    fill: {
-                        type: "solid", opacity: 0.9
-                    },
+                   var chart = new ApexCharts(document.querySelector("#chart_my_pub"), options);
+                   chart.render();
+                        const publicacionesPorMes = datos.reduce((result, publicacion) => {
+                          const mes = new Date(publicacion.PublicationDate).getMonth(); // Obtener el mes (0-11)
+                          const tipoPublicacion = publicacion.PublicationType === 20 ? "trueque" : "venta"; // Obtener el tipo de publicación
+                          // Crear objeto mes si no existe
+                          result[mes] = result[mes] || {};
+                          // Incrementar contador del tipo de publicación
+                          result[mes][tipoPublicacion] = (result[mes][tipoPublicacion] || 0) + 1;
+                          return result;
+                      }, {});
+                      // Crear arreglo con dos objetos, uno para cada tipo de publicación
+                      const resultado = [
+                          {
+                              name: "trueque",
+                              data: Array(12).fill(0).map((_, i) => publicacionesPorMes[i]?.trueque || 0)
+                          },
+                          {
+                              name: "Emprendimiento",
+                              data: Array(12).fill(0).map((_, i) => publicacionesPorMes[i]?.venta || 0)
+                          }
+                      ];
+                      var options = {
+                          series: resultado,
+                          chart: {
+                              type: 'area',
+                              height: 200,
+                              toolbar: { show: !1 },
+                          },
+                          dataLabels: {
+                              enabled: false
+                          },
+                          stroke: {
+                              show: true,
+                              width: 2,
+                              colors: ['transparent']
+                          },
+                          xaxis: {
+                              categories: ["Ene", 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', "Nov", "Dic"],
+                              axisBorder: { show: !1 },
+                              axisTicks: { show: !1 },
+                              labels: { show: 1, style: { colors: '#CF577A', fontSize: "12px" } },
+                          },
+                          yaxis: {
+                              axisBorder: { show: !1 },
+                              axisTicks: { show: !1 },
+                              labels: { show: !1, style: { colors: '#CF577A', fontSize: "5px" } },
+                          },
+                          fill: {
+                              type: "solid", opacity: 0.9
+                          },
 
-                    tooltip: {
-                        y: {
-                            formatter: function (val) {
-                                return "" + val + " publicaciones"
-                            }
-                        },
-                        style: { fontSize: "12px" },
-                    }
-                };
+                          tooltip: {
+                              y: {
+                                  formatter: function (val) {
+                                      return "" + val + " publicaciones"
+                                  }
+                              },
+                              style: { fontSize: "12px" },
+                          }
+                      };
 
-                var chart = new ApexCharts(document.querySelector("#chart_pub_sedes"), options);
-                chart.render();
-            },
-            error: function () {
-                console.log('Error');
-            }
-        });
-    });
+                      var chart = new ApexCharts(document.querySelector("#chart_pub_sedes"), options);
+                      chart.render();
+               },
+               error: function () {
+                   console.log('Error');
+               }
+           });
+    @*       const url2 = `/APIReport/PublicationReportUser/?identity=${encodeURIComponent(idUsuario.value)}`;
+           $.ajax({
+               url: url2,
+               method: 'GET',
+               success: function (data) {
+                   const publicacionesPorMes = data.reduce((result, publicacion) => {
+                       const mes = new Date(publicacion.PublicationDate).getMonth(); // Obtener el mes (0-11)
+                       const tipoPublicacion = publicacion.PublicationType === 20 ? "trueque" : "venta"; // Obtener el tipo de publicación
+                       // Crear objeto mes si no existe
+                       result[mes] = result[mes] || {};
+                       // Incrementar contador del tipo de publicación
+                       result[mes][tipoPublicacion] = (result[mes][tipoPublicacion] || 0) + 1;
+                       return result;
+                   }, {});
+                   // Crear arreglo con dos objetos, uno para cada tipo de publicación
+                   const resultado = [
+                       {
+                           name: "trueque",
+                           data: Array(12).fill(0).map((_, i) => publicacionesPorMes[i]?.trueque || 0)
+                       },
+                       {
+                           name: "Emprendimiento",
+                           data: Array(12).fill(0).map((_, i) => publicacionesPorMes[i]?.venta || 0)
+                       }
+                   ];
+                   var options = {
+                       series: resultado,
+                       chart: {
+                           type: 'area',
+                           height: 200,
+                           toolbar: { show: !1 },
+                       },
+                       dataLabels: {
+                           enabled: false
+                       },
+                       stroke: {
+                           show: true,
+                           width: 2,
+                           colors: ['transparent']
+                       },
+                       xaxis: {
+                           categories: ["Ene", 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', "Nov", "Dic"],
+                           axisBorder: { show: !1 },
+                           axisTicks: { show: !1 },
+                           labels: { show: 1, style: { colors: '#CF577A', fontSize: "12px" } },
+                       },
+                       yaxis: {
+                           axisBorder: { show: !1 },
+                           axisTicks: { show: !1 },
+                           labels: { show: !1, style: { colors: '#CF577A', fontSize: "5px" } },
+                       },
+                       fill: {
+                           type: "solid", opacity: 0.9
+                       },
+
+                       tooltip: {
+                           y: {
+                               formatter: function (val) {
+                                   return "" + val + " publicaciones"
+                               }
+                           },
+                           style: { fontSize: "12px" },
+                       }
+                   };
+
+                   var chart = new ApexCharts(document.querySelector("#chart_pub_sedes"), options);
+                   chart.render();
+               },
+               error: function () {
+                   console.log('Error');
+               }
+           });*@
+       });
 </script>
