@@ -10,6 +10,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta charset="utf-8" />
 		<meta property="og:locale" content="en_US" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta property="og:type" content="article" />
 		<link rel="shortcut icon" href="~/assets/media/logos/favicon.ico" />
 		<!--begin::Fonts-->
@@ -24,12 +25,11 @@
 		<link href="~/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="~/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
-
+		    <script src="~/js/dx-quill.min.js"></script>
 		@*<link href="~/css/devextreme/bootstrap.css" rel="stylesheet" />*@
  
     <link href="~/css/devextreme/dx.common.css" rel="stylesheet" />
  
-    @* Predefined themes: https://js.devexpress.com/DevExtreme/Guide/Themes_and_Styles/Predefined_Themes/ *@
     <link href="~/css/devextreme/dx.light.css" rel="stylesheet" />
 
     <link href="~/css/site.css" rel="stylesheet" />
@@ -58,14 +58,18 @@
 
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script src="https://cdn3.devexpress.com/jslib/21.1.5/js/localization/dx.messages.es.js"></script>
 
-
+	    @RenderSection("ControlsSection", false)
 
 	</head>
 
 <body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
 
+
+	@if (IsSectionDefined("Scripts"))
+    {
+        IgnoreSection("Scripts");
+    }
     <!-- ***** Header Area Start ***** -->
     
     <!-- ***** Header Area End ***** -->
