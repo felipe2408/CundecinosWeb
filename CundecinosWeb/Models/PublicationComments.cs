@@ -27,7 +27,6 @@ namespace CundecinosWeb.Models
         public DateTime CommentDate { get; set; }
 
         [Display(Name = "Imagen del Producto")]
-        [Required(ErrorMessage = "El campo {0} es requerido")]
         [Column(TypeName = "varchar(100)")]
         public string? ProductUrl { get; set; }
 

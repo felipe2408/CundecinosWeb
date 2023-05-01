@@ -4,6 +4,7 @@ using CundecinosWeb.Models;
 using CundecinosWeb.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace CundecinosWeb.Controllers
 {
@@ -19,8 +20,18 @@ namespace CundecinosWeb.Controllers
 		}
 		public IActionResult PublicationDescription(Guid Id)
 		{
+            var claim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _context.People.Where(x => x.UID == Guid.Parse(claim)).FirstOrDefault();
+            if (user == null)
+            {
+                return RedirectToAction("Register", "User");
+            }
 
-			var publication = _context.Publication.Include(x => x.Person).Include(x => x.PublicationAttachment).Where(x => x.PublicationID == Id).FirstOrDefault();
+            ViewBag.FullName = user.FirstName + " " + user.LastName;
+            ViewBag.Email = user.Email;
+            ViewBag.Avatar = user.AvatarUrl;
+
+            var publication = _context.Publication.Include(x => x.Person).Include(x => x.PublicationAttachment).Where(x => x.PublicationID == Id).FirstOrDefault();
 			var publicationComments = _context.PublicationComments.Where(x => x.PublicationID == Id).ToList();
 			var model = new vPublicationComment();
 			model.Person = publication.Person;

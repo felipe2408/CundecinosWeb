@@ -4,13 +4,15 @@
 
 @using (Html.BeginForm("PublicationDescription", "PublicationComment", FormMethod.Post, new { enctype = "multipart/form-data", id = "comentario" }))
 {
+    <input type="hidden" name="PersonID" asp-for="PersonID"/>
+    <input type="hidden" name="PublicationID" asp-for="PublicationID"/>
      <div class="d-flex align-items-center flex-grow-1">
         <div class="cursor-pointer symbol symbol-30px symbol-md-40px mb-3 me-3" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-            <img src="@Model.Person.AvatarUrl" alt="user" />
+            <img src="@ViewBag.Avatar" alt="user" />
         </div>
         <div class="d-flex flex-column">
-            <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@Model.Person.FirstName @Model.Person.LastName</a>
-            <span class="text-gray-400 fw-bold">@Model.Person.Email</span>
+            <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@ViewBag.FullName</a>
+            <span class="text-gray-400 fw-bold">@ViewBag.Email</span>
         </div>
     </div>
     @using (Html.DevExtreme().ValidationGroup("grupoValidacion"))

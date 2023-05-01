@@ -8,13 +8,16 @@
             <!--begin::User-->
             <div class="d-flex align-items-center flex-grow-1">
                 <!--begin::Avatar-->
-                <div class="symbol symbol-45px me-5">
-                    <img class="imagen-avatar" src="@Model.Person.AvatarUrl" alt="Avatar Usuario" />
-                </div>
+                <a asp-controller="Chat" asp-action="ChatUser" asp-route-id="@Model.Person.UID">
+                    <div class="symbol symbol-45px me-5">
+                        <img class="imagen-avatar" src="@Model.Person.AvatarUrl" alt="Avatar Usuario" />
+
+                    </div>
+                </a>
                 <!--end::Avatar-->
                 <!--begin::Info-->
                 <div class="d-flex flex-column">
-                    <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@Model.Person.FirstName @Model.Person.LastName</a>
+                    <a asp-controller="Chat" asp-action="ChatUser" asp-route-id="@Model.Person.UID" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@Model.Person.FirstName @Model.Person.LastName</a>
                     <span class="text-gray-400 fw-bold">@Model.Person.Email</span>
                 </div>
                 <!--end::Info-->
@@ -162,7 +165,7 @@
             <!--end::Text-->
             <!--begin::Toolbar-->
             <div class="d-flex align-items-center mb-5">
-                <a asp-action="Privacy" asp-controller="Home" asp-route-id="@Model.Person.UID" class="btn btn-sm btn-light btn-color-muted btn-active-light-success px-4 py-2 me-4">
+                <a asp-action="ChatUser" asp-controller="Chat" asp-route-id="@Model.Person.UID" class="btn btn-sm btn-light btn-color-muted btn-active-light-success px-4 py-2 me-4">
                     <!--begin::Svg Icon | path: icons/duotone/Communication/Group-chat.svg-->
                     <span class="svg-icon svg-icon-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -181,7 +184,7 @@
                         </svg>
 
                     </span>
-                    <!--end::Svg Icon-->120
+                    <!--end::Svg Icon-->@Model.PublicationComments.Count
                 </a>
                 <a href="#" class="btn btn-sm btn-light btn-color-muted btn-active-light-danger px-4 py-2">
                     <!--begin::Svg Icon | path: icons/duotone/General/Heart.svg-->
@@ -193,7 +196,7 @@
                             </g>
                         </svg>
                     </span>
-                    <!--end::Svg Icon-->15
+                    <!--end::Svg Icon-->
                 </a>
             </div>
             <!--end::Toolbar-->
@@ -225,6 +228,9 @@
         <!--begin::Reply input-->
 
         <div class="px-10">
+            @{
+                Model.PublicationComment = new PublicationComments { PersonID = Model.Person.PersonID, PublicationID = Model.Publication.PublicationID };
+            }
             <partial name="_Coment" model="Model.PublicationComment" />
         </div>
         <!--edit::Reply input-->
