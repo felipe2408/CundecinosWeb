@@ -1,7 +1,7 @@
 /*!
 * DevExtreme (dx.messages.nl.js)
-* Version: 22.1.5
-* Build date: Fri Sep 02 2022
+* Version: 21.2.8
+* Build date: Tue Jun 07 2022
 *
 * Copyright (c) 2012 - 2022 Developer Express Inc. ALL RIGHTS RESERVED
 * Read about DevExtreme licensing here: https://js.devexpress.com/Licensing/
@@ -285,13 +285,6 @@
             "dxHtmlEditor-dialogInsertTableRowsField": "!TODO",
             "dxHtmlEditor-dialogInsertTableColumnsField": "!TODO",
             "dxHtmlEditor-dialogInsertTableCaption": "!TODO",
-            "dxHtmlEditor-dialogUpdateImageCaption": "!TODO",
-            "dxHtmlEditor-dialogImageUpdateButton": "!TODO",
-            "dxHtmlEditor-dialogImageAddButton": "!TODO",
-            "dxHtmlEditor-dialogImageSpecifyUrl": "!TODO",
-            "dxHtmlEditor-dialogImageSelectFile": "!TODO",
-            "dxHtmlEditor-dialogImageKeepAspectRatio": "!TODO",
-            "dxHtmlEditor-dialogImageEncodeToBase64": "!TODO",
             "dxHtmlEditor-heading": "Titel",
             "dxHtmlEditor-normalText": "Normale tekst",
             "dxHtmlEditor-background": "TODO",
@@ -524,10 +517,6 @@
             "dxGantt-dialogCancelOperationMessage": "Annuleer de operatie",
             "dxGantt-dialogDeleteDependencyMessage": "Verwijder de afhankelijkheid",
             "dxGantt-dialogMoveTaskAndKeepDependencyMessage": "Verplaats de taak en behoud de afhankelijkheid",
-            "dxGantt-dialogConstraintCriticalViolationSeveralTasksMessage": "TODO",
-            "dxGantt-dialogConstraintViolationSeveralTasksMessage": "TODO",
-            "dxGantt-dialogDeleteDependenciesMessage": "TODO",
-            "dxGantt-dialogMoveTaskAndKeepDependenciesMessage": "TODO",
             "dxGantt-undo": "Ongedaan maken",
             "dxGantt-redo": "Opnieuw doen",
             "dxGantt-expandAll": "Alles uitklappen",

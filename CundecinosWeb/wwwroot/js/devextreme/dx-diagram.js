@@ -1,7 +1,7 @@
 /*!
  * DevExpress Diagram (dx-diagram)
- * Version: 2.1.63
- * Build date: Tue Jul 12 2022
+ * Version: 2.1.57
+ * Build date: Mon May 30 2022
  * 
  * Copyright (c) 2012 - 2022 Developer Express Inc. ALL RIGHTS RESERVED
  * Read about DevExpress licensing here: https://www.devexpress.com/Support/EULAs
@@ -1225,7 +1225,7 @@ var ModelUtils = (function () {
     };
     ModelUtils.deleteConnectorCustomPoints = function (history, connector) {
         if (connector.points.length > 2) {
-            var oldContext = connector.tryCreateRenderPointsContext();
+            var oldContext = connector.createRenderPointsContext();
             if (connector.properties.lineOption === ConnectorProperties_1.ConnectorLineOption.Straight || !oldContext)
                 history.addAndRedo(new ChangeConnectorPointsHistoryItem_1.ReplaceConnectorPointsHistoryItem(connector.key, [
                     connector.points[0].clone(),
@@ -1249,7 +1249,7 @@ var ModelUtils = (function () {
                 history.addAndRedo(new ChangeConnectorPointsHistoryItem_1.ReplaceConnectorPointsHistoryItem(connector.key, ModelUtils.createNecessaryPoints(connector.points.map(function (p) { return p.clone(); }), unnecessaryPoints)));
         }
         else {
-            var oldContext = connector.tryCreateRenderPointsContext(true);
+            var oldContext = connector.createRenderPointsContext();
             var newRenderPoints = oldRenderPoints.filter(function (p) { return !p.skipped; }).map(function (p) { return p.clone(); });
             var unnecessaryPoints = ModelUtils.createUnnecessaryRightAngleRenderPoints(newRenderPoints, connector.skippedRenderPoints, function (removedPoint) { return ModelUtils.findFirstPointIndex(oldRenderPoints, function (p) { return p.equals(removedPoint); }); });
             if (Object.keys(unnecessaryPoints).length) {
@@ -1656,7 +1656,7 @@ var ModelUtils = (function () {
     ModelUtils.cloneConnectorToOffset = function (history, model, connector, beginItemKey, endItemKey, dx, dy) {
         history.beginTransaction();
         var newPoints = connector.points.map(function (p) { return p.clone().offset(dx, dy); });
-        var addHistoryItem = new AddConnectorHistoryItem_1.AddConnectorHistoryItem(newPoints, undefined, this.applyOffsetToConnectorRenderPointsContext(connector.tryCreateRenderPointsContext(), dx, dy));
+        var addHistoryItem = new AddConnectorHistoryItem_1.AddConnectorHistoryItem(newPoints, undefined, this.applyOffsetToConnectorRenderPointsContext(connector.createRenderPointsContext(), dx, dy));
         history.addAndRedo(addHistoryItem);
         var newKey = addHistoryItem.connectorKey;
         var newConnector = model.findConnector(newKey);
@@ -2434,8 +2434,8 @@ var Connector = (function (_super) {
         }
         return keepSkipped ? this.renderPoints : this.renderPointsWithoutSkipped;
     };
-    Connector.prototype.tryCreateRenderPointsContext = function (forceCreate) {
-        return forceCreate || this.shouldChangeRenderPoints ? new ConnectorRenderPointsContext_1.ConnectorRenderPointsContext(this.renderPoints.map(function (p) { return p.clone(); }), this.lockCreateRenderPoints, this.actualRoutingMode) : undefined;
+    Connector.prototype.createRenderPointsContext = function () {
+        return this.shouldChangeRenderPoints ? new ConnectorRenderPointsContext_1.ConnectorRenderPointsContext(this.renderPoints.map(function (p) { return p.clone(); }), this.lockCreateRenderPoints, this.actualRoutingMode) : undefined;
     };
     Connector.prototype.updatePointsOnPageResize = function (offsetX, offsetY) {
         this.points = this.points.map(function (p) { return p.clone().offset(offsetX, offsetY); });
@@ -12303,7 +12303,7 @@ var UpdateConnectorPointsHistoryItem = (function (_super) {
     UpdateConnectorPointsHistoryItem.prototype.redo = function (manipulator) {
         var _this = this;
         var connector = manipulator.model.findConnector(this.connectorKey);
-        this.oldRenderContext = connector.tryCreateRenderPointsContext();
+        this.oldRenderContext = connector.createRenderPointsContext();
         this.oldPoints = connector.points.map(function (p) { return p.clone(); });
         manipulator.changeConnectorPoints(connector, function (connector) {
             connector.points = _this.newPoints;
@@ -16966,7 +16966,7 @@ var PasteSelectionCommandBase = (function (_super) {
     PasteSelectionCommandBase.prototype.performPaste = function (data) {
         this.control.beginUpdateCanvas();
         this.control.history.beginTransaction();
-        var idsForSelection = {};
+        var ids = [];
         var items = this.parseClipboardData(data);
         items = this.getSortedPasteItems(items);
         for (var i = 0; i < items.length; i++) {
@@ -16976,13 +16976,11 @@ var PasteSelectionCommandBase = (function (_super) {
             else if (item instanceof Connector_1.Connector)
                 this.control.history.addAndRedo(new ImportConnectorHistoryItem_1.ImportConnectorHistoryItem(item));
             var containerKey = item.container && item.container.key;
-            if (!containerKey || idsForSelection[containerKey] === undefined)
-                idsForSelection[item.key] = true;
-            else if (containerKey && idsForSelection[containerKey] !== undefined)
-                idsForSelection[item.key] = false;
+            if (!containerKey || ids.indexOf(containerKey) === -1)
+                ids.push(item.key);
         }
         ModelUtils_1.ModelUtils.tryUpdateModelRectangle(this.control.history);
-        this.control.history.addAndRedo(new SetSelectionHistoryItem_1.SetSelectionHistoryItem(this.control.selection, Object.keys(idsForSelection).filter(function (id) { return idsForSelection[id]; })));
+        this.control.history.addAndRedo(new SetSelectionHistoryItem_1.SetSelectionHistoryItem(this.control.selection, ids));
         this.control.history.endTransaction();
         this.control.endUpdateCanvas();
         this.control.barManager.updateItemsState();
@@ -17777,7 +17775,7 @@ var DraggingConnector = (function () {
     function DraggingConnector(connector) {
         this.connector = connector;
         this.startPoints = connector.points.map(function (x) { return x.clone(); });
-        this.startRenderContext = connector.tryCreateRenderPointsContext();
+        this.startRenderContext = connector.createRenderPointsContext();
     }
     return DraggingConnector;
 }());
@@ -22460,7 +22458,7 @@ var AddConnectorPointHistoryItem = (function (_super) {
     AddConnectorPointHistoryItem.prototype.redo = function (manipulator) {
         var _this = this;
         var connector = manipulator.model.findConnector(this.connectorKey);
-        this.renderContext = connector.tryCreateRenderPointsContext();
+        this.renderContext = connector.createRenderPointsContext();
         manipulator.addDeleteConnectorPoint(connector, function (connector) {
             connector.addPoint(_this.pointIndex, _this.point);
             connector.onAddPoint(_this.pointIndex, _this.point);
@@ -22558,7 +22556,7 @@ var MoveConnectorPointHistoryItem = (function (_super) {
         var _this = this;
         var connector = manipulator.model.findConnector(this.connectorKey);
         this.oldPoint = connector.points[this.pointIndex].clone();
-        this.renderContext = connector.tryCreateRenderPointsContext();
+        this.renderContext = connector.createRenderPointsContext();
         manipulator.moveConnectorPoint(connector, this.pointIndex, function (connector) {
             connector.movePoint(_this.pointIndex, _this.newPoint);
             connector.onMovePoint(_this.pointIndex, _this.newPoint);
@@ -22591,7 +22589,7 @@ var MoveConnectorRightAnglePointsHistoryItem = (function (_super) {
         var connector = manipulator.model.findConnector(this.connectorKey);
         this.oldBeginPoint = connector.points[this.beginPointIndex].clone();
         this.oldLastPoint = connector.points[this.lastPointIndex].clone();
-        this.renderContext = connector.tryCreateRenderPointsContext();
+        this.renderContext = connector.createRenderPointsContext();
         manipulator.changeConnectorPoints(connector, function (connector) {
             connector.movePoint(_this.beginPointIndex, _this.newBeginPoint);
             connector.movePoint(_this.lastPointIndex, _this.newLastPoint);
@@ -29898,11 +29896,6 @@ var DiagramControl = (function () {
             this.render.clean(removeElement);
             this.render = undefined;
         }
-        if (this.measurer && this.measurer instanceof TextMeasurer_1.TextMeasurer)
-            this.measurer.clean();
-    };
-    DiagramControl.prototype.dispose = function () {
-        ImageCache_1.ImageCache.instance.onReadyStateChanged.remove(this);
     };
     DiagramControl.prototype.createDocument = function (parent, scrollView, focusElementsParent) {
         if (!this.measurer)
@@ -29962,7 +29955,8 @@ var DiagramControl = (function () {
         this.eventManager.registerToolbox(toolbox);
     };
     DiagramControl.prototype.createContextToolbox = function (parent, renderAsText, shapes, options, onClick) {
-        this.cleanContextToolbox();
+        if (this.contextToolbox)
+            this.cleanContextToolbox(parent);
         this.contextToolbox = this.toolboxManager.create(parent, this.settings.readOnly, false, renderAsText, shapes, this.getToolboxAllowedShapeTypes.bind(this), options);
         this.contextToolbox.onClickOperation.add(this);
         this.contextToolboxOnClick = onClick;
@@ -29978,11 +29972,10 @@ var DiagramControl = (function () {
         this.permissionsProvider.endUpdateUI();
         return allowedShapeTypes;
     };
-    DiagramControl.prototype.cleanContextToolbox = function () {
+    DiagramControl.prototype.cleanContextToolbox = function (parent) {
         if (this.contextToolbox) {
             this.toolboxManager.clean(undefined, this.contextToolbox);
             this.contextToolbox = undefined;
-            this.contextToolboxOnClick = undefined;
         }
     };
     DiagramControl.prototype.refreshToolbox = function (toolboxes) {
@@ -30291,7 +30284,6 @@ var DiagramControl = (function () {
             this.onHideContextToolbox();
             this.render.view.notifyHideContextToolbox();
         }
-        this.cleanContextToolbox();
     };
     DiagramControl.prototype.notifyShapeDescriptionChanged = function (description) {
         this.modelManipulator.updateShapeDescription(description);
