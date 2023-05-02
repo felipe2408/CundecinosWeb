@@ -174,13 +174,12 @@
 									</a>
 								</div>
 								@{
-									var admin = User.FindFirstValue(ClaimTypes.NameIdentifier).ToString();
+									var admin = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 								}
 
-							@if (@admin == "6524038f-751a-490b-a9b1-feba27bb8141" || @admin == "6524038f-751a-490b-a9b1-feba27bb8141")
+							@if (@admin == Guid.Parse("0535c28a-1c42-4f51-8079-cc23687ea5d0") || @admin == Guid.Parse("6524038f-751a-490b-a9b1-feba27bb8141"))
 							{
 
-								}
 								<div class="menu-item">
 									<div class="menu-content pt-8 pb-2">
 										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Administración</span>
@@ -252,16 +251,11 @@
 												
 									</div>
 								</div>
-								
-								
-								
-								
 								<div class="menu-item">
 									<div class="menu-content pt-8 pb-0">
 										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Reportes</span>
 									</div>
 								</div>
-								
 								<div class="menu-item">
 									<a class="menu-link" asp-controller="Setup" asp-action="Report" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
 										<span class="menu-icon">
@@ -282,6 +276,14 @@
 										<div class="separator mx-1 my-4"></div>
 									</div>
 								</div>
+								
+							}
+								
+								
+								
+								
+								
+								
 								
 							</div>
 							<!--end::Menu-->
