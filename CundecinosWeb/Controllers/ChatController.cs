@@ -20,6 +20,13 @@ namespace CundecinosWeb.Controllers
 
 		public IActionResult Index()
 		{
+            var person = _context.People.Where(x => x.UID == Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+
+            if (person == null)
+            {
+                return RedirectToAction("Register","User");
+            }
+
 			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 			ViewBag.UserId = userId;
 			var people = _context.People.Where(x => x.UID != Guid.Parse(userId)).OrderBy(x=>x.FirstName).ToList();
@@ -29,6 +36,11 @@ namespace CundecinosWeb.Controllers
 		public IActionResult ChatUser(Guid id)
 		{
 			var person = _context.People.Where(x => x.UID == id).FirstOrDefault();
+            if (person == null)
+            {
+                return RedirectToAction("Register", "User");
+            }
+
             var model = new Message();
             var sender = _context.People.Where(x => x.UID == Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))).Include(x=>x.SentMessages).Include(x=>x.ReceivedMessages).First();
             model.SenderID = sender.PersonID;

@@ -173,6 +173,14 @@
 										<span class="menu-title">Chat</span>
 									</a>
 								</div>
+								@{
+									var admin = User.FindFirstValue(ClaimTypes.NameIdentifier).ToString();
+								}
+
+							@if (@admin == "6524038f-751a-490b-a9b1-feba27bb8141" || @admin == "6524038f-751a-490b-a9b1-feba27bb8141")
+							{
+
+								}
 								<div class="menu-item">
 									<div class="menu-content pt-8 pb-2">
 										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Administración</span>
