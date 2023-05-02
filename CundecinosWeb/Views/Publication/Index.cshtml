@@ -446,9 +446,14 @@
                                 url: "/WebScraper/ScrapePrice",
                                 data: formData,
                                 success: function (data) {
-                                    $("#precio").text(data);
-                                    $('#Publication_EstimatedPrice').val(data.substring(data.indexOf(":") + 1));
-                                    $('#Publication_ProductDescription').val(data.substring(0,data.indexOf(":") - 3));
+                                    if(data !== undefined && data.trim() !== ""){
+                                        $("#precio").text(data);
+                                        $('#Publication_EstimatedPrice').val(data.substring(data.indexOf(":") + 1));
+                                        $('#Publication_ProductDescription').val(data.substring(0, data.indexOf(":") - 3));
+                                    }else{
+                                        $("#precio").text('No pudimos encontrar tu producto.');
+                                    }
+
                                 },
                                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                                     $("#precio").text('No pudimos encontrar tu producto.');
