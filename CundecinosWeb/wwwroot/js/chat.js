@@ -7,30 +7,32 @@ var userId = document.getElementById("userInput").value;
 
 document.getElementById("sendButton").disabled = true;
 
-connection.on("ReceiveMessage", function (user, message) {
-    console.log(user, message);
-    var name = $('#name').val()
-    var avatar = $('#avatar').val()
-    var messageHtml = `
-        <div class="d-flex justify-content-start mb-10">
-            <div class="d-flex flex-column align-items-start">
-                <div class="d-flex align-items-center mb-2">
-                    <div class="symbol symbol-35px symbol-circle">
-                        <img alt="Pic" src="${avatar}" />
+connection.on("ReceiveMessage", function (user,sender, message) {
+    //console.log(user,sender, message);
+    var senderID = $('#userInput').val();
+    if (sender == senderID) {
+        var name = $('#name').val()
+        var avatar = $('#avatar').val()
+        var messageHtml = `
+            <div class="d-flex justify-content-start mb-10">
+                <div class="d-flex flex-column align-items-start">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="symbol symbol-35px symbol-circle">
+                            <img alt="Pic" src="${avatar}" />
+                        </div>
+                        <div class="ms-3">
+                            <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary me-1">${name}</a>
+                        </div>
                     </div>
-                    <div class="ms-3">
-                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary me-1">${name}</a>
-                    </div>
+                    <div class="p-5 rounded bg-light-info text-dark fw-bold mw-lg-400px text-start" data-kt-element="message-text">${message}</div>
                 </div>
-                <div class="p-5 rounded bg-light-info text-dark fw-bold mw-lg-400px text-start" data-kt-element="message-text">${message}</div>
             </div>
-        </div>
-    `;
-    $('#messagesDiv').append(messageHtml);
-    // Mueve el scroll al final del div
-    var messagesDiv = $("#messagesDiv");
-    messagesDiv.scrollTop(messagesDiv.prop("scrollHeight"));
-
+        `;
+        $('#messagesDiv').append(messageHtml);
+        // Mueve el scroll al final del div
+        var messagesDiv = $("#messagesDiv");
+        messagesDiv.scrollTop(messagesDiv.prop("scrollHeight"));
+    } 
 });
 
 connection.start().then(function () {
@@ -60,7 +62,7 @@ document.getElementById("sendButton").addEventListener("click", function (event)
         success: function (response) {
             if (response.success) {
                 $('#textMessage').val('')
-                connection.invoke("SendMessage", message.AddresseeID, message.Text)
+                connection.invoke("SendMessage", message.AddresseeID, message.SenderID, message.Text)
                     .catch(function (err) {
                         return console.error(err.toString())
                     });
