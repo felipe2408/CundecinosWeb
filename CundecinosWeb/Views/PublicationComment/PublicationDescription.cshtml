@@ -1,4 +1,5 @@
-﻿@model CundecinosWeb.ViewModel.vPublicationComment
+﻿@using CundecinosWeb.Enum;
+@model CundecinosWeb.ViewModel.vPublicationComment
 
 <div class="card mb-5 mb-xl-8">
     <!--begin::Body-->
@@ -23,6 +24,16 @@
                 <!--end::Info-->
             </div>
             <!--end::User-->
+            @if (Model.Publication.PublicationType == PublicationType.Sale)
+            {
+
+                <span class="badge badge-light-success">En Venta</span>
+
+            }
+            else
+            {
+                <span class="badge badge-light-warning">En Trueque</span>
+            }
         </div>
         <!--end::Header-->
         <!--begin::Post-->
@@ -40,7 +51,8 @@
 
                                 <span class="fw-bolder text-dark">@Model.Publication.Qualification</span>
                                 <span class="text-muted mt-1 fw-bold fs-7">@Model.Publication.Content</span>
-
+                                <span class="text-muted mt-1 fw-bold fs-7">Descripción del Producto : @Model.Publication.ProductDescription</span>
+                                <span class="text-muted mt-1 fw-bold fs-7">Precio Estimado : @Model.Publication.EstimatedPrice</span>
                             </h3>
                             <div class="card-toolbar">
 
