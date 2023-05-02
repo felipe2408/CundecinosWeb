@@ -35,7 +35,7 @@
                     {
                         @using (Html.DevExtreme().ValidationGroup())
                         {
-                            @(Html.DevExtreme().TextBoxFor(x=>x.PublicationID).Visible(false).ReadOnly(true))
+                            @(Html.DevExtreme().TextBoxFor(x => x.PublicationID).Visible(false).ReadOnly(true))
                             @(Html.DevExtreme().TextBoxFor(x => x.PublicationDate).Visible(false).ReadOnly(true))
                             <div class="row mb-8">
                                 <!--begin::Col-->
@@ -201,3 +201,26 @@
         </div>
     </div>
 </div>
+<script>
+    function buscarPrecio() {
+        if ($("#description").val().trim() !== "" && $("#description").val().trim() !== undefined) {
+            var formData = {
+                description: $("#description").val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/WebScraper/ScrapePrice",
+                data: formData,
+                success: function (data) {
+                    $("#precio").text(data);
+                    $('#Publication_EstimatedPrice').val(data.substring(data.indexOf(":") + 1));
+                    $('#Publication_ProductDescription').val(data.substring(0, data.indexOf(":") - 3));
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    $("#precio").text('No pudimos encontrar tu producto.');
+                }
+            });
+        }
+    }
+</script>
