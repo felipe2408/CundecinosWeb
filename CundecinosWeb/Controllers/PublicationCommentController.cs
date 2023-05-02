@@ -32,7 +32,7 @@ namespace CundecinosWeb.Controllers
             ViewBag.Avatar = user.AvatarUrl;
 
             var publication = _context.Publication.Include(x => x.Person).Include(x => x.PublicationAttachment).Where(x => x.PublicationID == Id).FirstOrDefault();
-			var publicationComments = _context.PublicationComments.Where(x => x.PublicationID == Id).ToList();
+			var publicationComments = _context.PublicationComments.Where(x => x.PublicationID == Id).Include(x=>x.Person).ToList();
 			var model = new vPublicationComment();
 			model.Person = publication.Person;
 			model.Publication = publication;
