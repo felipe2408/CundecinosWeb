@@ -18,7 +18,7 @@ namespace CundecinosWeb.Models
         //public async Task SendMessage(Message message) => await Clients.User(message.AddresseeID.ToString()).SendAsync("receiveMessage", message);
 
 
-        public async Task SendMessage(string user, string message)
+        public async Task SendMessage(string user, string sender,string message)
         {
             // Guardar el mensaje en la base de datos
             //var chatMessage = new ChatMessage
@@ -32,7 +32,7 @@ namespace CundecinosWeb.Models
             //await _dbContext.SaveChangesAsync();
 
             // Enviar el mensaje a través de SignalR
-           await Clients.User(user).SendAsync("ReceiveMessage", user, message);
+           await Clients.User(user).SendAsync("ReceiveMessage", user,sender, message);
         }
     }
 }
