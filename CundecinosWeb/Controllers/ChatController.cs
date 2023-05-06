@@ -20,22 +20,24 @@ namespace CundecinosWeb.Controllers
 
 		public IActionResult Index()
 		{
-            var person = _context.People.Where(x => x.UID == Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
-
+            var person = _context.People.Where(x => x.UID == Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))).Include(x=>x.ReceivedMessages).First();
             if (person == null)
             {
                 return RedirectToAction("Register","User");
             }
-
-			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var model = new vChat()
+            {
+                People = _context.People.Where(x => x.UID != Guid.Parse(userId)).OrderBy(x => x.FirstName).ToList(),
+                PeopleWritten = person.ReceivedMessages.Where(x => x.Read == false).Select(x => x.Sender).ToList()
+            };
 			ViewBag.UserId = userId;
-			var people = _context.People.Where(x => x.UID != Guid.Parse(userId)).OrderBy(x=>x.FirstName).ToList();
-			return View(people);
+			return View(model);
 		}
 		[HttpGet]
-		public IActionResult ChatUser(Guid id)
+		public async Task<IActionResult> ChatUser(Guid id)
 		{
-			var person = _context.People.Where(x => x.UID == id).FirstOrDefault();
+			var person = _context.People.Where(x => x.UID == id).Include(x=>x.ReceivedMessages).FirstOrDefault();
             if (person == null)
             {
                 return RedirectToAction("Register", "User");
@@ -49,7 +51,15 @@ namespace CundecinosWeb.Controllers
 			model.AddresseeID = person.PersonID;
 			ViewBag.Messages = sender.SentMessages.Where(x=>x.SenderID == model.Sender.PersonID && x.AddresseeID == model.Addressee.PersonID).Concat(sender.ReceivedMessages.Where(x=>x.SenderID == model.Addressee.PersonID && x.AddresseeID == model.Sender.PersonID)).OrderBy(x=>x.SentAt).ToList();
             ViewBag.UserId = sender.PersonID;
-
+            foreach (var message in sender.ReceivedMessages)
+            {
+                if(!message.Read) 
+                {
+                    message.Read = true;
+                }
+            }
+            _context.UpdateRange(sender.ReceivedMessages);
+            await _context.SaveChangesAsync();
             return View(model);
 		}
 

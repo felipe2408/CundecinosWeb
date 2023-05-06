@@ -18,6 +18,7 @@ namespace CundecinosWeb.Models
 
         
         public Guid AddresseeID { get; set; }
+        public bool Read { get; set; }
 
 
         [Display(Name = "Remitente")]
@@ -25,6 +26,7 @@ namespace CundecinosWeb.Models
 
         [Display(Name = "Destinatario")]
         public virtual Person Addressee { get; set; }
+
 
     }
 }

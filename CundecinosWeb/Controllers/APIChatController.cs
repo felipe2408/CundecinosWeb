@@ -32,5 +32,13 @@ namespace CundecinosWeb.Controllers
             }
             
         }
+        //[HttpGet]
+        //public async Task<IActionResult> UnreadMessages([FromRoute]string UserID)
+        //{
+        //    int Count = 0;
+        //    var ID = _context.People.Where(x=>x.UID == Guid.Parse(UserID)).First().PersonID;
+        //    Count = _context.Messages.Where(x => x.AddresseeID == ID).Count();
+        //    return Json(new { messages = Count });
+        //}
     }
 }
