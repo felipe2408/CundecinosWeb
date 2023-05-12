@@ -75,7 +75,10 @@
                                             <!--end::Details-->
                                         </div>
                                         <!--end::Details-->
-
+                                        @if (Model.PeopleWritten.Find(x => x.UID == item.UID) != null)
+                                        {
+                                            <span class="badge badge-pill badge-danger rounded-circle me-5 ms-auto px-2 py-2">@Model.PeopleWritten.Where(x=>x.UID == item.UID).Count()</span>
+                                        }
                                     </div>
 
                                 </a>
