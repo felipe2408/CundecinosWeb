@@ -77,6 +77,9 @@ namespace CundecinosWeb.Models
 
 
         [JsonIgnore]
+        public virtual ICollection<CalificationPerson>? Califications { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<PublicationComments>? PublicationComments { get; set; }
 
 

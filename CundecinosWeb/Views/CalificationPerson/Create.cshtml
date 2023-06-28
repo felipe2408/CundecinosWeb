@@ -1,0 +1,139 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using CundecinosWeb.Enum;
+@model CundecinosWeb.Models.CalificationPerson
+
+<div class="post d-flex flex-column-fluid" id="kt_post">
+    <!--begin::Container-->
+    <div id="kt_content_container" class="container">
+        <!--begin::Row-->
+        <div class="row g-5 g-xl-8">
+            <!--begin::Col-->
+            <div class="col-12">
+                <!--begin::Feeds Widget 1-->
+                <div class="card mb-5 mb-xl-8">
+                    <!--begin::Body-->
+                    <div class="card-body pb-0">
+                        <!--begin::Header-->
+                        <div class="d-flex align-items-center">
+                            <!--begin::User-->
+                            <div class="d-flex align-items-center flex-grow-1">
+                                <!--begin::Avatar-->
+                                @{
+
+                                    //var url = $"https://cunpublication.blob.core.windows.net/publication/{@User.FindFirstValue(ClaimTypes.NameIdentifier)}.jpg";
+                                }
+
+                               @* <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                                    <img src="@url" alt="user" />
+                                </div>*@
+
+                                <!--end::Avatar-->
+                                <!--begin::Info-->
+                                @*<div class="d-flex flex-column">
+                                    <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder"> @Model.Person.FirstName @Model.Person.LastName</a>
+                                    <span class="text-gray-400 fw-bold">@Model.Person.Email</span>
+                                </div>*@
+                                <!--end::Info-->
+                            </div>
+                            <!--end::User-->
+
+                        </div>
+                        <!--end::Header-->
+                        <!--begin::Editor-->
+
+                        
+                        <br /><br />
+
+                        @using (Html.BeginForm("CreatePublication", "Publication", FormMethod.Post, new { enctype = "multipart/form-data", id = "login" }))
+                        {
+
+                            @using (Html.DevExtreme().ValidationGroup())
+                            {
+                                @*<input type="hidden" asp-i value="@Model.PersonID" />*@
+
+                                
+
+                                <div class="row mb-8">
+                                    <!--begin::Col-->
+                                    <div class="col-xl-2 fv-row">
+                                        <div class="fs-6 fw-bold mt-2 mb-3">Califica a tu intermediario</div>
+                                    </div>
+                                    <!--begin::Col-->
+                                    <div class="col-xl-10">
+
+                                        @(Html.DevExtreme().SelectBoxFor(m => m.Calification)
+                                            .DataSource(Html.GetEnumSelectList<CundecinosWeb.Enum.Calification>()
+                                            .Select(i => new { Value = int.Parse(i.Value), Text = i.Text })
+                                            )
+                                            .ValueExpr("Value")
+                                            .ID("PublicationType")
+                                            .DisplayExpr("Text")
+                                            .Placeholder("Seleccione...")
+                                            )
+
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+
+                                <div class="row mb-8">
+                                    <!--begin::Col-->
+                                    <div class="col-xl-2 fv-row">
+                                        <div class="fs-6 fw-bold mt-2 mb-3">Comentarios</div>
+                                    </div>
+                                    <!--begin::Col-->
+                                    <div class="col-xl-10">
+                                        @(Html.DevExtreme().TextBoxFor(x => x.Observations))
+                                    </div>
+
+
+                                    <!--end::Col-->
+                                </div>
+
+
+                                <!--end::Editor-->
+
+                                <br /> <div class="separator"></div> <br />
+
+                                <!--begin::Timeline details-->
+                                <div class="overflow-auto pb-5">
+                                    <!--begin::Notice-->
+                                    <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed min-w-lg-600px flex-shrink-0 p-6">
+
+                                        <!--begin::Wrapper-->
+                                        <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                                            <!--begin::Content-->
+                                            <div class="mb-3 mb-md-0 fw-bold" id="message">
+                                                <h4 class="text-gray-800 fw-bolder">Tus Comentarios son importantes para nosotros!</h4>
+                                                
+                                                <br />
+
+                                            </div>
+
+                                            <!--end::Content-->
+                                        </div>
+                                        <!--end::Wrapper-->
+                                    </div>
+                                    <!--end::Notice-->
+                                </div>
+                                <!--end::Timeline details-->
+
+                                @(Html.DevExtreme().Button()
+                                    .ID("Publication")
+                                    .Text("Guardar")
+                                    .Type(ButtonType.Success)
+                                    // Instructs the Button to validate the TextBoxes and submit the form
+                                    .UseSubmitBehavior(true)
+                                    )
+                            }
+                        }
+
+                    </div>
+                    <!--end::Body-->
+                </div>
+               
+
+            </div>
+        </div>
+    </div>
+</div>
