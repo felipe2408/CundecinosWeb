@@ -4,6 +4,7 @@ using CundecinosWeb.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CundecinosWeb.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230707211510_FixModelPublication2")]
+    partial class FixModelPublication2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,7 +48,7 @@ namespace CundecinosWeb.Migrations
 
                     b.HasIndex("PersonID");
 
-                    b.ToTable("CalificationPerson", (string)null);
+                    b.ToTable("CalificationPerson");
                 });
 
             modelBuilder.Entity("CundecinosWeb.Models.Category", b =>
@@ -64,7 +66,7 @@ namespace CundecinosWeb.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("categories", (string)null);
+                    b.ToTable("categories");
                 });
 
             modelBuilder.Entity("CundecinosWeb.Models.CollegeCareer", b =>
@@ -82,7 +84,7 @@ namespace CundecinosWeb.Migrations
 
                     b.HasKey("CollegeCareerId");
 
-                    b.ToTable("CollegeCareer", (string)null);
+                    b.ToTable("CollegeCareer");
                 });
 
             modelBuilder.Entity("CundecinosWeb.Models.Extension", b =>
@@ -100,7 +102,7 @@ namespace CundecinosWeb.Migrations
 
                     b.HasKey("ExtensionId");
 
-                    b.ToTable("Extensions", (string)null);
+                    b.ToTable("Extensions");
                 });
 
             modelBuilder.Entity("CundecinosWeb.Models.InofferPublication", b =>
@@ -129,7 +131,7 @@ namespace CundecinosWeb.Migrations
 
                     b.HasIndex("PersonID");
 
-                    b.ToTable("InofferPublications", (string)null);
+                    b.ToTable("InofferPublications");
                 });
 
             modelBuilder.Entity("CundecinosWeb.Models.Message", b =>
@@ -160,7 +162,7 @@ namespace CundecinosWeb.Migrations
 
                     b.HasIndex("SenderID");
 
-                    b.ToTable("Messages", (string)null);
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("CundecinosWeb.Models.Person", b =>
@@ -215,7 +217,7 @@ namespace CundecinosWeb.Migrations
 
                     b.HasIndex("ExtensionId");
 
-                    b.ToTable("People", (string)null);
+                    b.ToTable("People");
                 });
 
             modelBuilder.Entity("CundecinosWeb.Models.Publication", b =>
@@ -261,7 +263,7 @@ namespace CundecinosWeb.Migrations
 
                     b.HasIndex("PersonID");
 
-                    b.ToTable("Publication", (string)null);
+                    b.ToTable("Publication");
                 });
 
             modelBuilder.Entity("CundecinosWeb.Models.PublicationAttachment", b =>
@@ -292,7 +294,7 @@ namespace CundecinosWeb.Migrations
 
                     b.HasIndex("PublicationID");
 
-                    b.ToTable("PublicationAttachments", (string)null);
+                    b.ToTable("PublicationAttachments");
                 });
 
             modelBuilder.Entity("CundecinosWeb.Models.PublicationComments", b =>
@@ -323,7 +325,7 @@ namespace CundecinosWeb.Migrations
 
                     b.HasIndex("PublicationID");
 
-                    b.ToTable("PublicationComments", (string)null);
+                    b.ToTable("PublicationComments");
                 });
 
             modelBuilder.Entity("CundecinosWeb.Models.CalificationPerson", b =>

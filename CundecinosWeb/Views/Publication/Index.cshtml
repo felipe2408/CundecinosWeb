@@ -195,6 +195,24 @@
                                     <!--end::Col-->
                                 </div>
 
+                                <div class="row mb-8">
+                                    <!--begin::Col-->
+                                    <div class="col-xl-2 fv-row">
+                                        <div class="fs-6 fw-bold mt-2 mb-3">Categoría</div>
+                                    </div>
+                                    <!--begin::Col-->
+                                    <div class="col-xl-10">
+
+                                        @(Html.DevExtreme().SelectBoxFor(x => x.Publication.CategoryID)
+                                            .DataSource(d => d.Mvc().Controller("APICategories").LoadAction("GetActive").Key("Value"))
+                                            .ID("CategoryID")
+                                            .ValueExpr("CategoryID")
+                                            .DisplayExpr("Name")
+                                            )
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+
                                 @(Html.DevExtreme().TextBoxFor(x => x.Publication.PersonID).Visible(false))
 
                                 @(Html.DevExtreme().FileUploader()
@@ -365,7 +383,7 @@
                                                 </svg>
 
                                             </span>
-                                            <!--end::Svg Icon-->Comentarios @item.PublicationComments.Count
+                                            <!--end::Svg Icon-->Ofertar @item.PublicationComments.Count
                                         </a>
                                     </div>
                                     <!--end::Toolbar-->

@@ -59,6 +59,9 @@ namespace CundecinosWeb.Data
         public DbSet<CollegeCareer> CollegeCareer { get; set; }
 
 
+        public DbSet<InofferPublication> InofferPublications { get; set; }
+
+        public DbSet<Category> categories { get; set; }
         public DbSet<Extension> Extensions { get; set; }
         public DbSet<Message> Messages { get; set; }
     }

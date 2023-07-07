@@ -45,10 +45,17 @@ namespace CundecinosWeb.Models
         [Column(TypeName = "varchar(100)")]
         public string? ProductDescription { get; set; }
 
+
+        [Display(Name = "Categoría")]
+        public Guid CategoryID { get; set; }
+
         public bool IsActive { get; set; }   
 
         [JsonIgnore]
         public virtual ICollection<PublicationAttachment>? PublicationAttachment { get; set; }
+
+        //[JsonIgnore]
+        //public virtual ICollection<InofferPublication>? InofferPublications { get; set; }
 
 
         [JsonIgnore]
@@ -58,5 +65,7 @@ namespace CundecinosWeb.Models
         public virtual Person? Person { get; set; }
 
 
-    }
+		[JsonIgnore]
+		public virtual Category? Category { get; set; }
+	}
 }

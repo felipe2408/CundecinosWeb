@@ -1,0 +1,37 @@
+﻿<div class="post d-flex flex-column-fluid" id="kt_post">
+    <!--begin::Container-->
+    <div id="kt_content_container" class="container">
+        <!--begin::Modal content-->
+        <div class="modal-content">
+
+            <div class="col" style="padding: 10px;">
+                <!--begin::List Widget 5-->
+                <div class="card card-xxl-stretch">
+                    @(Html.DevExtreme().DataGrid<CundecinosWeb.Models.Category>()
+                        .DataSource(ds => ds.Mvc()
+                        .Controller("APICategories")
+                        .LoadAction("Get")
+                        .InsertAction("Post")
+                        .UpdateAction("Put")
+                        .Key("CategoryID")
+                        )
+                        .RemoteOperations(true)
+                        .Columns(columns =>
+                        {
+
+
+                            columns.AddFor(m => m.Name);
+
+                            columns.AddFor(m => m.IsActive);
+                        })
+                        .Editing(e => e
+                        .AllowAdding(true)
+                        .AllowUpdating(true)
+                        )
+                        )
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
