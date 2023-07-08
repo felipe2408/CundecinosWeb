@@ -32,7 +32,7 @@ namespace CundecinosWeb.Controllers
                 i.PublicationID,
                 i.Content,
                 i.CommentDate,
-                i.ProductUrl
+                //i.ProductUrl
             });
 
             // If underlying data is a large SQL table, specify PrimaryKey and PaginateViaPrimaryKey.
@@ -112,7 +112,7 @@ namespace CundecinosWeb.Controllers
             string PUBLICATION_ID = nameof(PublicationComments.PublicationID);
             string CONTENT = nameof(PublicationComments.Content);
             string COMMENT_DATE = nameof(PublicationComments.CommentDate);
-            string PRODUCT_URL = nameof(PublicationComments.ProductUrl);
+            //string PRODUCT_URL = nameof(PublicationComments.ProductUrl);
 
             if(values.Contains(PUBLICATION_COMMENTS_ID)) {
                 model.PublicationCommentsID = ConvertTo<System.Guid>(values[PUBLICATION_COMMENTS_ID]);
@@ -135,9 +135,9 @@ namespace CundecinosWeb.Controllers
             }
 
 
-            if(values.Contains(PRODUCT_URL)) {
-                model.ProductUrl = Convert.ToString(values[PRODUCT_URL]);
-            }
+            //if(values.Contains(PRODUCT_URL)) {
+            //    model.ProductUrl = Convert.ToString(values[PRODUCT_URL]);
+            //}
         }
 
         private T ConvertTo<T>(object value) {

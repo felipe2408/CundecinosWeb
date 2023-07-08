@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using CundecinosWeb.Enum;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -26,9 +27,8 @@ namespace CundecinosWeb.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime CommentDate { get; set; }
 
-        [Display(Name = "Imagen del Producto")]
-        [Column(TypeName = "varchar(100)")]
-        public string? ProductUrl { get; set; }
+        [Display(Name = "Estado de Negociación")]
+        public StatusInnofer StatusInnofer { get; set; }
 
 
         [JsonIgnore]
@@ -36,6 +36,10 @@ namespace CundecinosWeb.Models
 
         [JsonIgnore]
         public virtual Person? Person { get; set; }
+
+
+        [JsonIgnore]
+        public virtual ICollection<CommentAttachment>? CommentAttachment { get; set; }
 
 
 

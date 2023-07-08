@@ -26,11 +26,24 @@
             @(Html.DevExtreme().TextBoxFor(x => x.Content).ID("Content"))
 
         </div>
-@*        <div class="fv-row mb-5">
+        @*        <div class="fv-row mb-5">
             @(
                 Html.DevExtreme().FileUploader()
                 )
         </div>*@
+        <div class="fv-row mb-10 d-flex">
+
+
+            @(Html.DevExtreme().FileUploader()
+                .ID("fileUploader")
+                .Accept("image/*")
+                .UploadMode(FileUploadMode.Instantly)
+                .Name("files")
+                .Multiple(true)
+
+                )
+
+        </div>
         <div class="fv-row mb-10 d-flex">
             @(Html.DevExtreme().Button()
                 .ID("enviar_comentario")
