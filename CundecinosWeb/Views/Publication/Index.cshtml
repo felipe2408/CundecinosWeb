@@ -235,11 +235,23 @@
                                         <!--begin::Wrapper-->
                                         <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
                                             <!--begin::Content-->
-                                            <div class="mb-3 mb-md-0 fw-bold" id="message">
+                                            <div class="mb-3 mb-md-0 fw-bold w-100" id="message">
                                                 <h4 class="text-gray-800 fw-bolder">Revisa el precio estimado para continuar!</h4>
-                                                <div class="fs-6 text-gray-600 pe-7" id="precio"></div>
-
-
+                                                <div class="container-fluid w-100 d-none" id="precio">
+                                                    <div class="d-flex my-3">
+                                                        <span id="precioML"></span>
+                                                        <a class="ms-auto me-0" href="#" id="linkML" target="_blank">Ir a tienda</a>
+                                                    </div>
+                                                    <div class="d-flex my-3">
+                                                        <span id="precioAm"></span>
+                                                        <a class="ms-auto me-0" href="#" id="linkAm" target="_blank">Ir a tienda</a>
+                                                    </div>
+                                                    <div class="d-flex my-3">
+                                                        <span id="precioEb"></span>
+                                                        <a class="ms-auto me-0" href="#" id="linkEb" target="_blank">Ir a tienda</a>
+                                                    </div>
+                                                    <span id="promedio"></span><br>
+                                                </div>
                                                 <br />
 
                                             </div>
@@ -260,7 +272,10 @@
                                     </div>
                                     <!--begin::Col-->
                                     <div class="col-xl-2" style="text-align: center;">
-                                        <button class="btn btn-lg btn-primary boton-precio" type="button" onclick="buscarPrecio()"> Buscar precio.</button>
+                                        <button class="btn btn-lg btn-primary boton-precio" id="btnBuscar" type="button" onclick="buscarPrecio()">
+                                            Buscar precio.
+                                        </button>
+
                                     </div>
                                     <!--end::Col-->
                                 </div>
@@ -445,6 +460,9 @@
                     }
                     function buscarPrecio() {
                         if ($("#description").val().trim() !== "" && $("#description").val().trim() !== undefined) {
+                            $("#btnBuscar").html('<div id="loader" class="loader mx-auto d-block">')
+                            $("#btnBuscar").prop("disabled", true)
+                            $("#loader").removeClass('d-none')
                             var formData = {
                                 description: $("#description").val()
                             };
@@ -455,15 +473,27 @@
                                 data: formData,
                                 success: function (data) {
                                     if (data !== undefined && data.trim() !== "") {
-                                        $("#precio").text(data);
-                                        $('#Publication_EstimatedPrice').val(data.substring(data.indexOf(":") + 1));
-                                        $('#Publication_ProductDescription').val(data.substring(0, data.indexOf(":") - 3));
+                                        const jsonData = JSON.parse(data)
+                                        $("#precioML").text(jsonData['priceML'])
+                                        $('#linkML').attr('href', 'https://listado.mercadolibre.com.co/' + jsonData['description']);
+                                        $("#precioAm").text(jsonData['priceAm'])
+                                        $('#linkAm').attr('href', 'https://www.amazon.com/s?k=' + jsonData['description']);
+                                        $("#precioEb").text(jsonData['priceEbay'])
+                                        $('#linkEb').attr('href', 'https://www.ebay.com/sch/i.html?_nkw=' + jsonData['description']);
+                                        $('#precio').removeClass('d-none')
+                                        $("#promedio").text(jsonData['averagePrice'])
                                     } else {
                                         $("#precio").text('No pudimos encontrar tu producto.');
                                     }
+                                    $("#btnBuscar").html('<div id="loader" class="loader mx-auto d-none"></div>Buscar precio')
+                                    $("#btnBuscar").prop("disabled", false)
+                                    $("#loader").addClass('d-none')
                                 },
                                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                    $("#precio").text('No pudimos encontrar tu producto.');
+                                    $("#precio").text('No pudimos encontrar tu producto.')
+                                    $("#btnBuscar").html('<div id="loader" class="loader mx-auto d-none"></div>Buscar precio')
+                                    $("#btnBuscar").prop("disabled", false)
+                                    $("#loader").addClass('d-none')
                                 }
                             });
                         }
