@@ -328,11 +328,24 @@
                                     <!--end::User-->
                                     @if (item.PublicationType == PublicationType.Sale)
                                     {
-                                        <span class="badge badge-light-success">En Venta</span>
+                                        <span class="badge badge-light-success">Emprendimiento</span>
                                     }
                                     else
                                     {
                                         <span class="badge badge-light-warning">En Trueque</span>
+                                    }
+                                    <br>
+                                    @if (item.Status == Status.Inoffer)
+                                    {
+                                        <span class="badge badge-light-warning">En Oferta</span>
+                                    }
+                                    @if (item.Status == Status.Negotiation)
+                                    {
+                                        <span class="badge badge-light-success">En Negociación</span>
+                                    }
+                                    @if (item.Status == Status.Exchanged)
+                                    {
+                                        <span class="badge badge-light-warning">Intercambiado</span>
                                     }
                                 </div>
                                 <!--end::Header-->

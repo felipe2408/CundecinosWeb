@@ -68,6 +68,7 @@ namespace CundecinosWeb.Controllers
 
                 publication.PublicationDate = DateTime.Now;
                 publication.IsActive = true;
+                publication.Status = Enum.Status.Inoffer;
                 _context.Publication.Add(publication);
 
                 _context.SaveChanges();

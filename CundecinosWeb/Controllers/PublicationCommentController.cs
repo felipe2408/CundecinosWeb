@@ -32,7 +32,7 @@ namespace CundecinosWeb.Controllers
             ViewBag.Avatar = user.AvatarUrl;
 
             var publication = _context.Publication.Include(x => x.Person).Include(x => x.PublicationAttachment).Where(x => x.PublicationID == Id).FirstOrDefault();
-			var publicationComments = _context.PublicationComments.Where(x => x.PublicationID == Id).Include(x=>x.Person).ToList();
+			var publicationComments = _context.PublicationComments.Where(x => x.PublicationID == Id).Include(x=>x.Person).Include(x => x.CommentAttachment).ToList();
 			var model = new vPublicationComment();
 			model.Person = publication.Person;
 			model.Publication = publication;
@@ -55,8 +55,13 @@ namespace CundecinosWeb.Controllers
             string containerName = "publication";
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
 
-          
 
+            comment.StatusInnofer = Enum.StatusInnofer.InNegotiation;
+            comment.CommentDate = DateTime.Now; 
+
+            _context.PublicationComments.Add(comment);
+
+            _context.SaveChanges();
             foreach (var file in Request.Form.Files)
             {
 
@@ -69,10 +74,17 @@ namespace CundecinosWeb.Controllers
 
                 urls.Add(blobClient.Uri.ToString());
 
-                
+                var attachment = new CommentAttachment();
+                attachment.CommentAttachmentID = Guid.NewGuid();
+                attachment.PublicationCommentsID = comment.PublicationCommentsID;
+                attachment.ImageScreen = blobClient.Uri.ToString();
+                attachment.ImageThumbNail = blobClient.Uri.ToString();
+                attachment.Created = DateTime.Now;
+                attachment.CreatedBy = "5BDADA86-69A6-4465-A82F-08DB40DB6B03";
+                _context.Add(attachment);
+
 
             }
-            _context.PublicationComments.Add(comment);
 
             _context.SaveChanges();
             return RedirectToAction("PublicationDescription", new { id = comment.PublicationID});

@@ -5,6 +5,11 @@ namespace CundecinosWeb.Enum
     public enum StatusInnofer
     {
 
+
+        [Display(Name = "Creada")]
+        Create = 0,
+
+
         [Display(Name = "En Negociación")]
         InNegotiation = 10,
 

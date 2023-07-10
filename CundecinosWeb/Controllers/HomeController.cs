@@ -3,6 +3,7 @@ using CundecinosWeb.Models;
 using CundecinosWeb.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -31,7 +32,7 @@ namespace CundecinosWeb.Controllers
                 {
                     return RedirectToAction("Register", "User");
                 }
-                var publications = _context.Publication.Where(x => x.PersonID == user.PersonID).OrderByDescending(x => x.PublicationDate).Take(10).ToList();
+                var publications = _context.Publication.Include(x => x.Person).Where(x => x.PersonID == user.PersonID).OrderByDescending(x => x.PublicationDate).Take(10).ToList();
                 var model = new vPersonPublication();
                 model.Person = user;
                 model.PublicationUsers = publications;

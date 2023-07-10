@@ -49,13 +49,15 @@ namespace CundecinosWeb.Models
         [Display(Name = "Categoría")]
         public Guid CategoryID { get; set; }
 
-        public bool IsActive { get; set; }   
+        public bool IsActive { get; set; }
+
+
+        [Display(Name = "Estado")]
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        public Status Status { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<PublicationAttachment>? PublicationAttachment { get; set; }
-
-        //[JsonIgnore]
-        //public virtual ICollection<InofferPublication>? InofferPublications { get; set; }
 
 
         [JsonIgnore]
