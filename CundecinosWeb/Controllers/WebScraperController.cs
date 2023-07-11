@@ -74,124 +74,59 @@ namespace CundecinosWeb.Controllers
 
             return result;
         }
-        //private async Task<float> GetDollarToCop()
-        //{
-        //    string dollar = "";
+		private async Task<float> GetDollarToCop()
+		{
+			string dollar = "";
+			using (var httpClient = new HttpClient())
+			{
+				var url = $"https://www.exchange-rates.org/converter/usd-cop";
+				var html = await httpClient.GetStringAsync(url);
+				var doc = new HtmlDocument();
+				doc.LoadHtml(html);
+				dollar = doc.DocumentNode.SelectSingleNode("//div[@class='main-results']//span[@class='to-cnt']//span[@class='to-rate']").InnerText;
+			}
+			dollar = dollar.Replace(",", "").Replace(".", ",");
+			return float.Parse(dollar);
+		}
+		private async Task<List<float>> GetPricesAsync(string url, string xpath, bool dot = false)//dot -> false:se maneja , como separador decimal true: no hay separador decimal
+		{
+			using var httpClient = new HttpClient();
+			//url = $"https://www.ebay.com/sch/i.html?_nkw={description}";
+			var html = await httpClient.GetStringAsync(url);
+			var doc = new HtmlDocument();
+			doc.LoadHtml(html);
+			var result = doc.DocumentNode.SelectNodes(xpath);
+			if (result == null)
+			{
+				return null;
+			}
+			var priceText = dot ? result.Select(x => x.InnerText.Replace(".", " ")) : result.Select(x => x.InnerText);
+			List<float> prices = new List<float>();
+			foreach (var item in priceText)
+			{
+				var precios = ExtractPrices(item);
+				foreach (var value in precios)
+				{
+					prices.Add(value);
+				}
+			}
+			return prices;
+		}
+		private float[] ExtractPrices(string input)
+		{
+			string pattern = @"(?:\b|\$)(\d{1,3}(?:\s\d{3})*(?:\.\d{2})?)\b";
+			MatchCollection matches = Regex.Matches(input, pattern);
+			float[] prices = new float[matches.Count];
 
+			for (int i = 0; i < matches.Count; i++)
+			{
+				string price = matches[i].Groups[1].Value.Replace("$", "").Replace(".", ",");
+				price = Regex.Replace(price, @"\s", ".");
+				prices[i] = float.Parse(price);
+			}
 
-        //    using (var httpClient = new HttpClient())
-        //    {
-        //        //           var url = $"https://www.exchange-rates.org/es/conversor/usd-cop";
-        //        //           var html = await httpClient.GetStringAsync(url);
-        //        //           var doc = new HtmlDocument();
-        //        //           doc.LoadHtml(html);
-        //        //           //dollar = doc.DocumentNode.SelectSingleNode("//div[@class='main-results']//span[@class='to-cnt']//span[@class='to-rate']").InnerText;
-        //        //           dollar = doc.DocumentNode.SelectSingleNode("//div[@class='main-results']//span[@class='to-cnt']//span[@class='to-rate']")
-        //        //.InnerText.Replace(" ", "");
-
-        //        //           float.TryParse(dollar, NumberStyles.AllowThousands | NumberStyles.Float, CultureInfo.InvariantCulture, out var parsedDollar);
-        //        //           return parsedDollar;
-        //        var url = $"https://www.exchange-rates.org/es/conversor/usd-cop";
-        //        var html = await httpClient.GetStringAsync(url);
-        //        var doc = new HtmlDocument();
-        //        doc.LoadHtml(html);
-
-        //        var culture = new CultureInfo("es-US");
-        //        CultureInfo.DefaultThreadCurrentCulture = culture;
-        //        CultureInfo.DefaultThreadCurrentUICulture = culture;
-
-        //        dollar = doc.DocumentNode.SelectSingleNode("//div[@class='main-results']//span[@class='to-cnt']//span[@class='to-rate']")
-        //            .InnerText.Replace(" ", "");
-
-        //        float.TryParse(dollar, NumberStyles.AllowThousands | NumberStyles.Float, CultureInfo.CurrentCulture, out var parsedDollar);
-        //        return parsedDollar;
-        //    }
-        //}
-        private async Task<float> GetDollarToCop()
-        {
-            string? dollar = null;
-            using (var httpClient = new HttpClient())
-            {
-                var url = $"https://www.exchange-rates.org/converter/usd-cop";
-                var html = await httpClient.GetStringAsync(url);
-                var doc = new HtmlDocument();
-                doc.LoadHtml(html);
-
-                dollar = doc.DocumentNode.SelectSingleNode("//div[@class='main-results']//span[@class='to-cnt']//span[@class='to-rate']")
-                    .InnerText.Replace(" ", "");
-
-                float.TryParse(dollar, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out var parsedDollar);
-                return parsedDollar;
-            }
-            dollar = dollar.Replace(",", "").Replace(".", ",");
-            return float.Parse(dollar);
-        }
-        private async Task<List<float>> GetPricesAsync(string url, string xpath, bool dot = false)
-        {
-            using var httpClient = new HttpClient();
-            var html = await httpClient.GetStringAsync(url);
-            var doc = new HtmlDocument();
-            doc.LoadHtml(html);
-            var result = doc.DocumentNode.SelectNodes(xpath);
-            httpClient.Dispose();
-            if (result == null)
-            {
-                return null;
-            }
-            var priceText = dot ? result.Select(x => x.InnerText.Replace(".", " ")) : result.Select(x => x.InnerText);
-            List<float> prices = new List<float>();
-            foreach (var item in priceText)
-            {
-                var precios = ExtractPrices(item);
-                foreach (var value in precios)
-                {
-                    prices.Add(value);
-                }
-            }
-            return prices;
-        }
-        //private float[] ExtractPrices(string input)
-        //{
-        //    string pattern = @"(?:\b|\$)(\d{1,3}(?:\s\d{3})*(?:\.\d{2})?)\b";
-        //    MatchCollection matches = Regex.Matches(input, pattern);
-        //    float[] prices = new float[matches.Count];
-
-        //    for (int i = 0; i < matches.Count; i++)
-        //    {
-        //        string price = matches[i].Groups[1].Value.Replace("$", "").Replace(".", ",");
-        //        price = Regex.Replace(price, @"\s", ".");
-        //        //prices[i] = float.Parse(price);
-        //        prices[i] = float.Parse(price.Replace(",", "."));
-
-        //    }
-
-        //    return prices;
-        //}
-        private float[] ExtractPrices(string input)
-        {
-            string pattern = @"(?:\b|\$)(\d{1,3}(?:\s\d{3})*(?:\.\d{2})?)\b";
-            MatchCollection matches = Regex.Matches(input, pattern);
-            float[] prices = new float[matches.Count];
-
-            for (int i = 0; i < matches.Count; i++)
-            {
-                string price = matches[i].Groups[1].Value.Replace("$", "").Replace(",", "");
-                price = Regex.Replace(price, @"\s", "");
-                if (float.TryParse(price, NumberStyles.Float, CultureInfo.InvariantCulture, out float parsedPrice))
-                {
-                    prices[i] = parsedPrice;
-                }
-                else
-                {
-                    // Manejar el caso cuando la cadena no se puede convertir en un número flotante
-                    // Puedes asignar un valor predeterminado o lanzar una excepción según tus necesidades
-                    // Ejemplo:
-                    prices[i] = 0.0f;
-                }
-            }
-
-            return prices;
-        }
+			return prices;
+		}
 
         private float Median(List<float> source)
         {
