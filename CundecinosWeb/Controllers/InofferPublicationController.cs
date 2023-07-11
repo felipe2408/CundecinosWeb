@@ -64,7 +64,7 @@ namespace CundecinosWeb.Controllers
                 return RedirectToAction("Register", "User");
             }
 
-            var myOffers = _context.PublicationComments.Include(x => x.CommentAttachment).Include(x => x.Person).Include(x => x.Publication).Where(x => x.PersonID == user.PersonID && x.StatusInnofer == StatusInnofer.Completed).ToList();
+            var myOffers = _context.PublicationComments.Include(x => x.CommentAttachment).Include(x => x.Publication).Include(x => x.Person).Include(x => x.Publication).Where(x => x.PersonID == user.PersonID && x.StatusInnofer == StatusInnofer.Completed).ToList();
 
             return View(myOffers);
         }

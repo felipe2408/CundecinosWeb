@@ -32,7 +32,6 @@ namespace CundecinosWeb.Models
         public Guid PersonID { get; set; }
 
 
-
         [JsonIgnore]
         public virtual Person? Person { get; set; }
     }

@@ -5,21 +5,21 @@ namespace CundecinosWeb.Enum
     public enum Calification
     {
         [Display(Name = "Muy Malo")]
-        VeryBad = 10,
+        VeryBad = 1,
 
         [Display(Name = "Malo")]
-        Bad = 20,
+        Bad = 2,
 
 
         [Display(Name = "Medio")]
-        Medium = 30,
+        Medium = 3,
 
 
         [Display(Name = "Bueno")]
-        Good = 40,
+        Good = 4,
 
         [Display(Name = "Muy Bueno")]
-        VeryGood = 50,
+        VeryGood = 5,
 
     }
 }

@@ -52,6 +52,9 @@ namespace CundecinosWeb.Models
         public bool IsActive { get; set; }
 
 
+        public bool IsCalificationPerson { get; set; }
+
+
         [Display(Name = "Estado")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public Status Status { get; set; }

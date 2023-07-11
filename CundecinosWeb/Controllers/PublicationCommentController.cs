@@ -57,7 +57,8 @@ namespace CundecinosWeb.Controllers
 
 
             comment.StatusInnofer = Enum.StatusInnofer.InNegotiation;
-            comment.CommentDate = DateTime.Now; 
+            comment.CommentDate = DateTime.Now;
+            //comment.IsCalificationPerson = false;
 
             _context.PublicationComments.Add(comment);
 

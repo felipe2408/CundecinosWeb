@@ -1,8 +1,63 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using System.Security.Claims
 @using CundecinosWeb.Enum;
-@model CundecinosWeb.Models.CalificationPerson
+@model CundecinosWeb.ViewModel.vCalificationPerson
 
+
+<head>
+
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <style>
+        :root {
+            --color-inactivo: #5f5050!important;
+            --color-hover: #ffa400!important;
+        }
+
+        .valoracion {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+
+            .valoracion button {
+                background-color: initial;
+                border: 0;
+                color: var(--color-inactivo);
+                transition: 1s all;
+            }
+
+                .valoracion button:hover {
+                    cursor: pointer;
+                    color: #ffa400 !important;
+                    transform: rotate(360deg);
+                }
+
+        button:nth-child(1):hover ~ button {
+            color: v#ffa400 !important;
+            transform: rotate(360deg);
+        }
+
+        button:nth-child(2):hover ~ button {
+            color: #ffa400 !important;
+            transform: rotate(360deg);
+        }
+
+        button:nth-child(3):hover ~ button {
+            color: #ffa400 !important;
+            transform: rotate(360deg);
+        }
+
+        button:nth-child(4):hover ~ button {
+            color: #ffa400 !important;
+            transform: rotate(360deg);
+        }
+
+        button:nth-child(5):hover ~ button {
+            color: #ffa400 !important;
+            transform: rotate(360deg);
+        }
+    </style>
+</head>
 <div class="post d-flex flex-column-fluid" id="kt_post">
     <!--begin::Container-->
     <div id="kt_content_container" class="container">
@@ -21,19 +76,19 @@
                                 <!--begin::Avatar-->
                                 @{
 
-                                    //var url = $"https://cunpublication.blob.core.windows.net/publication/{@User.FindFirstValue(ClaimTypes.NameIdentifier)}.jpg";
+                                    var url = $"https://cunpublication.blob.core.windows.net/publication/{@Model.Person.UID}.jpg";
                                 }
 
-                               @* <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                                <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
                                     <img src="@url" alt="user" />
-                                </div>*@
+                                </div>
 
                                 <!--end::Avatar-->
                                 <!--begin::Info-->
-                                @*<div class="d-flex flex-column">
+                                <div class="d-flex flex-column">
                                     <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder"> @Model.Person.FirstName @Model.Person.LastName</a>
                                     <span class="text-gray-400 fw-bold">@Model.Person.Email</span>
-                                </div>*@
+                                </div>
                                 <!--end::Info-->
                             </div>
                             <!--end::User-->
@@ -42,17 +97,16 @@
                         <!--end::Header-->
                         <!--begin::Editor-->
 
-                        
+
                         <br /><br />
 
-                        @using (Html.BeginForm("CreatePublication", "Publication", FormMethod.Post, new { enctype = "multipart/form-data", id = "login" }))
+                        @using (Html.BeginForm("Create", "CalificationPerson", FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {
 
                             @using (Html.DevExtreme().ValidationGroup())
                             {
-                                @*<input type="hidden" asp-i value="@Model.PersonID" />*@
+                                <input type="hidden" asp-for="@Model.CalificationPerson.PersonID" />
 
-                                
 
                                 <div class="row mb-8">
                                     <!--begin::Col-->
@@ -60,14 +114,48 @@
                                         <div class="fs-6 fw-bold mt-2 mb-3">Califica a tu intermediario</div>
                                     </div>
                                     <!--begin::Col-->
+
+                                    <div class="valoracion">
+
+                                        <!-- Estrella 1 -->
+                                        <button>
+                                            <i class="fas fa-star"></i>
+                                        </button>
+
+                                        <!-- Estrella 2 -->
+                                        <button>
+                                            <i class="fas fa-star"></i>
+                                        </button>
+
+                                        <!-- Estrella 3 -->
+                                        <button>
+                                            <i class="fas fa-star"></i>
+                                        </button>
+
+                                        <!-- Estrella 4 -->
+                                        <button>
+                                            <i class="fas fa-star"></i>
+                                        </button>
+
+                                        <!-- Estrella 5 -->
+                                        <button>
+                                            <i class="fas fa-star"></i>
+                                        </button>
+
+                                    </div>
+
+
+
+
+
                                     <div class="col-xl-10">
 
-                                        @(Html.DevExtreme().SelectBoxFor(m => m.Calification)
+                                        @(Html.DevExtreme().SelectBoxFor(m => m.CalificationPerson.Calification)
                                             .DataSource(Html.GetEnumSelectList<CundecinosWeb.Enum.Calification>()
                                             .Select(i => new { Value = int.Parse(i.Value), Text = i.Text })
                                             )
                                             .ValueExpr("Value")
-                                            .ID("PublicationType")
+                                            .ID("CalificationType")
                                             .DisplayExpr("Text")
                                             .Placeholder("Seleccione...")
                                             )
@@ -83,7 +171,7 @@
                                     </div>
                                     <!--begin::Col-->
                                     <div class="col-xl-10">
-                                        @(Html.DevExtreme().TextBoxFor(x => x.Observations))
+                                        @(Html.DevExtreme().TextBoxFor(x => x.CalificationPerson.Observations))
                                     </div>
 
 
@@ -105,7 +193,7 @@
                                             <!--begin::Content-->
                                             <div class="mb-3 mb-md-0 fw-bold" id="message">
                                                 <h4 class="text-gray-800 fw-bolder">Tus Comentarios son importantes para nosotros!</h4>
-                                                
+
                                                 <br />
 
                                             </div>
@@ -117,7 +205,6 @@
                                     <!--end::Notice-->
                                 </div>
                                 <!--end::Timeline details-->
-
                                 @(Html.DevExtreme().Button()
                                     .ID("Publication")
                                     .Text("Guardar")
@@ -131,7 +218,7 @@
                     </div>
                     <!--end::Body-->
                 </div>
-               
+
 
             </div>
         </div>

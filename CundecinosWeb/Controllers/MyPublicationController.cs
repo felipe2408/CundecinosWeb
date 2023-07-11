@@ -28,7 +28,7 @@ namespace CundecinosWeb.Controllers
             {
                 return RedirectToAction("Register","User");
             }
-            var publications = await _context.Publication.Where(x => x.PersonID == user.PersonID && x.IsActive == true).OrderByDescending(x => x.PublicationDate).Include(x => x.PublicationAttachment).ToListAsync();
+            var publications = await _context.Publication.Include(x => x.PublicationComments).Where(x => x.PersonID == user.PersonID && x.IsActive == true).OrderByDescending(x => x.PublicationDate).Include(x => x.PublicationAttachment).ToListAsync();
             return View(publications.Count == 0 ? null : publications);
 		}
         public async Task<IActionResult> EditPublication(Guid id)
