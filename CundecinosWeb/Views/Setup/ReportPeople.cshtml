@@ -86,9 +86,10 @@
                                 <th class="min-w-125px">Usuario</th>
                                 <th class="min-w-125px">Carrera</th>
                                 <th class="min-w-125px">Extensión</th>
-                                <th class="min-w-125px">Valoración</th>
                                 <th class="min-w-125px">CC</th>
                                 <th class="min-w-125px">Telefono</th>
+
+                                <th class="min-w-125px">Valoración</th>
                             </tr>
                             <!--end::Table row-->
                         </thead>
@@ -143,6 +144,7 @@
                                     @{
                                         var count = item.Califications.Count;
                                         var sum = 0;
+                                        decimal result = 0;
                                     }
                                     @foreach (var calification in item.Califications)
                                     {
@@ -150,18 +152,72 @@
 
                                     }
                                     @{
-                                        var result = sum / count;
+                                        @if (count != 0)
+                                        {
 
+                                            result = sum / count;
+
+                                        }
                                     }
-                                    <td>
-                                        <div class="badge badge-light-success fw-bolder">Activo</div>
-                                    </td>
+                                   
 
 
                                     <!--end::Two step=-->
                                     <!--begin::Joined-->
                                     <td>@item.IdentificationNumber</td>
                                     <td>@item.CellPhone</td>
+                                    <td>
+                                        <div class="badge  fw-bolder">@result
+
+                                            @if (@Math.Round(@result) >= 0 && @Math.Round(@result) <= 1)
+                                            {
+
+                                                <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+                                            }
+                                            @if (@Math.Round(@result) > 1 && @Math.Round(@result) <= 2)
+                                            {
+                                                
+                                                <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+
+                                                <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+                                                
+                                            }
+                                            @if (@Math.Round(@result) > 2 && @Math.Round(@result) <= 3)
+                                            {
+
+                                                <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+                                                
+                                                <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+
+                                                <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+                                            }
+                                            @if (@Math.Round(@result) > 3 && @Math.Round(@result) <= 4)
+                                            {
+                                                
+                                                <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+                                                
+                                                
+                                                
+                                                <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+
+                                                <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+                                                <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+                                            }
+                                            @if (@Math.Round(@result) >= 5)
+                                            {
+                                                <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+                                                
+                                                <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+                                                
+                                                <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+                                                
+                                                <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+
+                                                <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+
+                                            }
+                                        </div>
+                                    </td>
                                     <!--begin::Joined-->
 
                                 </tr>
