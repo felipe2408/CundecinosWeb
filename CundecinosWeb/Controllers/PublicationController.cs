@@ -143,7 +143,7 @@ namespace CundecinosWeb.Controllers
                 ";
                     if (publicacion.PublicationType == Enum.PublicationType.Sale)
                     {
-                        plantilla += "<span class=\"badge badge-light-success\">En Venta</span>";
+                        plantilla += "<span class=\"badge badge-light-success\">Intercambio</span>";
                     }
                     else
                     {
