@@ -57,5 +57,16 @@ namespace CundecinosWeb.Controllers
 
             return View();
         }
+
+        public IActionResult ReportPeople()
+        {
+			var model = new vSetupUsers()
+			{
+				Users = _context.People.Include(x => x.CollegeCareer).Include(x => x.Califications).Include(x => x.Extension).ToList(),
+				CollegeCareers = new SelectList(_context.CollegeCareer.ToList(), "CollegeCareerId", "Name")
+			};
+			return View(model);
+		}
+
     }
 }

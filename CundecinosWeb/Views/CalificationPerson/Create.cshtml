@@ -6,58 +6,16 @@
 
 <head>
 
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-    <style>
-        :root {
-            --color-inactivo: #5f5050!important;
-            --color-hover: #ffa400!important;
-        }
+    <meta charset="utf-8">
 
-        .valoracion {
-            display: flex;
-            flex-direction: row-reverse;
-        }
+    <link href="~/css/Start.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
-            .valoracion button {
-                background-color: initial;
-                border: 0;
-                color: var(--color-inactivo);
-                transition: 1s all;
-            }
-
-                .valoracion button:hover {
-                    cursor: pointer;
-                    color: #ffa400 !important;
-                    transform: rotate(360deg);
-                }
-
-        button:nth-child(1):hover ~ button {
-            color: v#ffa400 !important;
-            transform: rotate(360deg);
-        }
-
-        button:nth-child(2):hover ~ button {
-            color: #ffa400 !important;
-            transform: rotate(360deg);
-        }
-
-        button:nth-child(3):hover ~ button {
-            color: #ffa400 !important;
-            transform: rotate(360deg);
-        }
-
-        button:nth-child(4):hover ~ button {
-            color: #ffa400 !important;
-            transform: rotate(360deg);
-        }
-
-        button:nth-child(5):hover ~ button {
-            color: #ffa400 !important;
-            transform: rotate(360deg);
-        }
-    </style>
 </head>
+
+
+
+
 <div class="post d-flex flex-column-fluid" id="kt_post">
     <!--begin::Container-->
     <div id="kt_content_container" class="container">
@@ -107,48 +65,90 @@
                             {
                                 <input type="hidden" asp-for="@Model.CalificationPerson.PersonID" />
 
+                                <input type="hidden" asp-for="@Model.CalificationPerson.Calification" id="calificationInput" />
 
                                 <div class="row mb-8">
                                     <!--begin::Col-->
-                                    <div class="col-xl-2 fv-row">
-                                        <div class="fs-6 fw-bold mt-2 mb-3">Califica a tu intermediario</div>
+                                  
+                                    <div class="overflow-auto pb-5">
+                                        <!--begin::Notice-->
+                                        <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed min-w-lg-600px flex-shrink-0 p-6">
+
+                                            <!--begin::Wrapper-->
+                                            <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                                                <!--begin::Content-->
+                                                <div class="mb-3 mb-md-0 fw-bold" id="message">
+                                                    <h4 class="text-gray-800 fw-bolder">¡Tus Comentarios son importantes para nosotros!, califica a tu intermediario</h4>
+
+                                                    <br />
+
+                                                </div>
+
+                                                <!--end::Content-->
+                                            </div>
+                                            <!--end::Wrapper-->
+                                        </div>
+                                        <!--end::Notice-->
                                     </div>
                                     <!--begin::Col-->
+                                    
+                                    <div class="containerStart ">
+                                        <div class="post">
+                                            <div class="text">Thanks for rating us!</div>
+                                            <div class="edit">EDIT</div>
+                                        </div>
+                                        <div class="star-widget">
+                                            <input type="radio" name="rate" id="rate-5" onclick="Start5()">
 
-                                    <div class="valoracion">
+                                            <label for="rate-5" class="fas fa-star"></label>
 
-                                        <!-- Estrella 1 -->
-                                        <button>
-                                            <i class="fas fa-star"></i>
-                                        </button>
+                                            <input type="radio" name="rate" id="rate-4" onclick="Start4()">
+                                            
+                                            <label for="rate-4" class="fas fa-star"></label>
 
-                                        <!-- Estrella 2 -->
-                                        <button>
-                                            <i class="fas fa-star"></i>
-                                        </button>
+                                            <input type="radio" name="rate" id="rate-3" onclick="Start3()">
+                                            
+                                            <label for="rate-3" class="fas fa-star"></label>
 
-                                        <!-- Estrella 3 -->
-                                        <button>
-                                            <i class="fas fa-star"></i>
-                                        </button>
+                                            <input type="radio" name="rate" id="rate-2" onclick="Start2()">
+                                            
+                                            <label for="rate-2" class="fas fa-star"></label>
 
-                                        <!-- Estrella 4 -->
-                                        <button>
-                                            <i class="fas fa-star"></i>
-                                        </button>
+                                            <input type="radio" name="rate" id="rate-1" onclick="Start1()">
+                                            
+                                            <label for="rate-1" class="fas fa-star"></label>
+                                         
+                                        </div>
+                                        <div  class="textarea">
+                                            <!--begin::Col-->
+                                            <div class="col-xl-2 fv-row">
+                                                <div class="fs-6 fw-bold mt-2 mb-3">Comentarios</div>
+                                            </div>
+                                            <!--begin::Col-->
+                                            <div class="col-xl-10">
+                                                @(Html.DevExtreme().TextBoxFor(x => x.CalificationPerson.Observations))
+                                            </div>
 
-                                        <!-- Estrella 5 -->
-                                        <button>
-                                            <i class="fas fa-star"></i>
-                                        </button>
 
+                                            <!--end::Col-->
+                                        </div>
+                                        <div class="btn">
+                                            @(Html.DevExtreme().Button()
+                                                .ID("Publication")
+                                                .Text("Guardar")
+                                                .Type(ButtonType.Success)
+                                                // Instructs the Button to validate the TextBoxes and submit the form
+                                                .UseSubmitBehavior(true)
+                                                )
+
+                                        </div>
                                     </div>
 
 
 
 
 
-                                    <div class="col-xl-10">
+                                   @* <div class="col-xl-10">
 
                                         @(Html.DevExtreme().SelectBoxFor(m => m.CalificationPerson.Calification)
                                             .DataSource(Html.GetEnumSelectList<CundecinosWeb.Enum.Calification>()
@@ -160,11 +160,11 @@
                                             .Placeholder("Seleccione...")
                                             )
 
-                                    </div>
+                                    </div>*@
                                     <!--end::Col-->
                                 </div>
 
-                                <div class="row mb-8">
+                                @*<div class="row mb-8">
                                     <!--begin::Col-->
                                     <div class="col-xl-2 fv-row">
                                         <div class="fs-6 fw-bold mt-2 mb-3">Comentarios</div>
@@ -176,7 +176,7 @@
 
 
                                     <!--end::Col-->
-                                </div>
+                                </div>*@
 
 
                                 <!--end::Editor-->
@@ -184,34 +184,9 @@
                                 <br /> <div class="separator"></div> <br />
 
                                 <!--begin::Timeline details-->
-                                <div class="overflow-auto pb-5">
-                                    <!--begin::Notice-->
-                                    <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed min-w-lg-600px flex-shrink-0 p-6">
-
-                                        <!--begin::Wrapper-->
-                                        <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
-                                            <!--begin::Content-->
-                                            <div class="mb-3 mb-md-0 fw-bold" id="message">
-                                                <h4 class="text-gray-800 fw-bolder">Tus Comentarios son importantes para nosotros!</h4>
-
-                                                <br />
-
-                                            </div>
-
-                                            <!--end::Content-->
-                                        </div>
-                                        <!--end::Wrapper-->
-                                    </div>
-                                    <!--end::Notice-->
-                                </div>
+                                
                                 <!--end::Timeline details-->
-                                @(Html.DevExtreme().Button()
-                                    .ID("Publication")
-                                    .Text("Guardar")
-                                    .Type(ButtonType.Success)
-                                    // Instructs the Button to validate the TextBoxes and submit the form
-                                    .UseSubmitBehavior(true)
-                                    )
+                                
                             }
                         }
 
@@ -224,3 +199,57 @@
         </div>
     </div>
 </div>
+<script>
+    @*const btn = document.querySelector("button");
+    const post = document.querySelector(".post");
+    const widget = document.querySelector(".star-widget");
+    const editBtn = document.querySelector(".edit");
+    btn.onclick = () => {
+        widget.style.display = "none";
+        post.style.display = "block";
+        editBtn.onclick = () => {
+            widget.style.display = "block";
+            post.style.display = "none";
+        }
+        return false;
+    }*@
+
+
+    function Start1() {
+
+        var start1 = 1; // Valor que deseas asignar
+
+            document.getElementById("calificationInput").value = start1;
+
+
+        console.log(document.getElementById("calificationInput").value);
+    }
+    function Start2() {
+
+
+        var start2 = 2; // Valor que deseas asignar
+
+        document.getElementById("calificationInput").value = start2;
+    }
+    
+    function Start3() {
+
+
+        var start3 = 3; // Valor que deseas asignar
+
+        document.getElementById("calificationInput").value = start3;
+    }
+    function Start4() {
+
+        var start4 = 4; // Valor que deseas asignar
+
+        document.getElementById("calificationInput").value = start4;
+    
+    }function Start5() {
+
+        var start5 = 5; // Valor que deseas asignar
+
+        document.getElementById("calificationInput").value = start5;
+    
+    } 
+</script>
