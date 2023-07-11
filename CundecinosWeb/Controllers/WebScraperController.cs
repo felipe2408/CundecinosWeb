@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Net.Http;
 using System.Security.Policy;
 using System.Text.RegularExpressions;
+using Azure;
+using Azure.AI.OpenAI;
 
 namespace CundecinosWeb.Controllers
 {
@@ -20,7 +22,7 @@ namespace CundecinosWeb.Controllers
             string msj = "";
             int cont = 0;
             float sum = 0;
-
+            description = await CompleteDescription(description);
             string url = $"https://listado.mercadolibre.com.co/{description.Trim()}";
             string xpath = "//span[@class='andes-money-amount ui-search-price__part shops__price-part andes-money-amount--cents-superscript']//span[@class='andes-money-amount__fraction']";
             List<float> pricesML = await GetPricesAsync(url, xpath, dot: true);
@@ -67,7 +69,7 @@ namespace CundecinosWeb.Controllers
                 sum += medianPriceEbay;
                 cont++;
             }
-            result += @$"""priceEbay"":""{msj}"",""averagePrice"":""Precio promedio: {(sum/cont).ToString("C")}""}}";
+            result += @$"""priceEbay"":""{msj}"",""averagePrice"":""Precio promedio: {(sum / cont).ToString("C")}""}}";
 
             return result;
         }
@@ -138,6 +140,50 @@ namespace CundecinosWeb.Controllers
             {
                 // Odd number of items.
                 return sortedList[itemIndex];
+            }
+        }
+        private async Task<string> CompleteDescription(string description)
+        {
+            try
+            {
+                string message = @$"quiero una hacer una búsqueda del siguiente producto en una tienda en linea, genera una sugerencia con máximo 3 palabras adicionales a la entrada.  
+                ejemplo de resultado:  
+                -entrada:vans  
+                -salida:vans calzado  
+                restricciones:  
+                -no elimines la entrada, solo adiciona palabras para que la busqueda sea más descriptiva 
+                -no agregues . al final ni referencia a tienda o en linea
+                -sólo quiero una sugerencia  
+                -sólo responde con la sugerencia  
+                -no agregar palabras que impliquen generos o modas como urbano, gotico, etc. 
+                entrada: {description}";
+
+                OpenAIClient client = new OpenAIClient(
+                    new Uri("https://cundecinos.openai.azure.com/"),
+                    new AzureKeyCredential("98a0f81d070f4078a6a89c8c4d239688")
+                );
+                Response<ChatCompletions> responseWithoutStream = await client.GetChatCompletionsAsync(
+                    "cundecinos",
+                    new ChatCompletionsOptions()
+                    {
+                        Messages =
+                        {
+                            new ChatMessage(ChatRole.System, @"You are an AI assistant that helps people find information."),
+                            new ChatMessage(ChatRole.User, message)
+                        },
+                        Temperature = (float)0.7,
+                        MaxTokens = 800,
+                        NucleusSamplingFactor = (float)0.95,
+                        FrequencyPenalty = 0,
+                        PresencePenalty = 0,
+                    });
+
+                ChatCompletions completions = responseWithoutStream.Value;
+                return completions.Choices.First().Message.Content;
+            }
+            catch (Exception)
+            {
+                return description;
             }
         }
     }

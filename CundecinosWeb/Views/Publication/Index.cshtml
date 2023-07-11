@@ -485,6 +485,7 @@
                                 url: "/WebScraper/ScrapePrice",
                                 data: formData,
                                 success: function (data) {
+                                    console.log(data)
                                     if (data !== undefined && data.trim() !== "") {
                                         const jsonData = JSON.parse(data)
                                         $("#precioML").text(jsonData['priceML'])
@@ -503,6 +504,7 @@
                                     $("#loader").addClass('d-none')
                                 },
                                 error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    console.log('error')
                                     $("#precio").text('No pudimos encontrar tu producto.')
                                     $("#btnBuscar").html('<div id="loader" class="loader mx-auto d-none"></div>Buscar precio')
                                     $("#btnBuscar").prop("disabled", false)
