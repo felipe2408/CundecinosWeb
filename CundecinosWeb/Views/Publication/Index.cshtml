@@ -506,6 +506,7 @@
                                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                                     console.log('error')
                                     $("#precio").text('No pudimos encontrar tu producto.')
+                                    $('#precio').removeClass('d-none')
                                     $("#btnBuscar").html('<div id="loader" class="loader mx-auto d-none"></div>Buscar precio')
                                     $("#btnBuscar").prop("disabled", false)
                                     $("#loader").addClass('d-none')

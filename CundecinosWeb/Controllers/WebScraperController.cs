@@ -109,11 +109,10 @@ namespace CundecinosWeb.Controllers
         //}
         private async Task<float> GetDollarToCop()
         {
-            string dollar = "";
-
+            string? dollar = null;
             using (var httpClient = new HttpClient())
             {
-                var url = $"https://www.exchange-rates.org/es/conversor/usd-cop";
+                var url = $"https://www.exchange-rates.org/converter/usd-cop";
                 var html = await httpClient.GetStringAsync(url);
                 var doc = new HtmlDocument();
                 doc.LoadHtml(html);
@@ -124,6 +123,8 @@ namespace CundecinosWeb.Controllers
                 float.TryParse(dollar, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out var parsedDollar);
                 return parsedDollar;
             }
+            dollar = dollar.Replace(",", "").Replace(".", ",");
+            return float.Parse(dollar);
         }
         private async Task<List<float>> GetPricesAsync(string url, string xpath, bool dot = false)
         {
@@ -132,6 +133,7 @@ namespace CundecinosWeb.Controllers
             var doc = new HtmlDocument();
             doc.LoadHtml(html);
             var result = doc.DocumentNode.SelectNodes(xpath);
+            httpClient.Dispose();
             if (result == null)
             {
                 return null;
@@ -216,7 +218,8 @@ namespace CundecinosWeb.Controllers
                 ejemplo de resultado:  
                 -entrada:vans  
                 -salida:vans calzado  
-                restricciones:  
+                restricciones:
+                -¡si no puedes generar una sugerencia devuelte la palabra null! esto es importante
                 -no elimines la entrada, solo adiciona palabras para que la busqueda sea más descriptiva 
                 -no agregues . al final ni referencia a tienda o en linea
                 -sólo quiero una sugerencia  
@@ -245,7 +248,7 @@ namespace CundecinosWeb.Controllers
                     });
 
                 ChatCompletions completions = responseWithoutStream.Value;
-                return completions.Choices.First().Message.Content;
+                return completions.Choices.First().Message.Content == "null" ?description : completions.Choices.First().Message.Content;
             }
             catch (Exception)
             {

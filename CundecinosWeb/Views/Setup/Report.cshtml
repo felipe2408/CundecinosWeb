@@ -104,188 +104,64 @@
 				</div>
 			</div>
 			<!--end::Row-->
+			<div class="row g-5 g-xl-8">
+				<div class="col-xl-12">
+					<!--begin::Charts Widget 3-->
+					<div class="card card-xl-stretch mb-xl-8">
+						<!--begin::Header-->
+						<div class="card-header border-0 pt-5">
+							<h3 class="card-title align-items-start flex-column">
+								<span class="card-label fw-bolder fs-3 mb-1">Publicaciones por estado</span>
+							</h3>
+						</div>
+						<!--end::Header-->
+						<!--begin::Body-->
+						<div class="card-body">
+							<!--begin::Chart-->
+								<div id="chart_circle" style="height: 350px"></div>
+								<hr class="my-10"/>
+							<div id="chart_lines" style="height: 350px"></div>
+							<!--end::Chart-->
+						</div>
+						<!--end::Body-->
+					</div>
+					<!--end::Charts Widget 3-->
+				</div>
+			</div>
+			<div class="row g-5 g-xl-8">
+				<div class="col-xl-12">
+					<!--begin::Charts Widget 3-->
+					<div class="card card-xl-stretch mb-xl-8">
+						<!--begin::Header-->
+						<div class="card-header border-0 pt-5">
+							<h3 class="card-title align-items-start flex-column">
+								<span class="card-label fw-bolder fs-3 mb-1">Ofertas a publicaciones</span>
+								@(Html.DevExtreme().SelectBox()
+									.DataSource(d => d.Mvc().Controller("APIReport").LoadAction("Extensions").Key("Value"))
+									.ValueExpr("Value")
+									.ID("ExtensionId")
+									.DisplayExpr("Text")
+									.Placeholder("Seleccione una extensión...")
+									.OnValueChanged("reportoffers")
+									.Width(300)
+									)
+							</h3>
+						</div>
+						<!--end::Header-->
+						<!--begin::Body-->
+						<div class="card-body">
+							<!--begin::Chart-->
+							<div id="offerschart" style="height: 350px"></div>
+							<!--end::Chart-->
+						</div>
+						<!--end::Body-->
+					</div>
+					<!--end::Charts Widget 3-->
+				</div>
+			</div>
 		</div>
 		<!--end::Container-->
 	</div>
 	<!--end::Post-->
 </div>
-<script>
-	$(document).ready(function () {
-		graficaPublicaciones();
-	});
-	function graficaPublicaciones()
-	{
-		$.ajax({
-			url: '/APIReport/PublicationReport',
-			method: 'GET',
-			success: function (data) {
-				var counts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-				data.forEach(x => {
-					var objetoFecha = new Date(x.PublicationDate);
-					var mes = objetoFecha.getMonth();
-					counts[mes]++;
-				});
-				var options = {
-					series: [{
-						name: 'publicaciones',
-						data: counts
-					}],
-					chart: {
-						type: 'bar',
-						height: 350
-					},
-					plotOptions: {
-						bar: {
-							horizontal: false,
-							columnWidth: '40%',
-							borderRadius: 6
-						},
-					},
-					dataLabels: {
-						enabled: false
-					},
-					stroke: {
-						show: true,
-						width: 2,
-						colors: ['transparent']
-					},
-					xaxis: {
-						categories: ["Ene", 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', "Nov", "Dic"],
-					},
-					yaxis: {
-						title: {
-							text: 'Cantidad de publicaciones'
-						}
-					},
-					fill: {
-						opacity: 1
-					},
-					tooltip: {
-						y: {
-							formatter: function (val) {
-								return "" + val + " publicaciones"
-							}
-						}
-					}
-				};
-
-				var chart = new ApexCharts(document.querySelector("#chart_1"), options);
-				chart.render();
-
-				$.ajax({
-					url: '/APIReport/CollegeCareerReport',
-					method: 'GET',
-					success: function (datos) {
-						var contador = {};
-						datos.forEach(function (x) {
-							data.forEach(function (y) {
-								if (x.Name === y.Person.CollegeCareer.Name) {
-									contador[y.Person.CollegeCareer.Name] = contador[y.Person.CollegeCareer.Name] === undefined || isNaN(contador[y.Person.CollegeCareer.Name]) ? 1 : contador[y.Person.CollegeCareer.Name] + 1;
-								}
-							});
-						});
-						const claves = Object.keys(contador);
-						const valores = [];
-
-						claves.forEach(clave => {
-							valores.push(contador[clave]);
-						});
-						var options = {
-							series: valores,
-							chart: {
-								type: 'pie',
-								height: 350
-							},
-							labels: claves,
-							tooltip: {
-								y: {
-									formatter: function (val) {
-										return "" + val + " publicaciones"
-									}
-								}
-							}
-						};
-
-						var chart = new ApexCharts(document.querySelector("#chart_2"), options);
-						chart.render();
-
-						$.ajax({
-							url: '/APIReport/ExtensionReport',
-							method: 'GET',
-							success: function (datos) {
-								var arreglo = []
-								datos.forEach(function (x) {
-									var contador = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-									data.forEach(y => {
-										var objetoFecha = new Date(y.PublicationDate);
-										var mes = objetoFecha.getMonth();
-										if (x.Name === y.Person.Extension.Name) {
-											contador[mes]++;
-										}
-									});
-									arreglo.push({ name: x.Name, data: contador })
-								});
-								console.log(arreglo)
-								var options = {
-									series: arreglo,
-									chart: {
-										type: 'area',
-										height: 350
-									},
-									plotOptions: {
-										bar: {
-											horizontal: false,
-											columnWidth: '55%',
-											endingShape: 'rounded'
-										},
-									},
-									dataLabels: {
-										enabled: false
-									},
-									stroke: {
-										show: true,
-										width: 2,
-										colors: ['transparent']
-									},
-									xaxis: {
-										categories: ["Ene", 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', "Nov", "Dic"],
-									},
-									yaxis: {
-										title: {
-											text: 'Cantidad de publicaciones'
-										}
-									},
-									fill: {
-										type: "solid", opacity: 1
-									},
-
-									tooltip: {
-										y: {
-											formatter: function (val) {
-												return "" + val + " publicaciones"
-											}
-										}
-									}
-								};
-
-								var chart = new ApexCharts(document.querySelector("#chart_3"), options);
-								chart.render();
-							},
-							error: function () {
-								console.log('Paila');
-							}
-						});
-
-					},
-					error: function () {
-						console.log('Paila');
-					}
-				});
-			},
-			error: function () {
-				console.log('Paila');
-			}
-		});
-	}
-
-</script>
+<script src="~/js/Report.js" asp-append-version="true"></script>

@@ -1,7 +1,10 @@
 ﻿using CundecinosWeb.Data;
 using CundecinosWeb.Models;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CundecinosWeb.Controllers
 {
@@ -74,9 +77,42 @@ namespace CundecinosWeb.Controllers
             var collegeCareers = _context.CollegeCareer.ToList();
             return (collegeCareers);
 
-        }
-        
+        }        
+        [HttpGet]
+        public async Task<List<PublicationComments>> GetOffers(Guid? ext)
+        {
+            if (ext == null)
+            {
+                var extension = _context.Extensions.FirstOrDefault().Name;
+                return await _context.PublicationComments
+                                        .Include(x=>x.Publication)
+                                        .Include(x=>x.Person)
+                                        .Include(x=>x.Person.Extension)
+                                        .Where(x=>x.Person.Extension.Name == extension)
+                                        .ToListAsync();
+            }
+            return await _context.PublicationComments
+										.Include(x => x.Publication)
+										.Include(x => x.Person)
+										.Include(x => x.Person.Extension)
+										.Where(x => x.Person.Extension.ExtensionId.Equals(ext))
+										.ToListAsync();
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Extensions(DataSourceLoadOptions loadOptions)
+		{
+			var lookup = from i in _context.Extensions
+						 orderby i.Name
+						 select new
+						 {
+							 Value = i.ExtensionId.ToString(),
+							 Text = i.Name
+						 };
+			return Json(await DataSourceLoader.LoadAsync(lookup, loadOptions));
+		}
 
 
-    }
+
+	}
 }
