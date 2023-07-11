@@ -32,7 +32,7 @@ namespace CundecinosWeb.Controllers
 
             vmodel.Person = model;
             vmodel.Publication = new Publication();
-            vmodel.PublicationUsers = _context.Publication.Include(x => x.Person).Include(x => x.PublicationComments).Include(x => x.PublicationAttachment).Where(x => x.PublicationDate >= DateTime.Now || x.PublicationDate <= DateTime.Now && x.IsActive == true).ToList();
+            vmodel.PublicationUsers = _context.Publication.Include(x => x.Person).Include(x => x.PublicationComments).Include(x => x.Person.Califications).Include(x => x.PublicationAttachment).Where(x => x.PublicationDate >= DateTime.Now || x.PublicationDate <= DateTime.Now && x.IsActive == true).ToList();
             vmodel.Publication.PersonID = model.PersonID;
 
             //var publications =

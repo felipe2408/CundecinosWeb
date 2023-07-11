@@ -323,6 +323,87 @@
                                             <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@item.Person.FirstName @item.Person.LastName</a>
                                             <span class="text-gray-400 fw-bold">@item.Person.Email</span>
                                         </div>
+
+                                        @{
+                                            var count = item.Person.Califications == null  ? 0 : item.Person.Califications.Count ;
+                                            var sum = 0;
+                                            decimal result = 0;
+                                        }
+                                        @foreach (var calification in item.Person.Califications)
+                                        {
+                                            sum += (int)calification.Calification;
+
+                                        }
+                                        @{
+                                            @if (count != 0)
+                                            {
+
+                                                result = sum / count;
+
+                                            }
+                                        }
+
+
+
+                                            <div class="badge  fw-bolder">
+                                                @result
+
+                                                @if (@Math.Round(@result) >= 0 && @Math.Round(@result) <= 1)
+                                                {
+
+                                                    <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+                                                }
+                                                @if (@Math.Round(@result) > 1 && @Math.Round(@result) <= 2)
+                                                {
+
+                                                    <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+
+                                                    <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+
+                                                }
+                                                @if (@Math.Round(@result) > 2 && @Math.Round(@result) <= 3)
+                                                {
+
+                                                    <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+
+                                                    <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+
+                                                    <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+                                                }
+                                                @if (@Math.Round(@result) > 3 && @Math.Round(@result) <= 4)
+                                                {
+
+                                                    <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+
+
+
+                                                    <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+
+                                                    <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+                                                    <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+                                                }
+                                                @if (@Math.Round(@result) >= 5)
+                                                {
+                                                    <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+
+                                                    <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+
+                                                    <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+
+                                                    <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+
+                                                    <i class="fa fa-star" style="font-size:20px;color:yellow"></i>
+
+                                                }
+                                            </div>
+                                  
+
+
+
+
+
+
+
                                         <!--end::Info-->
                                     </div>
                                     <!--end::User-->
