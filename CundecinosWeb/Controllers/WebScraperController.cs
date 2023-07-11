@@ -112,6 +112,43 @@ namespace CundecinosWeb.Controllers
 			}
 			return prices;
 		}
+		//private float[] ExtractPrices(string input)
+		//{
+		//	string pattern = @"(?:\b|\$)(\d{1,3}(?:\s\d{3})*(?:\.\d{2})?)\b";
+		//	MatchCollection matches = Regex.Matches(input, pattern);
+		//	float[] prices = new float[matches.Count];
+
+		//	for (int i = 0; i < matches.Count; i++)
+		//	{
+		//		string price = matches[i].Groups[1].Value.Replace("$", "").Replace(".", ",");
+		//		price = Regex.Replace(price, @"\s", ".");
+		//		prices[i] = float.Parse(price);
+		//	}
+
+		//	return prices;
+		//}
+		//private float[] ExtractPrices(string input)
+		//{
+		//	string pattern = @"(?:\b|\$)(\d{1,3}(?:\s\d{3})*(?:\.\d{2})?)\b";
+		//	MatchCollection matches = Regex.Matches(input, pattern);
+		//	float[] prices = new float[matches.Count];
+
+		//	for (int i = 0; i < matches.Count; i++)
+		//	{
+		//		string price = matches[i].Groups[1].Value.Replace("$", "").Replace(",", "");
+		//		price = Regex.Replace(price, @"\s", "");
+		//		if (float.TryParse(price, NumberStyles.Float, CultureInfo.InvariantCulture, out float parsedPrice))
+		//		{
+		//			prices[i] = parsedPrice;
+		//		}
+		//		else
+		//		{
+		//			prices[i] = 0.0f;
+		//		}
+		//	}
+
+		//	return prices;
+		//}
 		private float[] ExtractPrices(string input)
 		{
 			string pattern = @"(?:\b|\$)(\d{1,3}(?:\s\d{3})*(?:\.\d{2})?)\b";
@@ -120,15 +157,24 @@ namespace CundecinosWeb.Controllers
 
 			for (int i = 0; i < matches.Count; i++)
 			{
-				string price = matches[i].Groups[1].Value.Replace("$", "").Replace(".", ",");
-				price = Regex.Replace(price, @"\s", ".");
-				prices[i] = float.Parse(price);
+				string price = matches[i].Groups[1].Value.Replace("$", "").Replace(",", "");
+				price = Regex.Replace(price, @"\s", "");
+				if (float.TryParse(price, NumberStyles.Float, CultureInfo.InvariantCulture, out float parsedPrice))
+				{
+					prices[i] = parsedPrice;
+				}
+				else
+				{
+					// Manejar el caso cuando la cadena no se puede convertir en un número flotante
+					// Puedes asignar un valor predeterminado o lanzar una excepción según tus necesidades
+					// Ejemplo:
+					prices[i] = 0.0f;
+				}
 			}
 
 			return prices;
 		}
-
-        private float Median(List<float> source)
+		private float Median(List<float> source)
         {
             var sortedList = source.OrderBy(number => number).ToList();
 
