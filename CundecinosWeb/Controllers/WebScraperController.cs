@@ -47,6 +47,7 @@ namespace CundecinosWeb.Controllers
             {
                 msj = "No se encontró su producto en amazon";
             }
+
             else
             {
                 float medianPriceAm = Median(pricesAm);
